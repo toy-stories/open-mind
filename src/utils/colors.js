@@ -1,0 +1,18 @@
+const COLORS = {
+  WHITE: '#FFFFFF',
+  GRAY20: '#F9F9F9',
+  GRAY30: '#CFCFCF',
+  GRAY40: '#818181',
+  GRAY50: '#515151',
+  BLACK: '#000000',
+  BROWN10: '#F5F1EE',
+  BROWN20: '#E4D5C9',
+  BROWN30: '#C7BBB5',
+  BROWN40: '#542F1A',
+  BROWN50: '#341909',
+  BLUE: '#1877F2',
+  YELLOW: '#FEE500',
+  RED: '#B93333',
+};
+
+export default COLORS;
