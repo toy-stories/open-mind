@@ -6,9 +6,6 @@ export const H1 = styled.h1`
     'liga' off;
   font-family: Actor;
   font-size: 40px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 export const H2 = styled.h2`
@@ -17,9 +14,7 @@ export const H2 = styled.h2`
     'liga' off;
   font-family: Actor;
   font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 40px; /* 125% */
+  line-height: 40px;
 `;
 
 export const H3 = styled.h3`
@@ -28,9 +23,7 @@ export const H3 = styled.h3`
     'liga' off;
   font-family: Actor;
   font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 30px; /* 125% */
+  line-height: 30px;
 `;
 
 export const Body1Reg = styled.p`
@@ -39,9 +32,7 @@ export const Body1Reg = styled.p`
     'liga' off;
   font-family: Pretendard;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 25px; /* 125% */
+  line-height: 25px;
 `;
 
 export const Body1Bol = styled.p`
@@ -50,9 +41,7 @@ export const Body1Bol = styled.p`
     'liga' off;
   font-family: Actor;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 25px; /* 125% */
+  line-height: 25px;
 `;
 
 export const Body2Reg = styled.p`
@@ -61,8 +50,6 @@ export const Body2Reg = styled.p`
     'liga' off;
   font-family: Pretendard;
   font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 24px; /* 133.333% */
 `;
 
@@ -72,8 +59,6 @@ export const Body2Bol = styled.p`
     'liga' off;
   font-family: Actor;
   font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 24px; /* 133.333% */
 `;
 
@@ -83,9 +68,7 @@ export const Body3Reg = styled.p`
     'liga' off;
   font-family: Pretendard;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px; /* 137.5% */
+  line-height: 22px;
 `;
 
 export const Body3Bol = styled.p`
@@ -94,9 +77,7 @@ export const Body3Bol = styled.p`
     'liga' off;
   font-family: Actor;
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 22px; /* 137.5% */
+  line-height: 22px;
 `;
 
 export const Caption1Reg = styled.p`
@@ -105,9 +86,7 @@ export const Caption1Reg = styled.p`
     'liga' off;
   font-family: Pretendard;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 `;
 
 export const Caption1Med = styled.p`
@@ -116,9 +95,8 @@ export const Caption1Med = styled.p`
     'liga' off;
   font-family: Pretendard;
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 `;
 
 export const Caption1Bol = styled.p`
@@ -127,7 +105,5 @@ export const Caption1Bol = styled.p`
     'liga' off;
   font-family: Actor;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 `;
