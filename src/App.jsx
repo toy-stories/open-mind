@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from 'pages/main/MainPage';
-import ListPage from 'pages/list/ListPage';
-import PostPage from 'pages/post/PostPage';
+import MainPage from 'pages/main/MainPage.jsx';
+import ListPage from 'pages/list/ListPage.jsx';
+import PostPage from 'pages/post/PostPage.jsx';
 
 export default function App() {
   return (
