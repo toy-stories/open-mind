@@ -1,4 +1,18 @@
 import { styled } from 'styled-components';
+import COLORS from 'utils/colors.js';
+
+export const StyledLinkButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid ${COLORS.BROWN40};
+  background: ${COLORS.BROWN10};
+`;
+
+import { styled } from 'styled-components';
 import { RESPONSIBLE_SIZE } from 'utils/constants';
 import { ReactComponent as ArrowRightTailIcon } from 'assets/icons/arrow-right-tail.svg';
 import COLORS from 'utils/colors.js';
