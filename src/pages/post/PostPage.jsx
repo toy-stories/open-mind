@@ -5,6 +5,7 @@ import logo from 'assets/images/logo.png';
 import defaultProfileImage from 'assets/images/default-profile-image.png';
 import messagesIcon from 'assets/icons/Messages.svg';
 import emptyImg from 'assets/images/no-question.png';
+import ShareButtons from 'components/shareButtons/shareButtons';
 
 const PostPage = () => {
   return (
@@ -15,6 +16,7 @@ const PostPage = () => {
         <S.ProfileImage src={defaultProfileImage} alt="유저 프로필 이미지" />
         <H2>아초는 고양이</H2>
       </S.HeaderUserProfile>
+      <ShareButtons />
       <S.FeedCardsContainer>
         <S.MessageContainer>
           <S.MessageIcon src={messagesIcon} alt="메세지 아이콘" />
