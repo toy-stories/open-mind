@@ -39,7 +39,7 @@ export const QuestionInfoBox = styled.div`
   color: ${COLORS.GRAY40};
   display: grid;
   height: 2.2rem;
-  grid-template-columns: 18px auto auto;
+  grid-template-columns: 1.8rem auto auto;
   gap: 0.4rem;
   width: 100%;
   & :last-child {
