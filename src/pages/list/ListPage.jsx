@@ -1,6 +1,7 @@
 import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import { styled } from 'styled-components';
+import { H1 } from 'components/text/Text.jsx';
 
 const LogoImage = styled.img`
   width: 146px;
@@ -12,6 +13,7 @@ const ListPage = () => {
     <section>
       <LogoImage src={logoImage} alt="로고이미지" />
       <LinkButton />
+      <H1>누구에게 질문할까요?</H1>
     </section>
   );
 };
