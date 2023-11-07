@@ -11,11 +11,13 @@ const ArrowRightImage = styled(ArrowRightTailIcon)`
     fill: ${(props) => (props.$isActive ? COLORS.BROWN40 : COLORS.BROWN30)};
   }
 `;
+
 const LinkButton = ({ type, isActive }) => {
+  const buttonText = type === 'Q' ? '질문하러 가기' : '답변하러 가기';
   return (
     <StyledLinkButton $isActive={isActive}>
-      <Body3Bol>{type === 'Q' ? '질문하러 가기' : '답변하러 가기'}</Body3Bol>
-      <ArrowRightImage $isActive={isActive} alt="오른쪽 화살표 이미지" />
+      <Body3Bol>{buttonText}</Body3Bol>
+      <ArrowRightImage $isActive={isActive} aria-label="오른쪽 화살표 이미지" />
     </StyledLinkButton>
   );
 };

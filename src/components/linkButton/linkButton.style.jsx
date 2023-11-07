@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { RESPONSIBLE_SIZE } from 'utils/constants';
 
 import COLORS from 'utils/colors.js';
 
@@ -6,8 +7,8 @@ export const StyledLinkButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 0.8rem;
+  padding: 1.2rem 2.4rem;
   border-radius: 8px;
   background: ${COLORS.BROWN10};
   border: 1px solid
@@ -20,5 +21,10 @@ export const StyledLinkButton = styled.button`
   &:active {
     border: 2px solid ${COLORS.BROWN40};
     background: ${COLORS.BROWN20};
+  }
+
+  @media screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    padding: 0.8rem 1.2rem;
+    gap: 0.4rem;
   }
 `;
