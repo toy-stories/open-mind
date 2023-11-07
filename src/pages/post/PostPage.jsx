@@ -3,7 +3,6 @@ import { H2, Body1Bol } from 'components/text/Text.jsx';
 import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import defaultProfileImage from 'assets/images/default-profile-image.png';
-import messagesIcon from 'assets/icons/Messages.svg';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
@@ -20,7 +19,7 @@ const PostPage = () => {
       <ShareButtons />
       <S.FeedCardsBox>
         <S.MessageBox>
-          <S.MessageIcon src={messagesIcon} alt="메세지 아이콘" />
+          <S.MessageIcon />
           <Body1Bol>아직 질문이 없습니다.</Body1Bol>
         </S.MessageBox>
         <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
