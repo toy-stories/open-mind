@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { RESPONSIBLE_SIZE } from 'utils/constants';
-
+import { ReactComponent as ArrowRightTailIcon } from 'assets/icons/arrow-right-tail.svg';
 import COLORS from 'utils/colors.js';
 
 export const StyledLinkButton = styled.button`
@@ -26,5 +26,13 @@ export const StyledLinkButton = styled.button`
   @media screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 0.8rem 1.2rem;
     gap: 0.4rem;
+  }
+`;
+
+export const ArrowRightImage = styled(ArrowRightTailIcon)`
+  width: 18px;
+  height: 18px;
+  path {
+    fill: ${(props) => (props.$isActive ? COLORS.BROWN40 : COLORS.BROWN30)};
   }
 `;

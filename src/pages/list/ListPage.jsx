@@ -12,7 +12,7 @@ const LogoImage = styled.img`
 // 테스트코드
 const id = '1';
 const type = 'Q';
-const isActive = false;
+const isActive = true;
 
 const LinkButtonPath = id ? '/post' : '/';
 
