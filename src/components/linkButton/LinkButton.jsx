@@ -1,4 +1,4 @@
-import * as S from './linkButton.style.jsx';
+import * as S from './linkButton.style.js';
 import { Body3Bol } from 'components/text/Text.jsx';
 
 const LinkButton = ({ type, isActive }) => {
