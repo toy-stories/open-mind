@@ -1,5 +1,13 @@
 import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
+import { styled } from 'styled-components';
+import Pagination from 'components/pagination/Pagination.jsx';
+import CardList from 'components/cardList/CardList.jsx';
+import Dropdown from 'components/dropdown/Dropdown.jsx';
+import { getSubjects } from './listPage.js';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import * as S from 'pages/list/listPage.style.jsx';
 import { H1 } from 'components/text/Text.jsx';
 import { Link } from 'react-router-dom';
 import * as S from './listPage.style.js';
