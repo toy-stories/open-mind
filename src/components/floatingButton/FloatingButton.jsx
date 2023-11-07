@@ -1,4 +1,4 @@
-import * as S from 'components/floatingButton/floatingButton.style.js';
+import * as S from 'components/floatingButton/floatingButton.style.jsx';
 import { Body1Bol } from 'components/text/Text.jsx';
 
 const FloatingButton = () => {

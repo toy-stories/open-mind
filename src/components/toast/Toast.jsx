@@ -1,4 +1,4 @@
-import * as S from 'components/toast/toast.style.js';
+import * as S from 'components/toast/toast.style.jsx';
 import { Caption1Med } from 'components/text/Text.jsx';
 
 const Toast = () => {

@@ -1,4 +1,4 @@
-import * as S from 'pages/post/postPage.style.js';
+import * as S from 'pages/post/postPage.style.jsx';
 import { H2, Body1Bol } from 'components/text/Text.jsx';
 import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
