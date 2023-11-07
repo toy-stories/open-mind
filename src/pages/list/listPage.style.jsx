@@ -5,11 +5,11 @@ import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 export const ListPageContainer = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 4rem;
   background-color: ${COLORS.GRAY20};
-  height: 100vh;
+  padding: 4rem 0;
+  min-height: 100vh;
 `;
 
 export const ListPage = styled.div`
@@ -26,7 +26,7 @@ export const ListPageMain = styled.main`
 `;
 
 export const ListPageNav = styled.nav`
-  padding: 4rem 13rem;
+  padding: 0 13rem 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
