@@ -1,7 +1,7 @@
 import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import { styled } from 'styled-components';
-import Pagination from 'components/pagination/Pagination';
+import Pagination from 'components/pagination/Pagination.jsx';
 import CardList from 'components/cardList/CardList.jsx';
 import Dropdown from 'components/dropdown/Dropdown.jsx';
 import { getSubjects } from './listPage.js';

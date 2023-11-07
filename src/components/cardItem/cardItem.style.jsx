@@ -22,6 +22,7 @@ export const CardContainer = styled.div`
 `;
 
 export const UserInfoBox = styled.div`
+  color: ${COLORS.BLACK};
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
