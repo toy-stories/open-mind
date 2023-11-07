@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
-import { Caption1Med } from 'components/text/Text';
+import { Caption1Med } from 'components/text/Text.jsx';
+
+const SORT_OPTIONS = [
+  { order: 'time', text: '최신순' },
+  { order: 'name', text: '이름순' },
+];
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [sortOption, setSortOption] = useState(SORT_OPTIONS[0]);
+  const handleSortOption = (option) => {
+    setSortOption(option);
+    setIsOpen(false);
+  };
   return (
     <S.DropdownContainer>
       <S.DropdownButton onClick={() => setIsOpen((prev) => !prev)}>
-        <Caption1Med>이름순</Caption1Med>
+        <Caption1Med>{sortOption.text}</Caption1Med>
         {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
       </S.DropdownButton>
       {isOpen && (
         <S.DropdownList>
-          <li>
-            <S.DropdownItem>
-              <Caption1Med>이름순</Caption1Med>
-            </S.DropdownItem>
-          </li>
-          <li>
-            <S.DropdownItem>
-              <Caption1Med>최신순</Caption1Med>
-            </S.DropdownItem>
-          </li>
+          {SORT_OPTIONS.map((option, i) => (
+            <li key={`${option}-${i}`}>
+              <S.DropdownItem
+                $isSelected={option.order === sortOption.order}
+                onClick={() => handleSortOption(option)}
+              >
+                <Caption1Med>{option.text}</Caption1Med>
+              </S.DropdownItem>
+            </li>
+          ))}
         </S.DropdownList>
       )}
     </S.DropdownContainer>
