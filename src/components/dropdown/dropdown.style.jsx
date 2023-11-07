@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import COLORS from '../../utils/colors';
 import { ReactComponent as arrowUpIcon } from 'assets/icons/Arrow-up.svg';
 import { ReactComponent as arrowDownIcon } from 'assets/icons/Arrow-down.svg';
-
 export const DropdownContainer = styled.div`
   width: 7.9rem;
   display: flex;
@@ -22,15 +21,6 @@ export const DropdownButton = styled.button`
   background-color: ${COLORS.WHITE};
 `;
 
-export const ArrowUpIcon = styled(arrowUpIcon)`
-  width: 1.4rem;
-  height: 1.4rem;
-`;
-export const ArrowDownIcon = styled(arrowDownIcon)`
-  width: 1.4rem;
-  height: 1.4rem;
-`;
-
 export const DropdownList = styled.ul`
   display: flex;
   width: 79px;
@@ -42,6 +32,15 @@ export const DropdownList = styled.ul`
   border: 1px solid ${COLORS.GRAY30};
 `;
 
+export const ArrowUpIcon = styled(arrowUpIcon)`
+  width: 1.4rem;
+  height: 1.4rem;
+`;
+export const ArrowDownIcon = styled(arrowDownIcon)`
+  width: 1.4rem;
+  height: 1.4rem;
+`;
+
 export const DropdownItem = styled.button`
   display: flex;
   padding: 0.6rem 1.6rem;
@@ -49,4 +48,8 @@ export const DropdownItem = styled.button`
   align-items: center;
   gap: 0.8rem;
   background-color: ${COLORS.WHITE};
+  & p {
+    color: ${({ $isSelected }) =>
+      $isSelected ? `${COLORS.BLUE}` : `${COLORS.GRAY50}`};
+  }
 `;
