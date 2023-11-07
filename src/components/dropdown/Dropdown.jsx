@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
-import { Caption1Med } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
-import arrowUpIcon from 'assets/icons/Arrow-up.svg';
-import arrowDownIcon from 'assets/icons/Arrow-down.svg';
-const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
+
+const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isPending }) => {
   const navigate = useNavigate();
   const handleSortOption = (option) => {
     setSortOption(option);
@@ -14,10 +13,13 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <S.DropdownContainer>
-      <S.DropdownButton onClick={() => setIsOpen((prev) => !prev)}>
-        <Caption1Med>{sortOption.text}</Caption1Med>
-        <S.ArrowIcon src={isOpen ? arrowUpIcon : arrowDownIcon} />
+    <S.DropdownContainer $isPending={isPending}>
+      <S.DropdownButton
+        $isOpen={isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <Text $normalType={TextType.Caption1Med} text={sortOption.text} />
+        {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
       </S.DropdownButton>
       {isOpen && (
         <S.DropdownList>
@@ -27,7 +29,7 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
                 $isSelected={option.sort === sortOption.sort}
                 onClick={() => handleSortOption(option)}
               >
-                <Caption1Med>{option.text}</Caption1Med>
+                <Text $normalType={TextType.Caption1Med} text={option.text} />
               </S.DropdownItem>
             </li>
           ))}

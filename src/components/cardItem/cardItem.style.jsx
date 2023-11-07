@@ -1,8 +1,24 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as messageIcon } from 'assets/icons/Messages.svg';
-import { Body1Bol, Body3Reg } from 'components/text/Text.jsx';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
 export const CardContainer = styled.div`
   display: flex;
@@ -16,12 +32,14 @@ export const CardContainer = styled.div`
   border-radius: 1.6rem;
   border: 1px solid ${COLORS.GRAY40};
   background: ${COLORS.WHITE};
+  animation: ${({ $isShow }) => ($isShow ? fadeIn : fadeOut)} 0.5s forwards;
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     height: 16.8rem;
   }
 `;
 
 export const UserInfoBox = styled.div`
+  color: ${COLORS.BLACK};
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -57,19 +75,5 @@ export const QuestionInfoBox = styled.div`
   width: 100%;
   & :last-child {
     justify-self: end;
-  }
-`;
-
-export const CardBody1Bol = styled(Body1Bol)`
-  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
-  }
-`;
-
-export const CardBody3Reg = styled(Body3Reg)`
-  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    font-size: 1.4rem;
-    line-height: normal;
   }
 `;
