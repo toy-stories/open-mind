@@ -1,31 +1,30 @@
 import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
 import { Caption1Med } from 'components/text/Text.jsx';
-
-const SORT_OPTIONS = [
-  { order: 'time', text: '최신순' },
-  { order: 'name', text: '이름순' },
-];
-
-const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [sortOption, setSortOption] = useState(SORT_OPTIONS[0]);
+import { useNavigate } from 'react-router-dom';
+import arrowUpIcon from 'assets/icons/Arrow-up.svg';
+import arrowDownIcon from 'assets/icons/Arrow-down.svg';
+const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
+  const navigate = useNavigate();
   const handleSortOption = (option) => {
     setSortOption(option);
     setIsOpen(false);
+    navigate('/list/1');
   };
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <S.DropdownContainer>
       <S.DropdownButton onClick={() => setIsOpen((prev) => !prev)}>
         <Caption1Med>{sortOption.text}</Caption1Med>
-        {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
+        <S.ArrowIcon src={isOpen ? arrowUpIcon : arrowDownIcon} />
       </S.DropdownButton>
       {isOpen && (
         <S.DropdownList>
-          {SORT_OPTIONS.map((option, i) => (
+          {SORT_OPTIONS?.map((option, i) => (
             <li key={`${option}-${i}`}>
               <S.DropdownItem
-                $isSelected={option.order === sortOption.order}
+                $isSelected={option.sort === sortOption.sort}
                 onClick={() => handleSortOption(option)}
               >
                 <Caption1Med>{option.text}</Caption1Med>
