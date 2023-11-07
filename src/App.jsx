@@ -9,6 +9,7 @@ export default function App() {
       <Routes>
         <Route path="/post" element={<PostPage />} />
         <Route path="/list" element={<ListPage />} />
+        <Route path="/list/:page" element={<ListPage />} />
         <Route index element={<MainPage />} />
       </Routes>
     </BrowserRouter>

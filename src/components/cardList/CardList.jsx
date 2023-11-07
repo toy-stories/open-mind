@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import * as S from 'components/cardList/cardList.style.jsx';
 import CardItem from 'components/cardItem/CardItem.jsx';
-import { getSubjects } from './cardList.js';
 
-const CardList = () => {
-  const [subjects, setSubjects] = useState([]);
-  const handleLoad = async () => {
-    const { results } = await getSubjects();
-    setSubjects(results);
-  };
-  useEffect(() => {
-    handleLoad();
-  }, []);
+const CardList = ({ subjects }) => {
   return (
     <S.CardList>
       {subjects?.map((subject) => (
