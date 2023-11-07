@@ -28,7 +28,7 @@ export const ProfileImage = styled.img`
   height: 13.6rem;
 `;
 
-export const FeedCardsContainer = styled.div`
+export const FeedCardsBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 71.6rem;
@@ -44,14 +44,18 @@ export const FeedCardsContainer = styled.div`
 
 export const MessageIcon = styled.img`
   width=2.4rem; 
+  path {
+    fill: ${COLORS.BROWN40};
+  };
 `;
 
 export const EmptyImage = styled.img`
   width: 15rem;
 `;
 
-export const MessageContainer = styled.div`
+export const MessageBox = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
+  color: ${COLORS.BROWN40};
 `;

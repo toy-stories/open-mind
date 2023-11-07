@@ -18,13 +18,13 @@ const PostPage = () => {
         <H2>아초는 고양이</H2>
       </S.HeaderUserProfile>
       <ShareButtons />
-      <S.FeedCardsContainer>
-        <S.MessageContainer>
+      <S.FeedCardsBox>
+        <S.MessageBox>
           <S.MessageIcon src={messagesIcon} alt="메세지 아이콘" />
           <Body1Bol>아직 질문이 없습니다.</Body1Bol>
-        </S.MessageContainer>
+        </S.MessageBox>
         <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
-      </S.FeedCardsContainer>
+      </S.FeedCardsBox>
       <FloatingButton />
     </S.PostPageContainer>
   );
