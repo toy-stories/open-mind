@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import COLORS from 'utils/colors.js';
+import { ReactComponent as MessageIconSvg } from 'assets/icons/Messages.svg';
 
 export const PostPageContainer = styled.div`
   display: flex;
@@ -42,11 +43,12 @@ export const FeedCardsBox = styled.div`
   background: ${COLORS.BROWN10};
 `;
 
-export const MessageIcon = styled.img`
-  width=2.4rem; 
+export const MessageIcon = styled(MessageIconSvg)`
+  width: 2.4rem;
+  height: 2.4rem;
   path {
     fill: ${COLORS.BROWN40};
-  };
+  }
 `;
 
 export const EmptyImage = styled.img`
