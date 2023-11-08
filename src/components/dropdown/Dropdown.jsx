@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
 import { Caption1Med } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
-import arrowUpIcon from 'assets/icons/Arrow-up.svg';
-import arrowDownIcon from 'assets/icons/Arrow-down.svg';
-const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
+
+const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
   const navigate = useNavigate();
   const handleSortOption = (option) => {
     setSortOption(option);
@@ -14,10 +13,13 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <S.DropdownContainer>
-      <S.DropdownButton onClick={() => setIsOpen((prev) => !prev)}>
+    <S.DropdownContainer $isLoading={isLoading}>
+      <S.DropdownButton
+        $isOpen={isOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <Caption1Med>{sortOption.text}</Caption1Med>
-        <S.ArrowIcon src={isOpen ? arrowUpIcon : arrowDownIcon} />
+        {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
       </S.DropdownButton>
       {isOpen && (
         <S.DropdownList>

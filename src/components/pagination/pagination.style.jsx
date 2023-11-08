@@ -19,7 +19,9 @@ export const PaginationList = styled(ReactPaginate)`
     font-family: Actor;
     font-size: 2rem;
     line-height: 2.5rem;
-    &:hover,
+    &:hover {
+      color: ${COLORS.BLACK};
+    }
     &.selected {
       color: ${COLORS.BROWN40};
     }
