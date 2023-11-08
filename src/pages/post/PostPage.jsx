@@ -7,6 +7,7 @@ import messagesIcon from 'assets/icons/Messages.svg';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
+import PostCardItem from 'components/postCards/PostCards';
 
 const PostPage = () => {
   return (
@@ -18,6 +19,7 @@ const PostPage = () => {
         <H2>아초는 고양이</H2>
       </S.HeaderUserProfile>
       <ShareButtons />
+      <PostCardItem />
       <S.FeedCardsBox>
         <S.MessageBox>
           <S.MessageIcon src={messagesIcon} alt="메세지 아이콘" />

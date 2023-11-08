@@ -1,0 +1,97 @@
+import { styled } from 'styled-components';
+import { ReactComponent as ThumbsUpImage } from 'assets/icons/thumbs-up.svg';
+import { ReactComponent as ThumbsDownImage } from 'assets/icons/thumbs-down.svg';
+import COLORS from 'utils/colors';
+
+export const PostCardBox = styled.div`
+  display: flex;
+  padding: 3.2rem;
+  flex-direction: column;
+  gap: 3.2rem;
+  border-radius: 1.6rem;
+  box-shadow: 0 0.4rem 0.4rem 0 rgba(140, 140, 140, 0.25);
+`;
+
+export const AnswerCheckBox = styled.div`
+  display: flex;
+  padding: 0.4rem 1.2rem;
+  justify-content: center;
+  border-radius: 0.8rem;
+  border: 1px solid
+    ${(props) => (props.$isAnswered ? COLORS.BROWN40 : COLORS.GRAY40)};
+  width: max-content;
+  color: ${(props) => (props.$isAnswered ? COLORS.BROWN40 : COLORS.GRAY40)};
+`;
+
+export const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+export const UpdateTimeBox = styled.div`
+  color: ${COLORS.GRAY30};
+`;
+
+export const ContentBox = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  align-self: stretch;
+  width: 56rem;
+`;
+
+export const ContentUserInfoBox = styled.div`
+  display: flex;
+  gap: 0.8rem;
+`;
+
+export const ContentTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: 0.5rem;
+`;
+
+export const ProfileImage = styled.img`
+  width: 4.8rem;
+  height: 4.8rem;
+`;
+
+export const LikeButtonBox = styled.div`
+  display: flex;
+  gap: 3.2rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid ${COLORS.GRAY30};
+`;
+
+export const LikeButton = styled.button`
+  border: none;
+  color: ${(props) => (props.like ? COLORS.BLUE : COLORS.GRAY40)};
+`;
+
+export const DislikeButton = styled.button`
+  border: none;
+  color: ${(props) => (props.dislike ? 'black' : COLORS.GRAY40)};
+`;
+
+export const LikeImage = styled(ThumbsUpImage)`
+  width: 1.6rem;
+  height: 1.6rem;
+  path {
+    fill: ${(props) => (props.like ? COLORS.BLUE : COLORS.GRAY40)};
+  }
+  margin-right: 0.6rem;
+`;
+
+export const DisLikeImage = styled(ThumbsDownImage)`
+  width: 1.6rem;
+  height: 1.6rem;
+  path {
+    fill: ${(props) => (props.dislike ? 'black' : COLORS.GRAY40)};
+  }
+  margin-right: 0.6rem;
+`;
+
+export const RefuseAnswerBox = styled.div`
+  color: ${COLORS.RED};
+`;
