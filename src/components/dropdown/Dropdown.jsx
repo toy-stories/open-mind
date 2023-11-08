@@ -3,7 +3,7 @@ import * as S from 'components/dropdown/dropdown.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
 
-const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isPending }) => {
+const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
   const navigate = useNavigate();
   const handleSortOption = (option) => {
     setSortOption(option);
