@@ -69,11 +69,15 @@ export const LikeButtonBox = styled.div`
 export const LikeButton = styled.button`
   border: none;
   color: ${(props) => (props.$like ? COLORS.BLUE : COLORS.GRAY40)};
+  display: flex;
+  gap: 0.6rem;
 `;
 
 export const DislikeButton = styled.button`
   border: none;
   color: ${(props) => (props.$dislike ? 'black' : COLORS.GRAY40)};
+  display: flex;
+  gap: 0.6rem;
 `;
 
 export const LikeImage = styled(ThumbsUpImage)`
@@ -82,7 +86,6 @@ export const LikeImage = styled(ThumbsUpImage)`
   path {
     fill: ${(props) => (props.$like ? COLORS.BLUE : COLORS.GRAY40)};
   }
-  margin-right: 0.6rem;
 `;
 
 export const DisLikeImage = styled(ThumbsDownImage)`
@@ -91,7 +94,6 @@ export const DisLikeImage = styled(ThumbsDownImage)`
   path {
     fill: ${(props) => (props.$dislike ? 'black' : COLORS.GRAY40)};
   }
-  margin-right: 0.6rem;
 `;
 
 export const RefuseAnswerBox = styled.div`

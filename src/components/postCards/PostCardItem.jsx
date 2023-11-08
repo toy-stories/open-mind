@@ -51,11 +51,11 @@ const PostCardItem = ({ testData }) => {
       <S.LikeButtonBox>
         <S.LikeButton $like={like} onClick={handleLikeClick}>
           <S.LikeImage $like={like} />
-          <Caption1Med as="span">좋아요 {likeCount}</Caption1Med>
+          <Caption1Med>좋아요 {likeCount}</Caption1Med>
         </S.LikeButton>
         <S.DislikeButton $dislike={dislike} onClick={handleDislikeClick}>
           <S.DisLikeImage $dislike={dislike} />
-          <Caption1Med as="span"> 싫어요 {dislikeCount}</Caption1Med>
+          <Caption1Med> 싫어요 {dislikeCount}</Caption1Med>
         </S.DislikeButton>
       </S.LikeButtonBox>
     </S.PostCardItem>
