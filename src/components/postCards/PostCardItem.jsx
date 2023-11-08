@@ -1,5 +1,5 @@
 import { Body2Bol, Body3Reg, Caption1Med } from 'components/text/Text';
-import * as S from './postCards.style.js';
+import * as S from './postCards.style.jsx';
 import { useState } from 'react';
 import userIconImage from 'assets/images/default-profile-image.png';
 
@@ -24,14 +24,12 @@ const PostCardItem = ({ testData }) => {
       <S.AnswerCheckBox $isAnswered={testData.isAnswered}>
         <Caption1Med>{testData.isAnswered ? '답변완료' : '미답변'}</Caption1Med>
       </S.AnswerCheckBox>
-
       <S.TitleBox>
         <S.UpdateTimeBox>
           <Caption1Med>질문 · {testData.updateTimeAgoQuestion}</Caption1Med>
         </S.UpdateTimeBox>
         <Body2Bol>{testData.title}</Body2Bol>
       </S.TitleBox>
-
       <S.ContentBox>
         <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
         <S.ContentTextBox>
@@ -50,7 +48,6 @@ const PostCardItem = ({ testData }) => {
           ) : null}
         </S.ContentTextBox>
       </S.ContentBox>
-
       <S.LikeButtonBox>
         <S.LikeButton $like={like} onClick={handleLikeClick}>
           <S.LikeImage $like={like} />

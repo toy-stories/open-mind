@@ -1,6 +1,6 @@
 import { Body1Bol } from 'components/text/Text.jsx';
+import * as S from './postCards.style.jsx';
 import PostCardItem from './PostCardItem.jsx';
-import * as S from './postCards.style.js';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -54,7 +54,6 @@ const PostCardList = () => {
         <S.SpeechBubble />
         <Body1Bol>{testData.length}개의 질문이 있습니다.</Body1Bol>
       </S.PostCardListTitleBox>
-
       {testData.length > 0 &&
         testData.map((data, idx) => (
           <PostCardItem testData={data} key={testData[idx].id} />
