@@ -4,7 +4,7 @@ import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import defaultProfileImage from 'assets/images/default-profile-image.png';
 import emptyImg from 'assets/images/no-question.png';
-import ShareButtons from 'components/shareButtons/shareButtons.jsx';
+import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 
 const PostPage = () => {
