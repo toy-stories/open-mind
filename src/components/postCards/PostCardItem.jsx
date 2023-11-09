@@ -10,6 +10,7 @@ const PostCardItem = ({ testData }) => {
   const [dislike, setDislike] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [kebabOpen, setKebabOpen] = useState(false);
+  const [isRefuseAnswer, setIsRefuseAnswer] = useState();
 
   const handleLikeClick = () => {
     setLike(true);
@@ -32,7 +33,15 @@ const PostCardItem = ({ testData }) => {
             {testData.isAnswered ? '답변완료' : '미답변'}
           </Caption1Med>
         </S.AnswerCheckBox>
-        {isEdit && <KebabButton kebabOpen={kebabOpen} onClick={setKebabOpen} />}
+        {isEdit && (
+          <KebabButton
+            onRefuseAnswerClick={() => {
+              setIsRefuseAnswer(true);
+            }}
+            kebabOpen={kebabOpen}
+            onClick={setKebabOpen}
+          />
+        )}
       </S.AnswerAndKebabBox>
       <S.TitleBox>
         <S.UpdateTimeBox>
@@ -49,7 +58,7 @@ const PostCardItem = ({ testData }) => {
               <Caption1Med>{testData.updateTimeAgoAnswer}</Caption1Med>
             </S.UpdateTimeBox>
           </S.ContentUserInfoBox>
-          {testData.content === '거절' ? (
+          {isRefuseAnswer ? (
             <S.RefuseAnswerBox>
               <Body3Reg>답변 거절</Body3Reg>
             </S.RefuseAnswerBox>

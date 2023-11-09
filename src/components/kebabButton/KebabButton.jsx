@@ -1,13 +1,15 @@
 import * as S from './kebabButton.style.jsx';
 import KebabMenuButtons from './KebabMenuButtons.jsx';
 
-const KebabButton = ({ kebabOpen, onClick }) => {
+const KebabButton = ({ kebabOpen, onClick, onRefuseAnswerClick }) => {
   return (
     <>
       <button onClick={() => onClick(!kebabOpen)}>
         <S.KebabImage />
       </button>
-      {kebabOpen && <KebabMenuButtons />}
+      {kebabOpen && (
+        <KebabMenuButtons onRefuseAnswerClick={onRefuseAnswerClick} />
+      )}
     </>
   );
 };
