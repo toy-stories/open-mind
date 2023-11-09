@@ -24,7 +24,7 @@ const PostPage = () => {
         </S.MessageBox>
         <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
       </S.FeedCardsBox>
-      <FloatingButton />
+      <FloatingButton type="W" />
     </S.PostPageContainer>
   );
 };
