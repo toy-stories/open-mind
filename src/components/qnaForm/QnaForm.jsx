@@ -15,7 +15,7 @@ const QnaForm = () => {
         value={input}
         onChange={handleInputChange}
       />
-      <S.StyledAnswerButton answer={input}>
+      <S.StyledAnswerButton $answer={input}>
         <Text type={textType.Body3Reg} text="답변 완료" />
       </S.StyledAnswerButton>
     </S.AnswerBox>
