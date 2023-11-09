@@ -2,24 +2,26 @@ import useAsync from 'hooks/useAsync.js';
 import * as S from './questionModal.style.js';
 import createQuestion from 'utils/createQuestion.js';
 
-export default function QuestionModal({ children, title, onClickClose }) {
-  const subjectId = '158';
-  const content = '무슨 강아지를 가장 좋아하시나요?';
-
-  const [isLoading, error, createQuestionAsync] = useAsync(createQuestion);
-
-  async function handleCreateQuestion() {
-    const result = await createQuestionAsync(subjectId, content);
-    console.log(result);
-  }
-
+const QuestionModal = ({ onClickClose }) => {
   return (
     <S.QuestionModalWrapper
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <button onClick={handleCreateQuestion}>Create Question</button>
+      <S.TitleContainer>
+        <S.TitleImage width="28px" height="28px" />
+        <S.TitleText>질문을 작성하세요</S.TitleText>
+        <S.CloseButton onClick={onClickClose}>
+          <S.CloseImage width="28px" height="28px" />
+        </S.CloseButton>
+      </S.TitleContainer>
+      <S.SubjectContainer>
+        <S.To>To.</S.To>
+        <S.SubjectImage src="" width="28px" height="28px" />
+        <S.SubjectName>고양이가 어쩌구</S.SubjectName>
+      </S.SubjectContainer>
     </S.QuestionModalWrapper>
   );
-}
+};
+export default QuestionModal;

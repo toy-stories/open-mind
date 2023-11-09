@@ -9,8 +9,7 @@ const ModalTestPage = () => {
       <h1>modal test page</h1>
       <button onClick={openModal}>open</button>
       <Modal>
-        <QuestionModal />
-        <button onClick={closeModal}>close</button>
+        <QuestionModal onClickClose={closeModal} />
       </Modal>
     </>
   );
