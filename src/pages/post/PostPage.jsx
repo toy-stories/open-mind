@@ -6,6 +6,10 @@ import defaultProfileImage from 'assets/images/default-profile-image.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
+// import EditButton from 'components/editButton/EditButton';
+
+// 테스트 코드
+// const isActive = true;
 
 const PostPage = () => {
   return (
@@ -25,6 +29,7 @@ const PostPage = () => {
         <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
       </S.FeedCardsBox>
       <FloatingButton type="W" />
+      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
