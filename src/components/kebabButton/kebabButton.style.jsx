@@ -24,10 +24,11 @@ export const KebabMenuButton = styled.button`
   }
 `;
 
-export const KebabMenuBox = styled.div`
+export const KebabMenuList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
   position: absolute;
-  right: -5rem;
+  top: 6rem;
+  right: 1rem;
 `;
