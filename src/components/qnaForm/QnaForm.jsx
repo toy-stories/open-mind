@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import * as S from 'components/qnaForm/qnaForm.style.jsx';
-import { textType } from 'components/text/Text.jsx';
+import { Text, textType } from 'components/text/Text.jsx';
 
-const CardAnswerInput = () => {
+const QnaForm = () => {
   const [input, setInput] = useState('');
   const handleInputChange = (event) => {
     setInput(event.target.value);
@@ -15,11 +15,11 @@ const CardAnswerInput = () => {
         value={input}
         onChange={handleInputChange}
       />
-      <S.StyledAnswerButton answer={input}>
-        <S.Text type={textType.Body3Reg} text="답변 완료" />
+      <S.StyledAnswerButton $answer={input}>
+        <Text type={textType.Body3Reg} text="답변 완료" />
       </S.StyledAnswerButton>
     </S.AnswerBox>
   );
 };
 
-export default CardAnswerInput;
+export default QnaForm;

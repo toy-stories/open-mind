@@ -8,14 +8,14 @@ const fontFeatureSettings = css`
 
 export const Text = styled.p`
   ${(props) =>
-    props.fontFeatureSetting &&
+    props &&
     css`
       ${fontFeatureSettings}
     `}
-  font-family: ${(props) => props.textType.font};
-  font-size: ${(props) => props.textType.size};
-  font-weight: ${(props) => props.textType.weight};
-  line-height: ${(props) => props.textType.height};
+  font-family: ${(props) => props.$font};
+  font-size: ${(props) => props.$size};
+  font-weight: ${(props) => props.$weight};
+  line-height: ${(props) => props.$height};
 `;
 
 export default Text;
