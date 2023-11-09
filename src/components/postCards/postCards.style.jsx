@@ -12,6 +12,12 @@ export const PostCardItem = styled.li`
   border-radius: 1.6rem;
   box-shadow: 0 0.4rem 0.4rem 0 rgba(140, 140, 140, 0.25);
   background: white;
+  position: relative;
+`;
+
+export const AnswerAndKebabBox = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const AnswerCheckBox = styled.div`
