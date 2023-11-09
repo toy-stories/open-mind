@@ -2,12 +2,14 @@ import { Text, textType } from 'components/text/Text.jsx';
 import * as S from './postCards.style.jsx';
 import { useState } from 'react';
 import userIconImage from 'assets/images/default-profile-image.png';
+import KebabButton from 'components/kebabButton/KebabButton.jsx';
 
 const PostCardItem = ({ testData }) => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislike, setDislike] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
+  const [kebabOpen, setKebabOpen] = useState(false);
 
   const handleLikeClick = () => {
     setLike(true);
@@ -19,14 +21,20 @@ const PostCardItem = ({ testData }) => {
     setDislikeCount((prev) => prev + 1);
   };
 
+  const isEdit = true;
+  // 추후 "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
+
   return (
     <S.PostCardItem>
-      <S.AnswerCheckBox $isAnswered={testData.isAnswered}>
-        <Text
+      <S.AnswerAndKebabBox>
+        <S.AnswerCheckBox $isAnswered={testData.isAnswered}>
+          <Text
           type={textType.Caption1Med}
           text={testData.isAnswered ? '답변완료' : '미답변'}
-        />
-      </S.AnswerCheckBox>
+          />
+        </S.AnswerCheckBox>
+        {isEdit && <KebabButton kebabOpen={kebabOpen} onClick={setKebabOpen} />}
+      </S.AnswerAndKebabBox>
       <S.TitleBox>
         <S.UpdateTimeBox>
           <Text
