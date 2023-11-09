@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 
+export const LogoImage = styled.img`
+  width: 14.6rem;
+  height: 5.7rem;
+`;
+
 export const ListPageContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -51,5 +56,21 @@ export const ListPageHeader = styled.div`
     & h1 {
       font-size: 2.4rem;
     }
+  }
+`;
+
+export const CardList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(18.7rem, 22rem));
+  gap: 2rem;
+  justify-content: center;
+  grid-template-rows: 2;
+
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
+    grid-template-columns: repeat(3, 18.6rem);
+  }
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    grid-template-columns: repeat(2, 15.5rem);
+    grid-template-rows: 2;
   }
 `;

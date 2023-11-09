@@ -1,8 +1,25 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as messageIcon } from 'assets/icons/Messages.svg';
 import { Body1Bol, Body3Reg } from 'components/text/Text.jsx';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
 export const CardContainer = styled.div`
   display: flex;
@@ -16,6 +33,7 @@ export const CardContainer = styled.div`
   border-radius: 1.6rem;
   border: 1px solid ${COLORS.GRAY40};
   background: ${COLORS.WHITE};
+  animation: ${({ $isShow }) => ($isShow ? fadeIn : fadeOut)} 0.5s forwards;
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     height: 16.8rem;
   }

@@ -7,9 +7,10 @@ const CardItem = ({
   name,
   imageSource = defaultProfileImage,
   questionCount,
+  isShow,
 }) => {
   return (
-    <S.CardContainer>
+    <S.CardContainer $isShow={isShow}>
       <S.UserInfoBox>
         <S.ProfileImage src={imageSource} alt={`${name}님의 프로필 사진`} />
         <S.CardBody1Bol>{name}</S.CardBody1Bol>

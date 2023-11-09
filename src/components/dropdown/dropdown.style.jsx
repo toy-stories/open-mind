@@ -9,6 +9,7 @@ export const DropdownContainer = styled.div`
   gap: 0.4rem;
   position: relative;
   pointer-events: ${({ $isLoading }) => ($isLoading ? 'none' : 'auto')};
+  z-index: 1;
 `;
 
 export const DropdownButton = styled.button`
