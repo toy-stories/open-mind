@@ -6,9 +6,10 @@ import { getSubjects } from './listPage.js';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import * as S from 'pages/list/listPage.style.jsx';
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import useDebounce from 'hooks/useDebounce.js';
 import CardList from 'components/cardList/CardList.jsx';
+import useAsync from 'hooks/useAsync.js';
 
 const SORT_OPTIONS = [
   { sort: 'name', text: '이름순' },
@@ -32,7 +33,6 @@ const ListPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [subjects, setSubjects] = useState([]);
   const { page } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setItemsPerPage(debouncedWindowWidth >= 1199 ? 8 : 6);
   }, [debouncedWindowWidth]);
@@ -42,25 +42,26 @@ const ListPage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleLoad = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const { results, count } = await getSubjects({
-        sort: sortOption.sort,
-        page,
-        limit: itemsPerPage,
+  const [isPending, hasError, getSubjectsAsync] = useAsync(getSubjects);
+
+  const handleLoad = useCallback(
+    async (sort, page, limit) => {
+      const result = await getSubjectsAsync({
+        sort: sort,
+        page: page,
+        limit: limit,
       });
+      if (!result) return;
+      const { results, count } = result;
       setTotalPages(Math.ceil(count / itemsPerPage));
       setSubjects(results);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sortOption.sort, page, itemsPerPage]);
+    },
+    [getSubjectsAsync, itemsPerPage],
+  );
 
   useEffect(() => {
-    handleLoad();
-  }, [handleLoad]);
+    handleLoad(sortOption.sort, page, itemsPerPage);
+  }, [sortOption, itemsPerPage, handleLoad, page]);
   return (
     <S.ListPageContainer>
       <S.ListPage>
@@ -74,7 +75,11 @@ const ListPage = () => {
         </S.ListPageNav>
         <S.ListPageMain>
           <S.ListPageHeader>
-            <Text type={textType.H1} text="누구에게 질문할까요?" />
+            <Text
+              $normalType={TextType.H1}
+              $mobileType={TextType.H3}
+              text="누구에게 질문할까요?"
+            />
             <Dropdown
               sortOption={sortOption}
               setSortOption={setSortOption}
@@ -82,7 +87,7 @@ const ListPage = () => {
             />
           </S.ListPageHeader>
           <CardList subjects={subjects} itemsPerPage={itemsPerPage} />
-          <Pagination totalPages={totalPages} isShow={!isLoading} />
+          <Pagination totalPages={totalPages} isShow={!isPending} />
         </S.ListPageMain>
       </S.ListPage>
     </S.ListPageContainer>

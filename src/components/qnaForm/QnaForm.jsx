@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from 'components/qnaForm/qnaForm.style.jsx';
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 
 const QnaForm = () => {
   const [input, setInput] = useState('');
@@ -16,7 +16,7 @@ const QnaForm = () => {
         onChange={handleInputChange}
       />
       <S.StyledAnswerButton $answer={input}>
-        <Text type={textType.Body3Reg} text="답변 완료" />
+        <Text $normalType={TextType.Body3Reg} text="답변 완료" />
       </S.StyledAnswerButton>
     </S.AnswerBox>
   );

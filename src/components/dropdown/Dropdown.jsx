@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
 
-const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
+const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isPending }) => {
   const navigate = useNavigate();
   const handleSortOption = (option) => {
     setSortOption(option);
@@ -13,12 +13,12 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <S.DropdownContainer $isLoading={isLoading}>
+    <S.DropdownContainer $isPending={isPending}>
       <S.DropdownButton
         $isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <Text type={textType.Caption1Med} text={sortOption.text} />
+        <Text $normalType={TextType.Caption1Med} text={sortOption.text} />
         {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
       </S.DropdownButton>
       {isOpen && (
@@ -29,7 +29,7 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
                 $isSelected={option.sort === sortOption.sort}
                 onClick={() => handleSortOption(option)}
               >
-                <Text type={textType.Caption1Med} text={option.text} />
+                <Text $normalType={TextType.Caption1Med} text={option.text} />
               </S.DropdownItem>
             </li>
           ))}
