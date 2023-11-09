@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
-import { Caption1Med } from 'components/text/Text.jsx';
+import { Text, textType } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
@@ -18,7 +18,7 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
         $isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <Caption1Med>{sortOption.text}</Caption1Med>
+        <Text type={textType.Caption1Med} text={sortOption.text} />
         {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
       </S.DropdownButton>
       {isOpen && (
@@ -29,7 +29,7 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isLoading }) => {
                 $isSelected={option.sort === sortOption.sort}
                 onClick={() => handleSortOption(option)}
               >
-                <Caption1Med>{option.text}</Caption1Med>
+                <Text type={textType.Caption1Med} text={option.text} />
               </S.DropdownItem>
             </li>
           ))}

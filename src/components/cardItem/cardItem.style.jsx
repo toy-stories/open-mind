@@ -1,7 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as messageIcon } from 'assets/icons/Messages.svg';
-import { Body1Bol, Body3Reg } from 'components/text/Text.jsx';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 
 const fadeIn = keyframes`
@@ -76,19 +75,5 @@ export const QuestionInfoBox = styled.div`
   width: 100%;
   & :last-child {
     justify-self: end;
-  }
-`;
-
-export const CardBody1Bol = styled(Body1Bol)`
-  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    font-size: 1.8rem;
-    line-height: 2.4rem;
-  }
-`;
-
-export const CardBody3Reg = styled(Body3Reg)`
-  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    font-size: 1.4rem;
-    line-height: normal;
   }
 `;
