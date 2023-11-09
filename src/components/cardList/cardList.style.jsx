@@ -6,6 +6,7 @@ export const CardList = styled.ul`
   grid-template-columns: repeat(4, minmax(18.7rem, 22rem));
   gap: 2rem;
   justify-content: center;
+
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
     grid-template-columns: repeat(3, 18.6rem);
   }

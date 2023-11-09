@@ -8,7 +8,7 @@ export const DropdownContainer = styled.div`
   flex-direction: column;
   gap: 0.4rem;
   position: relative;
-  pointer-events: ${({ $isPending }) => ($isPending ? 'none' : 'auto')};
+  pointer-events: ${({ $isLoading }) => ($isLoading ? 'none' : 'auto')};
   z-index: 1;
 `;
 
