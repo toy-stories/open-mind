@@ -1,18 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import COLORS from 'utils/colors';
 
-export const CardAnswerFrameBox = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
-`;
-
-export const UserProfileImage = styled.img`
-  width: 4.8rem;
-  height: 4.8rem;
-`;
-
-export const AnswerBox = styled.div`
+export const AnswerBox = styled.form`
   display: flex;
   flex-direction: column;
 `;
@@ -20,6 +9,7 @@ export const AnswerBox = styled.div`
 export const AnswerInput = styled.input`
   display: flex;
   text-align: start;
+  width: 100%;
   height: 18.6rem;
   margin-top: 0.4rem;
   margin-bottom: 0.8rem;
@@ -29,8 +19,9 @@ export const AnswerInput = styled.input`
   color: ${COLORS.GRAY40};
 `;
 
-export const AnswerButton = styled.button`
+export const StyledAnswerButton = styled.button`
   display: flex;
+  width: 100%;
   height: 4.6rem;
   padding: 1.2rem 2.4rem;
   justify-content: center;
@@ -39,4 +30,10 @@ export const AnswerButton = styled.button`
   border-radius: 8px;
   background: ${COLORS.BROWN30};
   color: ${COLORS.WHITE};
+
+  ${(props) =>
+    props.answer &&
+    css`
+      background: ${COLORS.BROWN40};
+    `}
 `;

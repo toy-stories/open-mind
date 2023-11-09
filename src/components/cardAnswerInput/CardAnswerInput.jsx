@@ -1,19 +1,24 @@
+import React, { useState } from 'react';
 import * as S from 'components/cardAnswerInput/cardAnswerInput.style.jsx';
-import { Body2Bol, Body3Reg } from 'components/text/Text';
-import userProfileImage from 'assets/images/default-profile-image.png';
+import { textType } from 'components/text/Text.jsx';
 
-const CardAnswerInput = ({ userId = '아초는 고양이' }) => {
+const CardAnswerInput = () => {
+  const [answer, setAnswer] = useState('');
+  const handleInputChange = (event) => {
+    setAnswer(event.target.value);
+  };
+
   return (
-    <S.CardAnswerFrameBox>
-      <S.UserProfileImage src={userProfileImage} alt="유저 프로필 이미지" />
-      <S.AnswerBox>
-        <Body2Bol>{userId}</Body2Bol>
-        <S.AnswerInput placeholder="답변을 입력해주세요" />
-        <S.AnswerButton>
-          <Body3Reg>답변 완료</Body3Reg>
-        </S.AnswerButton>
-      </S.AnswerBox>
-    </S.CardAnswerFrameBox>
+    <S.AnswerBox>
+      <S.AnswerInput
+        placeholder="답변을 입력해주세요"
+        value={answer}
+        onChange={handleInputChange}
+      />
+      <S.StyledAnswerButton answer={answer}>
+        <S.Text type={textType.Body3Reg} text="답변 완료" />
+      </S.StyledAnswerButton>
+    </S.AnswerBox>
   );
 };
 
