@@ -11,12 +11,15 @@ import PostCardList from 'components/postCards/PostCardList';
 
 // 테스트 코드
 // const isActive = true;
+import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
+import useModal from 'hooks/useModal.js';
 
 const PostPage = () => {
   // 추후 api연동하여 데이터 프롭스로 받기
   // 테스트코드
   const hasQuestion = true;
 
+  const { Modal, openModal, closeModal } = useModal();
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
@@ -37,7 +40,12 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <FloatingButton type="W" />
+      <>
+        <FloatingButton onClick={openModal} />
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      </>
       {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
