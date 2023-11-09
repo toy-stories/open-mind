@@ -1,4 +1,4 @@
-import { Body2Bol, Body3Reg, Caption1Med } from 'components/text/Text';
+import { Text, textType } from 'components/text/Text.jsx';
 import * as S from './postCards.style.jsx';
 import { useState } from 'react';
 import userIconImage from 'assets/images/default-profile-image.png';
@@ -22,40 +22,49 @@ const PostCardItem = ({ testData }) => {
   return (
     <S.PostCardItem>
       <S.AnswerCheckBox $isAnswered={testData.isAnswered}>
-        <Caption1Med>{testData.isAnswered ? '답변완료' : '미답변'}</Caption1Med>
+        <Text
+          type={textType.Caption1Med}
+          text={testData.isAnswered ? '답변완료' : '미답변'}
+        />
       </S.AnswerCheckBox>
       <S.TitleBox>
         <S.UpdateTimeBox>
-          <Caption1Med>질문 · {testData.updateTimeAgoQuestion}</Caption1Med>
+          <Text
+            type={textType.Caption1Med}
+            text={`질문 · ${testData.updateTimeAgoQuestion}`}
+          />
         </S.UpdateTimeBox>
-        <Body2Bol>{testData.title}</Body2Bol>
+        <Text type={textType.Body2Bol} text={testData.title} />
       </S.TitleBox>
       <S.ContentBox>
         <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
         <S.ContentTextBox>
           <S.ContentUserInfoBox>
-            <Body2Bol>{testData.userName}</Body2Bol>
+            <Text type={textType.Body2Bol} text={testData.userName} />
             <S.UpdateTimeBox>
-              <Caption1Med>{testData.updateTimeAgoAnswer}</Caption1Med>
+              <Text
+                type={textType.Caption1Med}
+                text={testData.updateTimeAgoAnswer}
+              />
             </S.UpdateTimeBox>
           </S.ContentUserInfoBox>
           {testData.content === '거절' ? (
             <S.RefuseAnswerBox>
-              <Body3Reg>답변 거절</Body3Reg>
+              <Text type={textType.Body3Reg} text="답변 거절" />
             </S.RefuseAnswerBox>
           ) : testData.content ? (
-            <Body3Reg>{testData.content}</Body3Reg>
+            <Text type={textType.Body3Reg} text={testData.content} />
           ) : null}
         </S.ContentTextBox>
       </S.ContentBox>
       <S.LikeButtonBox>
         <S.LikeButton $like={like} onClick={handleLikeClick}>
           <S.LikeImage $like={like} />
-          <Caption1Med>좋아요 {likeCount}</Caption1Med>
+          <Text type={textType.Caption1Med} text={`좋아요 ${likeCount}`} />
         </S.LikeButton>
         <S.DislikeButton $dislike={dislike} onClick={handleDislikeClick}>
           <S.DisLikeImage $dislike={dislike} />
-          <Caption1Med> 싫어요 {dislikeCount}</Caption1Med>
+          <Text type={textType.Caption1Med} text={`싫어요 ${dislikeCount}`} />
         </S.DislikeButton>
       </S.LikeButtonBox>
     </S.PostCardItem>

@@ -64,5 +64,7 @@ export const textType = {
 };
 
 export const Text = ({ type, text }) => {
-  return <S.Text textType={S.textType[type]}>{text}</S.Text>;
+  return <S.Text textType={textType[type]}>{text}</S.Text>;
 };
+
+export default Text;
