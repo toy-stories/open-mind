@@ -9,13 +9,31 @@ import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 import EditButton from 'components/editButton/EditButton';
 import QnaForm from 'components/qnaForm/QnaForm';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import useAsync from 'hooks/useAsync';
+import { fetchClientJson } from 'utils/apiClient';
 
 // 테스트 코드
 const isActive = true;
+const hasQuestion = true;
 
 const PostPage = () => {
-  // 테스트코드
-  const hasQuestion = true;
+  const { id } = useParams();
+  const [postData, setAnswerData] = useState(null);
+
+  const [isPending, hasError, fetchData] = useAsync(async () => {
+    const { results } = await fetchClientJson({
+      url: `subjects/${id}/questions/`,
+      method: 'GET',
+    });
+    setAnswerData(results);
+    return results;
+  });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <S.PostPageContainer>
@@ -30,8 +48,8 @@ const PostPage = () => {
         />
       </S.HeaderUserProfile>
       <ShareButtons />
-      {hasQuestion ? (
-        <PostCardList />
+      {postData?.length > 0 ? (
+        <PostCardList postData={postData} />
       ) : (
         <S.FeedCardsBox>
           <S.MessageBox>

@@ -4,8 +4,12 @@ import { useState } from 'react';
 import userIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.locale('ko');
+dayjs.extend(relativeTime);
 
-const QuestionCardItem = ({ data }) => {
+const QuestionCardItem = ({ postData }) => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislike, setDislike] = useState(false);
@@ -33,9 +37,9 @@ const QuestionCardItem = ({ data }) => {
   // TODO: data.answer 값이 있을때만 답변자 아이콘 보이게 하기
 
   // 게시물 작성 시간 계산
-  const createdAtQuestion = dayjs(data?.createdAt).format();
+  const createdAtQuestion = dayjs(postData?.createdAt).format();
   const updateTimeAgoQuestion = dayjs(createdAtQuestion).fromNow();
-  const createdAtAnswer = data?.answer?.createdAt;
+  const createdAtAnswer = postData?.answer?.createdAt;
   let updateTimeAgoAnswer;
   if (createdAtAnswer) {
     const validCreatedAtAnswer = dayjs(createdAtAnswer).format();
@@ -67,10 +71,10 @@ const QuestionCardItem = ({ data }) => {
     !isDeleteQuestion && (
       <S.PostCardItem>
         <S.AnswerAndKebabBox>
-          <S.AnswerCheckBox $isAnswered={data.answer}>
+          <S.AnswerCheckBox $isAnswered={postData.answer}>
             <Text
               $normalType={TextType.Caption1Med}
-              text={`${data.answer ? '답변완료' : '미답변'}`}
+              text={`${postData.answer ? '답변완료' : '미답변'}`}
             />
           </S.AnswerCheckBox>
           {isEdit && (
@@ -96,7 +100,7 @@ const QuestionCardItem = ({ data }) => {
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={`${data?.content}`} />
+          <Text $normalType={TextType.Body2Bol} text={`${postData?.content}`} />
         </S.TitleBox>
         <S.ContentBox>
           <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
@@ -120,10 +124,10 @@ const QuestionCardItem = ({ data }) => {
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
               ) : (
-                data?.answer?.content && (
+                postData?.answer?.content && (
                   <Text
                     $normalType={TextType.Body3Reg}
-                    text={data?.answer?.content}
+                    text={postData?.answer?.content}
                   />
                 )
               ))}
