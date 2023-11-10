@@ -1,4 +1,4 @@
-import { Body1Bol } from 'components/text/Text.jsx';
+import { Text, textType } from 'components/text/Text.jsx';
 import * as S from './postCards.style.jsx';
 import PostCardItem from './PostCardItem.jsx';
 import dayjs from 'dayjs';
@@ -52,7 +52,10 @@ const PostCardList = () => {
     <S.PostCardList>
       <S.PostCardListTitleBox>
         <S.SpeechBubble />
-        <Body1Bol>{testData.length}개의 질문이 있습니다.</Body1Bol>
+        <Text
+          type={textType.Body1Bol}
+          text={`${testData.length}개의 질문이 있습니다.`}
+        />
       </S.PostCardListTitleBox>
       {testData.length > 0 &&
         testData.map((data, idx) => (

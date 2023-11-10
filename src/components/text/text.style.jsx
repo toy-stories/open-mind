@@ -12,10 +12,10 @@ export const Text = styled.p`
     css`
       ${fontFeatureSettings}
     `}
-  font-family: ${(props) => props.textType.font};
-  font-size: ${(props) => props.textType.size};
-  font-weight: ${(props) => props.textType.weight};
-  line-height: ${(props) => props.textType.height};
+  font-family: ${(props) => props.textType?.font};
+  font-size: ${(props) => props.textType?.size};
+  font-weight: ${(props) => props.textType?.weight};
+  line-height: ${(props) => props.textType?.height};
 `;
 
 export default Text;
