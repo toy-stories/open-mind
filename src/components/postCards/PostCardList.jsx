@@ -1,6 +1,6 @@
-import { Body1Bol } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
-import PostCardItem from './QuestionCardItem.jsx';
+import QuestionCardItem from './QuestionCardItem.jsx';
 import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 import { fetchClientJson } from 'utils/apiClient.js';
@@ -32,10 +32,18 @@ const PostCardList = () => {
     <S.PostCardList>
       <S.PostCardListTitleBox>
         <S.SpeechBubble />
-        <Body1Bol>{answerData?.length}개의 질문이 있습니다.</Body1Bol>
+        <Text
+          $normalType={TextType.Body1Bol}
+          $mobileType={TextType.Body2Bol}
+          text={`${
+            answerData?.length > 0 && answerData?.length
+          }개의 질문이 있습니다.`}
+        />
       </S.PostCardListTitleBox>
       {answerData?.length > 0 &&
-        answerData.map((data) => <PostCardItem data={data} key={data.id} />)}
+        answerData.map((data) => (
+          <QuestionCardItem data={data} key={data.id} />
+        ))}
     </S.PostCardList>
   );
 };

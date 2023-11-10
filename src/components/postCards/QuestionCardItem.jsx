@@ -1,11 +1,11 @@
-import { Body2Bol, Body3Reg, Caption1Med } from 'components/text/Text';
+import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
 import { useState } from 'react';
 import userIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 
-const PostCardItem = ({ data }) => {
+const QuestionCardItem = ({ data }) => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislike, setDislike] = useState(false);
@@ -67,10 +67,11 @@ const PostCardItem = ({ data }) => {
     !isDeleteQuestion && (
       <S.PostCardItem>
         <S.AnswerAndKebabBox>
-          <S.AnswerCheckBox $isAnswered={testData.isAnswered}>
-            <Caption1Med>
-              {testData.isAnswered ? '답변완료' : '미답변'}
-            </Caption1Med>
+          <S.AnswerCheckBox $isAnswered={data.answer}>
+            <Text
+              $normalType={TextType.Caption1Med}
+              text={`${data.answer ? '답변완료' : '미답변'}`}
+            />
           </S.AnswerCheckBox>
           {isEdit && (
             <KebabButton
@@ -90,27 +91,40 @@ const PostCardItem = ({ data }) => {
         </S.AnswerAndKebabBox>
         <S.TitleBox>
           <S.UpdateTimeBox>
-            <Caption1Med>질문 · {updateTimeAgoQuestion}</Caption1Med>
+            <Text
+              $normalType={TextType.Caption1Med}
+              text={`질문 · ${updateTimeAgoQuestion}`}
+            />
           </S.UpdateTimeBox>
-          <Body2Bol>{data?.content}</Body2Bol>
+          <Text $normalType={TextType.Body2Bol} text={`${data?.content}`} />
         </S.TitleBox>
         <S.ContentBox>
           <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
           <S.ContentTextBox>
             <S.ContentUserInfoBox>
-              <Body2Bol>{testData.userName}</Body2Bol>
+              <Text
+                $normalType={TextType.Body2Bol}
+                $mobileType={TextType.Caption1Bol}
+                text={testData.userName}
+              />
               <S.UpdateTimeBox>
-                <Caption1Med>{updateTimeAgoAnswer}</Caption1Med>
+                <Text
+                  $normalType={TextType.Caption1Med}
+                  text={updateTimeAgoAnswer}
+                />
               </S.UpdateTimeBox>
             </S.ContentUserInfoBox>
             {!isDeleteAnswer &&
               (isRefuseAnswer ? (
                 <S.RefuseAnswerBox>
-                  <Body3Reg>답변 거절</Body3Reg>
+                  <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
               ) : (
                 data?.answer?.content && (
-                  <Body3Reg>{data?.answer?.content}</Body3Reg>
+                  <Text
+                    $normalType={TextType.Body3Reg}
+                    text={data?.answer?.content}
+                  />
                 )
               ))}
           </S.ContentTextBox>
@@ -118,11 +132,17 @@ const PostCardItem = ({ data }) => {
         <S.LikeButtonBox>
           <S.LikeButton $like={like} onClick={handleLikeClick}>
             <S.LikeImage $like={like} />
-            <Caption1Med>좋아요 {likeCount > 1 && likeCount}</Caption1Med>
+            <Text
+              $normalType={TextType.Caption1Med}
+              text={`좋아요 ${(likeCount > 1 || '') && likeCount}`}
+            />
           </S.LikeButton>
           <S.DislikeButton $dislike={dislike} onClick={handleDislikeClick}>
             <S.DisLikeImage $dislike={dislike} />
-            <Caption1Med>싫어요 {dislikeCount > 1 && dislikeCount}</Caption1Med>
+            <Text
+              $normalType={TextType.Caption1Med}
+              text={`싫어요 ${(dislikeCount > 1 || '') && dislikeCount}`}
+            />
           </S.DislikeButton>
         </S.LikeButtonBox>
       </S.PostCardItem>
@@ -130,4 +150,4 @@ const PostCardItem = ({ data }) => {
   );
 };
 
-export default PostCardItem;
+export default QuestionCardItem;
