@@ -2,7 +2,7 @@ import { BASE_URL } from 'utils/constants.js';
 
 export const getSubjects = async ({ sort = 'time', page = 1, limit = 8 }) => {
   const query = `sort=${sort}&offset=${(page - 1) * limit}&limit=${limit}`;
-  const response = await fetch(`${BASE_URL}subjects/?${query}`);
+  const response = await fetch(`${BASE_URL}/subjects/?${query}`);
   if (!response.ok) throw new Error('에러');
   return await response.json();
 };
