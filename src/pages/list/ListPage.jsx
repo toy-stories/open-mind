@@ -1,6 +1,6 @@
 import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import { Link } from 'react-router-dom';
 import * as S from './listPage.style.js';
 
@@ -18,7 +18,7 @@ const ListPage = () => {
       <Link to={LinkButtonPath}>
         <LinkButton type={type} isActive={isActive} />
       </Link>
-      <Text type={textType.H1} text="누구에게 질문할까요?" />
+      <Text type={TextType.H1} text="누구에게 질문할까요?" />
     </section>
   );
 };

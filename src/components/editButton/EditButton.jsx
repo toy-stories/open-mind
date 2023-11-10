@@ -5,7 +5,7 @@ const EditButton = ({ isActive }) => {
   return (
     <S.EditButton $isActive={isActive}>
       <S.EditIconImage $isActive={isActive} aria-label="수정하기 아이콘" />
-      <Text type={textType.Caption1Med} text="수정하기" />
+      <Text type={TextType.Caption1Med} text="수정하기" />
     </S.EditButton>
   );
 };
