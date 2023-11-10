@@ -9,4 +9,5 @@ export const ShareButtons = styled.div`
 export const ShareButton = styled.img`
   width: 4rem;
   height: 4rem;
+  cursor: pointer;
 `;
