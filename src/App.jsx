@@ -11,6 +11,7 @@ export default function App() {
         <Route path="/modalTest" element={<ModalTestPage />} />
         <Route path="/post" element={<PostPage />} />
         <Route path="/list" element={<ListPage />} />
+        <Route path="/list/:page" element={<ListPage />} />
         <Route index element={<MainPage />} />
       </Routes>
     </BrowserRouter>

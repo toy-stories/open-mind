@@ -1,5 +1,5 @@
 import * as S from 'pages/post/postPage.style.jsx';
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import defaultProfileImage from 'assets/images/default-profile-image.png';
@@ -24,7 +24,11 @@ const PostPage = () => {
       <S.Logo src={logo} alt="오픈마인드 로고" />
       <S.HeaderUserProfile>
         <S.ProfileImage src={defaultProfileImage} alt="유저 프로필 이미지" />
-        <Text type={textType.H2} text="아초는 고양이" />
+        <Text
+          $normalType={TextType.H2}
+          $mobileType={TextType.H3}
+          text="아초는 고양이"
+        />
       </S.HeaderUserProfile>
       <ShareButtons />
       {hasQuestion ? (
@@ -33,7 +37,10 @@ const PostPage = () => {
         <S.FeedCardsBox>
           <S.MessageBox>
             <S.MessageIcon alt="메세지 아이콘" />
-            <Text type={textType.Body1Bol} text="아직 질문이 없습니다." />
+            <Text
+              $normalType={TextType.Body1Bol}
+              text="아직 질문이 없습니다."
+            />
           </S.MessageBox>
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>

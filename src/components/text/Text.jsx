@@ -1,6 +1,6 @@
 import * as S from 'components/text/text.style.jsx';
 
-export const textType = {
+export const TextType = {
   H1: {
     font: 'Actor',
     size: '4rem',
@@ -75,8 +75,12 @@ export const textType = {
   },
 };
 
-export const Text = ({ type, text }) => {
-  return <S.Text textType={textType[type]}>{text}</S.Text>;
+export const Text = ({ $normalType, $mobileType, text }) => {
+  return (
+    <S.Text $normalType={$normalType} $mobileType={$mobileType}>
+      {text}
+    </S.Text>
+  );
 };
 
 export default Text;

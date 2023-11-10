@@ -1,4 +1,4 @@
-import { Text, textType } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './postCards.style.jsx';
 import PostCardItem from './PostCardItem.jsx';
 import dayjs from 'dayjs';
@@ -53,7 +53,8 @@ const PostCardList = () => {
       <S.PostCardListTitleBox>
         <S.SpeechBubble />
         <Text
-          type={textType.Body1Bol}
+          $normalType={TextType.Body1Bol}
+          $mobileType={TextType.Body2Bol}
           text={`${testData.length}개의 질문이 있습니다.`}
         />
       </S.PostCardListTitleBox>
