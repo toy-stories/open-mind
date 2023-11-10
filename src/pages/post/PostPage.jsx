@@ -9,11 +9,7 @@ import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 // import EditButton from 'components/editButton/EditButton';
 
-// 테스트 코드
-// const isActive = true;
-
 const PostPage = () => {
-  // 추후 api연동하여 데이터 프롭스로 받기
   // 테스트코드
   const hasQuestion = true;
 
