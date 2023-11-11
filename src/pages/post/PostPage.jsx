@@ -14,9 +14,6 @@ import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { fetchClientJson } from 'utils/apiClient';
 
-// 테스트 코드
-const isActive = true;
-
 const PostPage = () => {
   const { id } = useParams();
   const [postData, setAnswerData] = useState(null);
@@ -40,15 +37,19 @@ const PostPage = () => {
       <S.Logo src={logo} alt="오픈마인드 로고" />
       <S.HeaderUserProfile>
         <S.ProfileImage src={defaultProfileImage} alt="유저 프로필 이미지" />
-        <Text
-          $normalType={TextType.H2}
-          $mobileType={TextType.H3}
-          text="아초는 고양이"
-        />
+        <S.UserIdText>
+          <Text
+            $normalType={TextType.H2}
+            $mobileType={TextType.H3}
+            text="아초는 고양이"
+          />
+        </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
       {postData?.length > 0 ? (
-        <PostCardList postData={postData} />
+        <S.PostCardListBox>
+          <PostCardList postData={postData} />
+        </S.PostCardListBox>
       ) : (
         <S.FeedCardsBox>
           <S.MessageBox>
@@ -61,9 +62,9 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <FloatingButton type="W" />
-      <EditButton isActive={isActive} />
-      <QnaForm />
+      <S.FloatingButtonItem>
+        <FloatingButton type="W" />
+      </S.FloatingButtonItem>
     </S.PostPageContainer>
   );
 };
