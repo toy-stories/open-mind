@@ -18,8 +18,6 @@ const SORT_OPTIONS = [
 
 // 테스트코드
 const id = '1';
-const type = 'Q';
-const isActive = true;
 
 const LinkButtonPath = id ? '/post' : '/';
 
@@ -28,11 +26,11 @@ const ListPage = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const debouncedWindowWidth = useDebounce(windowWidth, 800);
   const [itemsPerPage, setItemsPerPage] = useState(
-    window.innerWidth >= 768 ? 8 : 6,
+    debouncedWindowWidth >= 1199 ? 8 : 6,
   );
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [subjects, setSubjects] = useState([]);
-  const { page } = useParams();
+  const { page = 1 } = useParams();
   useEffect(() => {
     setItemsPerPage(debouncedWindowWidth >= 1199 ? 8 : 6);
   }, [debouncedWindowWidth]);
@@ -70,7 +68,7 @@ const ListPage = () => {
             <S.LogoImage src={logoImage} alt="로고이미지" />
           </Link>
           <Link to={LinkButtonPath}>
-            <LinkButton type={type} isActive={isActive} />
+            <LinkButton type="Q" isActive={true} />
           </Link>
         </S.ListPageNav>
         <S.ListPageMain>
@@ -86,8 +84,17 @@ const ListPage = () => {
               SORT_OPTIONS={SORT_OPTIONS}
             />
           </S.ListPageHeader>
-          <CardList subjects={subjects} itemsPerPage={itemsPerPage} />
-          <Pagination totalPages={totalPages} isShow={!isPending} />
+          <CardList
+            subjects={subjects}
+            itemsPerPage={itemsPerPage}
+            isPending={isPending}
+          />
+          <Pagination
+            totalPages={totalPages}
+            isPending={isPending}
+            showRange={itemsPerPage - 2}
+            currentPage={page - 1}
+          />
         </S.ListPageMain>
       </S.ListPage>
     </S.ListPageContainer>

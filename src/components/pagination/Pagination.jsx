@@ -1,29 +1,27 @@
 import React from 'react';
 import * as S from 'components/pagination/pagination.style.jsx';
-import { useNavigate, useParams } from 'react-router-dom';
-const Pagination = ({ totalPages, isShow }) => {
+import { useNavigate } from 'react-router-dom';
+const Pagination = ({ totalPages, isPending, showRange, currentPage }) => {
   const navigate = useNavigate();
-  const { page } = useParams();
-  if (!totalPages) return;
-
-  const currentPage = Number(page) || 1;
   const handlePageClick = ({ selected }) => {
     navigate(`/list/${selected + 1}`);
   };
 
   return (
-    <S.PaginationList
-      breakLabel="..."
-      onPageChange={handlePageClick}
-      pageRangeDisplayed={6}
-      marginPagesDisplayed={1}
-      pageCount={totalPages}
-      renderOnZeroPageCount={null}
-      forcePage={currentPage - 1}
-      hideDisabled={true}
-      hideNavigation={true}
-      $isShow={isShow}
-    />
+    totalPages > 0 && (
+      <S.PaginationList
+        breakLabel="..."
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={showRange}
+        marginPagesDisplayed={1}
+        pageCount={totalPages}
+        renderOnZeroPageCount={null}
+        forcePage={currentPage}
+        hideDisabled={true}
+        hideNavigation={true}
+        $isShow={!isPending}
+      />
+    )
   );
 };
 
