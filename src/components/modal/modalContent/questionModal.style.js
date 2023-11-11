@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as MessageIcon } from 'assets/icons/Messages.svg';
 import { ReactComponent as CloseIcon } from 'assets/icons/Close.svg';
+import { RESPONSIBLE_SIZE } from 'utils/constants';
 
 export const QuestionModalWrapper = styled.section`
   width: 61.2rem;
@@ -9,6 +10,10 @@ export const QuestionModalWrapper = styled.section`
   border-radius: 2.4rem;
   background: ${COLORS.WHITE};
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
+
+  @media screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    padding: 2.4rem;
+  }
 `;
 
 export const TitleContainer = styled.div`

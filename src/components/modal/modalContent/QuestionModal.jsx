@@ -31,6 +31,7 @@ const QuestionModal = ({ onClickClose }) => {
         <S.TitleImage width="28px" height="28px" />
         <Text
           $normalType={TextType.H3}
+          $mobileType={TextType.Body1Bol}
           text="질문을 작성하세요"
           style={{ color: COLORS.BLACK }}
         />
