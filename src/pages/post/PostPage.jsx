@@ -7,29 +7,30 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
-import EditButton from 'components/editButton/EditButton';
-import QnaForm from 'components/qnaForm/QnaForm';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
-import { fetchClientJson } from 'utils/apiClient';
+import { getPosts } from './postPage';
 
 const PostPage = () => {
-  const { id } = useParams();
-  const [postData, setAnswerData] = useState(null);
+  const { subjectId } = useParams();
+  const [questions, setQuestions] = useState(null);
 
-  const [isPending, hasError, fetchData] = useAsync(async () => {
-    const { results } = await fetchClientJson({
-      url: `subjects/${id}/questions/`,
-      method: 'GET',
-    });
-    setAnswerData(results);
-    return results;
-  });
+  const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
+  const [subjectOwner, setSubjectOwner] = useState({});
+
+  const handleLoad = useCallback(
+    async (subjectId) => {
+      const { questionsData, subjectData } = await getPostsAsync(subjectId);
+      setQuestions(questionsData);
+      setSubjectOwner(subjectData);
+    },
+    [getPostsAsync],
+  );
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    handleLoad(subjectId);
+  }, [subjectId, handleLoad]);
 
   return (
     <S.PostPageContainer>
@@ -41,14 +42,14 @@ const PostPage = () => {
           <Text
             $normalType={TextType.H2}
             $mobileType={TextType.H3}
-            text="아초는 고양이"
+            text={subjectOwner?.name}
           />
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {postData?.length > 0 ? (
+      {questions?.count ? (
         <S.PostCardListBox>
-          <PostCardList postData={postData} />
+          <PostCardList questions={questions} subjectOwner={subjectOwner} />
         </S.PostCardListBox>
       ) : (
         <S.FeedCardsBox>

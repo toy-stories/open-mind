@@ -1,7 +1,7 @@
 import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
 import { useState } from 'react';
-import userIconImage from 'assets/images/default-profile-image.png';
+import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-const QuestionCardItem = ({ postData }) => {
+const QuestionCardItem = ({ postData, subjectOwner }) => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislike, setDislike] = useState(false);
@@ -19,6 +19,11 @@ const QuestionCardItem = ({ postData }) => {
   const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
   const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
+
+  const {
+    name: ownerName,
+    imageSource: ownerProfileImage = defaultUserIconImage,
+  } = subjectOwner;
 
   const handleLikeClick = () => {
     // TODO: api 연동
@@ -45,27 +50,6 @@ const QuestionCardItem = ({ postData }) => {
     const validCreatedAtAnswer = dayjs(createdAtAnswer).format();
     updateTimeAgoAnswer = dayjs(validCreatedAtAnswer).fromNow();
   }
-
-  const testData = [
-    {
-      id: '1',
-      isAnswered: true,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-    {
-      id: '2',
-      isAnswered: false,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-    {
-      id: '3',
-      isAnswered: true,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-  ];
 
   return (
     !isDeleteQuestion && (
@@ -100,39 +84,38 @@ const QuestionCardItem = ({ postData }) => {
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={`${postData?.content}`} />
+          <Text $normalType={TextType.Body2Bol} text={postData?.content} />
         </S.TitleBox>
-        <S.ContentBox>
-          <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
-          <S.ContentTextBox>
-            <S.ContentUserInfoBox>
-              <Text
-                $normalType={TextType.Body2Bol}
-                $mobileType={TextType.Caption1Bol}
-                text={testData.userName}
-              />
-              <S.UpdateTimeBox>
+        {postData?.answer && (
+          <S.ContentBox>
+            <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
+            <S.ContentTextBox>
+              <S.ContentUserInfoBox>
                 <Text
-                  $normalType={TextType.Caption1Med}
-                  text={updateTimeAgoAnswer}
+                  $normalType={TextType.Body2Bol}
+                  $mobileType={TextType.Caption1Bol}
+                  text={ownerName}
                 />
-              </S.UpdateTimeBox>
-            </S.ContentUserInfoBox>
-            {!isDeleteAnswer &&
-              (isRefuseAnswer ? (
+                <S.UpdateTimeBox>
+                  <Text
+                    $normalType={TextType.Caption1Med}
+                    text={updateTimeAgoAnswer}
+                  />
+                </S.UpdateTimeBox>
+              </S.ContentUserInfoBox>
+              {postData.answer.isRejected ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
               ) : (
-                postData?.answer?.content && (
-                  <Text
-                    $normalType={TextType.Body3Reg}
-                    text={postData?.answer?.content}
-                  />
-                )
-              ))}
-          </S.ContentTextBox>
-        </S.ContentBox>
+                <Text
+                  $normalType={TextType.Body3Reg}
+                  text={postData.answer.content}
+                />
+              )}
+            </S.ContentTextBox>
+          </S.ContentBox>
+        )}
         <S.LikeButtonBox>
           <S.LikeButton $like={like} onClick={handleLikeClick}>
             <S.LikeImage $like={like} />

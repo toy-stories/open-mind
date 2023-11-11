@@ -2,7 +2,8 @@ import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
 import QuestionCardItem from './QuestionCardItem.jsx';
 
-const PostCardList = ({ postData }) => {
+const PostCardList = ({ questions, subjectOwner }) => {
+  const { results: posts, count } = questions;
   return (
     <S.PostCardList>
       <S.PostCardListTitleBox>
@@ -10,15 +11,16 @@ const PostCardList = ({ postData }) => {
         <Text
           $normalType={TextType.Body1Bol}
           $mobileType={TextType.Body2Bol}
-          text={`${
-            postData?.length > 0 && postData?.length
-          }개의 질문이 있습니다.`}
+          text={`${count}개의 질문이 있습니다.`}
         />
       </S.PostCardListTitleBox>
-      {postData?.length > 0 &&
-        postData.map((data) => (
-          <QuestionCardItem postData={data} key={data.id} />
-        ))}
+      {posts?.map((post) => (
+        <QuestionCardItem
+          postData={post}
+          key={post.id}
+          subjectOwner={subjectOwner}
+        />
+      ))}
     </S.PostCardList>
   );
 };
