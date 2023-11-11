@@ -7,8 +7,6 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
-import EditButton from 'components/editButton/EditButton';
-import QnaForm from 'components/qnaForm/QnaForm';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';

@@ -2,7 +2,7 @@ import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
 import QuestionCardItem from './QuestionCardItem.jsx';
 
-const PostCardList = ({ postData }) => {
+const PostCardList = ({ postData, id }) => {
   return (
     <S.PostCardList>
       <S.PostCardListTitleBox>
@@ -17,7 +17,7 @@ const PostCardList = ({ postData }) => {
       </S.PostCardListTitleBox>
       {postData?.length > 0 &&
         postData.map((data) => (
-          <QuestionCardItem postData={data} key={data.id} />
+          <QuestionCardItem id={id} postData={data} key={data.id} />
         ))}
     </S.PostCardList>
   );

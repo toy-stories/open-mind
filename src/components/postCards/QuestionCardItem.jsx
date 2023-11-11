@@ -6,6 +6,7 @@ import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
@@ -16,7 +17,7 @@ const QuestionCardItem = ({ postData }) => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [kebabOpen, setKebabOpen] = useState(false);
 
-  const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
+  const [isRefuseAnswer, setIsRefuseAnswer] = useState(null);
   const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
 
@@ -67,6 +68,19 @@ const QuestionCardItem = ({ postData }) => {
     },
   ];
 
+  const handleRefuseClick = async () => {
+    const results = await fetchClientJson({
+      url: `questions/${postData.id}/answers/`,
+      method: 'POST',
+      body: {
+        content: '답변 거절',
+        isRejected: true,
+      },
+    });
+
+    setIsRefuseAnswer(results);
+  };
+
   return (
     !isDeleteQuestion && (
       <S.PostCardItem>
@@ -79,9 +93,7 @@ const QuestionCardItem = ({ postData }) => {
           </S.AnswerCheckBox>
           {isEdit && (
             <KebabButton
-              onRefuseAnswerClick={() => {
-                setIsRefuseAnswer(true);
-              }}
+              onRefuseAnswerClick={handleRefuseClick}
               onDeleteAnswerClick={() => {
                 setIsDeleteAnswer(true);
               }}
@@ -90,6 +102,8 @@ const QuestionCardItem = ({ postData }) => {
               }}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
+              isRefuseAnswer={isRefuseAnswer}
+              postData={postData}
             />
           )}
         </S.AnswerAndKebabBox>
@@ -119,7 +133,7 @@ const QuestionCardItem = ({ postData }) => {
               </S.UpdateTimeBox>
             </S.ContentUserInfoBox>
             {!isDeleteAnswer &&
-              (isRefuseAnswer ? (
+              (postData?.answer?.isRejected || isRefuseAnswer ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
