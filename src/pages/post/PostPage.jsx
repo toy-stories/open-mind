@@ -67,8 +67,8 @@ const PostPage = () => {
       )}
       <>
         <S.FloatingButtonItem>
-        <FloatingButton type="W" onClick={openModal}/>
-      </S.FloatingButtonItem>
+          <FloatingButton type="W" onClick={openModal} />
+        </S.FloatingButtonItem>
         <Modal>
           <QuestionModal onClickClose={closeModal} />
         </Modal>
