@@ -16,7 +16,6 @@ import { fetchClientJson } from 'utils/apiClient';
 
 // 테스트 코드
 const isActive = true;
-const hasQuestion = true;
 
 const PostPage = () => {
   const { id } = useParams();

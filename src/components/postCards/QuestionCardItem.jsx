@@ -138,14 +138,14 @@ const QuestionCardItem = ({ postData }) => {
             <S.LikeImage $like={like} />
             <Text
               $normalType={TextType.Caption1Med}
-              text={`좋아요 ${(likeCount > 1 || '') && likeCount}`}
+              text={`좋아요 ${(likeCount > 0 || '') && likeCount}`}
             />
           </S.LikeButton>
           <S.DislikeButton $dislike={dislike} onClick={handleDislikeClick}>
             <S.DisLikeImage $dislike={dislike} />
             <Text
               $normalType={TextType.Caption1Med}
-              text={`싫어요 ${(dislikeCount > 1 || '') && dislikeCount}`}
+              text={`싫어요 ${(dislikeCount > 0 || '') && dislikeCount}`}
             />
           </S.DislikeButton>
         </S.LikeButtonBox>
