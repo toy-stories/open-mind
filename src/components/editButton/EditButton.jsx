@@ -1,10 +1,10 @@
 import * as S from 'components/editButton/editButton.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 
-const EditButton = ({ isActive }) => {
+const EditButton = ({ isEditActive }) => {
   return (
-    <S.EditButton $isActive={isActive}>
-      <S.EditIconImage $isActive={isActive} aria-label="수정하기 아이콘" />
+    <S.EditButton $isActive={isEditActive}>
+      <S.EditIconImage $isActive={isEditActive} aria-label="수정하기 아이콘" />
       <Text $normalType={TextType.Caption1Med} text="수정하기" />
     </S.EditButton>
   );

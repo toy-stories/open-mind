@@ -7,15 +7,15 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
-import EditButton from 'components/editButton/EditButton';
-import QnaForm from 'components/qnaForm/QnaForm';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import AnswerCardList from 'components/answerCards/AnswerCardList';
+import { useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { fetchClientJson } from 'utils/apiClient';
 
 const PostPage = () => {
   const { id } = useParams();
+  const location = useLocation();
   const [postData, setAnswerData] = useState(null);
 
   const [isPending, hasError, fetchData] = useAsync(async () => {
@@ -30,6 +30,10 @@ const PostPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const isAnswerPage = () => {
+    return location.pathname === `/post/${id}/answer`;
+  };
 
   return (
     <S.PostPageContainer>
@@ -46,10 +50,27 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {postData?.length > 0 ? (
-        <S.PostCardListBox>
+      {isAnswerPage() ? (
+        postData?.length > 0 ? (
+          <S.CardListBox>
+            <AnswerCardList postData={postData} />
+          </S.CardListBox>
+        ) : (
+          <S.FeedCardsBox>
+            <S.MessageBox>
+              <S.MessageIcon alt="메세지 아이콘" />
+              <Text
+                $normalType={TextType.Body1Bol}
+                text="아직 질문이 없습니다."
+              />
+            </S.MessageBox>
+            <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+          </S.FeedCardsBox>
+        )
+      ) : postData?.length > 0 ? (
+        <S.CardListBox>
           <PostCardList postData={postData} />
-        </S.PostCardListBox>
+        </S.CardListBox>
       ) : (
         <S.FeedCardsBox>
           <S.MessageBox>
