@@ -1,12 +1,12 @@
 import * as S from 'components/floatingButton/floatingButton.style.jsx';
-import { Body1Bol } from 'components/text/Text.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 
 const FloatingButton = ({ type, onClick }) => {
   const buttonText = type === 'W' ? '질문 작성하기' : '삭제하기';
 
   return (
-    <S.FloatingButton onClick={onClick}>
-      <Body1Bol>{buttonText}</Body1Bol>
+    <S.FloatingButton>
+      <Text $normalType={TextType.Body1Bol} text={buttonText} />
     </S.FloatingButton>
   );
 };
