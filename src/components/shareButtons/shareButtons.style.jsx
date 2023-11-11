@@ -4,6 +4,8 @@ export const ShareButtons = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.2rem;
+  position: absolute;
+  top: 32.9rem;
 `;
 
 export const ShareButton = styled.img`
