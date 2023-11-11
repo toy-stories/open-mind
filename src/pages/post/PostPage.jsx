@@ -7,11 +7,29 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
+import EditButton from 'components/editButton/EditButton';
+import QnaForm from 'components/qnaForm/QnaForm';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import useAsync from 'hooks/useAsync';
+import { fetchClientJson } from 'utils/apiClient';
 
 const PostPage = () => {
-  // 추후 api연동하여 데이터 프롭스로 받기
-  // 테스트코드
-  const hasQuestion = true;
+  const { id } = useParams();
+  const [postData, setAnswerData] = useState(null);
+
+  const [isPending, hasError, fetchData] = useAsync(async () => {
+    const { results } = await fetchClientJson({
+      url: `subjects/${id}/questions/`,
+      method: 'GET',
+    });
+    setAnswerData(results);
+    return results;
+  });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <S.PostPageContainer>
@@ -28,9 +46,9 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {hasQuestion ? (
+      {postData?.length > 0 ? (
         <S.PostCardListBox>
-          <PostCardList />
+          <PostCardList postData={postData} />
         </S.PostCardListBox>
       ) : (
         <S.FeedCardsBox>
