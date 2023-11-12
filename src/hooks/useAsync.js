@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 
 export default function useAsync(asyncFunction) {
-  const [isPending, setIsPending] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
 
   const wrappedFunction = useCallback(
