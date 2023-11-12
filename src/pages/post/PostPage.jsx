@@ -2,12 +2,11 @@ import * as S from 'pages/post/postPage.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
-import defaultProfileImage from 'assets/images/default-profile-image.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { getPosts } from 'pages/post/postPage.js';
@@ -21,7 +20,9 @@ const PostPage = () => {
 
   const handleLoad = useCallback(
     async (subjectId) => {
-      const { questionsData, subjectData } = await getPostsAsync(subjectId);
+      const result = await getPostsAsync(subjectId);
+      if (!result) return;
+      const { questionsData, subjectData } = result;
       setQuestionInfo(questionsData);
       setSubjectOwner(subjectData);
     },
@@ -32,6 +33,7 @@ const PostPage = () => {
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
 
+  if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />

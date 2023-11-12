@@ -4,7 +4,7 @@ import Pagination from 'components/pagination/Pagination.jsx';
 import Dropdown from 'components/dropdown/Dropdown.jsx';
 import { getSubjects } from 'pages/list/listPage.js';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import * as S from 'pages/list/listPage.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 import useDebounce from 'hooks/useDebounce.js';
@@ -31,9 +31,11 @@ const ListPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [subjects, setSubjects] = useState([]);
   const { page = 1 } = useParams();
+
   useEffect(() => {
     setItemsPerPage(debouncedWindowWidth >= 1199 ? 8 : 6);
   }, [debouncedWindowWidth]);
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -60,6 +62,10 @@ const ListPage = () => {
   useEffect(() => {
     handleLoad(sortOption.sort, page, itemsPerPage);
   }, [sortOption, itemsPerPage, handleLoad, page]);
+
+  if (hasError) return <Navigate to="/" />;
+  if (totalPages && !subjects.length) return <Navigate to="/list/1" />;
+
   return (
     <S.ListPageContainer>
       <S.ListPage>
