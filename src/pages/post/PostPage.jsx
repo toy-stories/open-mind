@@ -7,17 +7,54 @@ import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 import { Navigate, useParams } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useAsync from 'hooks/useAsync';
-import { getPosts } from 'pages/post/postPage.js';
+import { getNextPosts, getPosts } from 'pages/post/postPage.js';
+import useObserver from 'hooks/useObserver';
 
 const PostPage = () => {
   const { subjectId } = useParams();
   const [questionInfo, setQuestionInfo] = useState(null);
 
   const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
+  const [isNextPending, nextHasError, getNextPostsAsync] =
+    useAsync(getNextPosts);
   const [subjectOwner, setSubjectOwner] = useState({});
 
+  const target = useRef(null);
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '100px',
+    threshold: 0.5,
+  };
+
+  const handleLoadMore = useCallback(
+    async (entries, observer) => {
+      if (isNextPending || !questionInfo) return;
+
+      for (const entry of entries) {
+        if (entry.isIntersecting && questionInfo?.next) {
+          const nextQuery = questionInfo.next.slice(
+            questionInfo.next.indexOf('/subjects') + 1,
+          );
+          const result = await getNextPostsAsync(nextQuery);
+          if (!result) return;
+
+          const { results, next } = result;
+          setQuestionInfo((prev) => ({
+            ...prev,
+            results: [...prev.results, ...results],
+            next: next,
+          }));
+          break;
+        }
+      }
+    },
+    [getNextPostsAsync, isNextPending, questionInfo],
+  );
+
+  useObserver(handleLoadMore, observerOptions, target);
   const handleLoad = useCallback(
     async (subjectId) => {
       const result = await getPostsAsync(subjectId);
@@ -55,6 +92,7 @@ const PostPage = () => {
       {questionInfo?.count ? (
         <S.PostCardListBox>
           <PostCardList
+            isPending={isPending || isNextPending}
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
           />
@@ -74,6 +112,7 @@ const PostPage = () => {
       <S.FloatingButtonItem>
         <FloatingButton type="W" />
       </S.FloatingButtonItem>
+      <div ref={target}>test</div>
     </S.PostPageContainer>
   );
 };

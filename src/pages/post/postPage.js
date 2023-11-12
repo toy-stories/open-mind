@@ -14,10 +14,17 @@ export const getPosts = async (subjectId) => {
   return { questionsData: questionsData, subjectData: subjectData };
 };
 
+export const getNextPosts = async (nextUrl) => {
+  return await fetchClientJson({
+    url: nextUrl,
+    method: 'GET',
+  });
+};
+
 export const postCreateReaction = async (type, questionId) => {
   return await fetchClientJson({
     url: `questions/${questionId}/reaction/`,
-    method: 'post',
+    method: 'POST',
     body: {
       type: type,
     },
