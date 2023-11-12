@@ -25,8 +25,8 @@ const PostPage = () => {
 
   const observerOptions = {
     root: null,
-    rootMargin: '100px',
-    threshold: 0.5,
+    rootMargin: '200px',
+    threshold: 1.0,
   };
 
   const handleLoadMore = useCallback(
@@ -67,6 +67,7 @@ const PostPage = () => {
   );
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
 
@@ -112,7 +113,7 @@ const PostPage = () => {
       <S.FloatingButtonItem>
         <FloatingButton type="W" />
       </S.FloatingButtonItem>
-      <div ref={target}>test</div>
+      <div ref={target} />
     </S.PostPageContainer>
   );
 };
