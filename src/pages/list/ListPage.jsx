@@ -16,7 +16,7 @@ const SORT_OPTIONS = [
   { sort: 'time', text: '최신순' },
 ];
 
-const userId = JSON.parse(localStorage.getItem('userId')) || {};
+const userId = JSON.parse(localStorage.getItem('userId')) || null;
 const LinkButtonPath = userId ? `/post/${userId}/answer` : '/';
 
 const ListPage = () => {
