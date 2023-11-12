@@ -2,7 +2,7 @@ import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import Pagination from 'components/pagination/Pagination.jsx';
 import Dropdown from 'components/dropdown/Dropdown.jsx';
-import { getSubjects } from './listPage.js';
+import { getSubjects } from 'pages/list/listPage.js';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import * as S from 'pages/list/listPage.style.jsx';

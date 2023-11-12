@@ -10,11 +10,11 @@ import PostCardList from 'components/postCards/PostCardList';
 import { useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
-import { getPosts } from './postPage';
+import { getPosts } from 'pages/post/postPage.js';
 
 const PostPage = () => {
   const { subjectId } = useParams();
-  const [questions, setQuestions] = useState(null);
+  const [questionInfo, setQuestionInfo] = useState(null);
 
   const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
   const [subjectOwner, setSubjectOwner] = useState({});
@@ -22,7 +22,7 @@ const PostPage = () => {
   const handleLoad = useCallback(
     async (subjectId) => {
       const { questionsData, subjectData } = await getPostsAsync(subjectId);
-      setQuestions(questionsData);
+      setQuestionInfo(questionsData);
       setSubjectOwner(subjectData);
     },
     [getPostsAsync],
@@ -37,7 +37,10 @@ const PostPage = () => {
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
       <S.Logo src={logo} alt="오픈마인드 로고" />
       <S.HeaderUserProfile>
-        <S.ProfileImage src={defaultProfileImage} alt="유저 프로필 이미지" />
+        <S.ProfileImage
+          src={subjectOwner?.imageSource}
+          alt="유저 프로필 이미지"
+        />
         <S.UserIdText>
           <Text
             $normalType={TextType.H2}
@@ -47,9 +50,12 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {questions?.count ? (
+      {questionInfo?.count ? (
         <S.PostCardListBox>
-          <PostCardList questions={questions} subjectOwner={subjectOwner} />
+          <PostCardList
+            questionInfo={questionInfo}
+            subjectOwner={subjectOwner}
+          />
         </S.PostCardListBox>
       ) : (
         <S.FeedCardsBox>
