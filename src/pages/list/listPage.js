@@ -1,4 +1,4 @@
-import { fetchClientJson } from 'utils/apiClient';
+import { fetchClientJson } from 'utils/apiClient.js';
 
 export const getSubjects = async ({ sort = 'time', page = 1, limit = 8 }) => {
   const query = `sort=${sort}&offset=${(page - 1) * limit}&limit=${limit}`;
