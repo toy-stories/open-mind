@@ -8,12 +8,7 @@ const CardList = ({ subjects, isPending }) => {
       {subjects?.map((subject) => (
         <li key={subject.id}>
           <Link to={`/post/${subject.id}`}>
-            <CardItem
-              name={subject.name}
-              imageSource={subject.imageSource}
-              questionCount={subject.questionCount}
-              isPending={isPending}
-            />
+            <CardItem subject={subject} isPending={isPending} />
           </Link>
         </li>
       ))}

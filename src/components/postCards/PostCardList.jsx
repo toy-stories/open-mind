@@ -47,8 +47,8 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
       </S.PostCardListTitleBox>
       {questions?.map((question, questionIndex) => (
         <QuestionCardItem
-          question={question}
           key={question.id}
+          question={question}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}
