@@ -37,7 +37,7 @@ export const Button = styled.button`
   color: ${COLORS.WHITE};
 
   ${(props) =>
-    props.answer &&
+    props.$answer &&
     css`
       background: ${COLORS.BROWN40};
     `}
