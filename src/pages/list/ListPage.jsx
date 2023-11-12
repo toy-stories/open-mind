@@ -75,7 +75,7 @@ const ListPage = () => {
             <S.LogoImage src={logoImage} alt="로고이미지" />
           </Link>
           <Link to={LinkButtonPath}>
-            <LinkButton type="Q" isActive={true} />
+            <LinkButton type="A" isActive={true} />
           </Link>
         </S.ListPageNav>
         <S.ListPageMain>
