@@ -13,10 +13,11 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isPending }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <S.DropdownContainer $isPending={isPending}>
+    <S.DropdownContainer>
       <S.DropdownButton
         $isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
+        $isPending={isPending}
       >
         <Text $normalType={TextType.Caption1Med} text={sortOption.text} />
         {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}

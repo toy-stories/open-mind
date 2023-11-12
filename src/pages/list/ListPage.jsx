@@ -89,6 +89,7 @@ const ListPage = () => {
               sortOption={sortOption}
               setSortOption={setSortOption}
               SORT_OPTIONS={SORT_OPTIONS}
+              isPending={isPending}
             />
           </S.ListPageHeader>
           <CardList
