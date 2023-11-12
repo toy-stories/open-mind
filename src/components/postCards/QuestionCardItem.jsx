@@ -15,25 +15,19 @@ const QuestionCardItem = ({
   questionIndex,
   handleReaction,
 }) => {
+  const {
+    name: ownerName,
+    imageSource: ownerProfileImage = defaultUserIconImage,
+  } = subjectOwner;
+
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
-  useEffect(() => {
-    const likes = JSON.parse(localStorage.getItem('like')) || {};
-    const dislikes = JSON.parse(localStorage.getItem('dislike')) || {};
-    if (likes[question.id]) setLiked(true);
-    if (dislikes[question.id]) setDisliked(true);
-  }, [question]);
   const [kebabOpen, setKebabOpen] = useState(false);
 
   const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
   const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
-
-  const {
-    name: ownerName,
-    imageSource: ownerProfileImage = defaultUserIconImage,
-  } = subjectOwner;
 
   const isEdit = true;
   // TODO: "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
@@ -48,6 +42,13 @@ const QuestionCardItem = ({
     const validCreatedAtAnswer = dayjs(createdAtAnswer).format();
     updateTimeAgoAnswer = dayjs(validCreatedAtAnswer).fromNow();
   }
+
+  useEffect(() => {
+    const likes = JSON.parse(localStorage.getItem('like')) || {};
+    const dislikes = JSON.parse(localStorage.getItem('dislike')) || {};
+    if (likes[question.id]) setLiked(true);
+    if (dislikes[question.id]) setDisliked(true);
+  }, [question]);
 
   return (
     !isDeleteQuestion && (
