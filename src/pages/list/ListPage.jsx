@@ -64,7 +64,8 @@ const ListPage = () => {
   }, [sortOption, itemsPerPage, handleLoad, page]);
 
   if (hasError) return <Navigate to="/" />;
-  if (totalPages && !subjects.length) return <Navigate to="/list/1" />;
+  if (isNaN(page) || (totalPages && !subjects.length))
+    return <Navigate to="/list/1" />;
 
   return (
     <S.ListPageContainer>
