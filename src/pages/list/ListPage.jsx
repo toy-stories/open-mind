@@ -16,10 +16,8 @@ const SORT_OPTIONS = [
   { sort: 'time', text: '최신순' },
 ];
 
-// 테스트코드
-const id = '1';
-
-const LinkButtonPath = id ? '/post' : '/';
+const userId = JSON.parse(localStorage.getItem('userId')) || {};
+const LinkButtonPath = userId ? `/post/${userId}/answer` : '/';
 
 const ListPage = () => {
   const [sortOption, setSortOption] = useState(SORT_OPTIONS[1]);
