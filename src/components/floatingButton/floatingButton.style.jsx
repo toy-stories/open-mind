@@ -3,8 +3,6 @@ import COLORS from 'utils/colors.js';
 
 export const FloatingButton = styled.button`
   display: flex;
-  width: 20.8rem;
-  height: 5.4rem;
   padding: 1.2rem 2.4rem;
   justify-content: center;
   align-items: center;

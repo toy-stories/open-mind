@@ -11,10 +11,14 @@ export const PostPageContainer = styled.div`
 
 export const HeaderImage = styled.img`
   width: 100%;
+  position: absolute;
+  top: 0;
 `;
 
 export const Logo = styled.img`
   width: 17rem;
+  position: absolute;
+  top: 5rem;
 `;
 
 export const HeaderUserProfile = styled.div`
@@ -23,10 +27,22 @@ export const HeaderUserProfile = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 export const ProfileImage = styled.img`
   width: 13.6rem;
   height: 13.6rem;
+  position: absolute;
+  top: 12.9rem;
+`;
+
+export const UserIdText = styled.div`
+  position: absolute;
+  top: 27.7rem;
+`;
+
+export const PostCardListBox = styled.div`
+  position: relative;
+  margin-top: 42.3rem;
+  margin-bottom: 13.6rem;
 `;
 
 export const FeedCardsBox = styled.div`
@@ -41,6 +57,7 @@ export const FeedCardsBox = styled.div`
   border-radius: 16px;
   border: 1px solid ${COLORS.BROWN20};
   background: ${COLORS.BROWN10};
+  margin-bottom: 13.6rem;
 `;
 
 export const MessageIcon = styled(MessageIconSvg)`
@@ -60,4 +77,10 @@ export const MessageBox = styled.div`
   flex-direction: row;
   gap: 0.8rem;
   color: ${COLORS.BROWN40};
+`;
+
+export const FloatingButtonItem = styled.div`
+  position: fixed;
+  bottom: 2.4rem;
+  right: 2.4rem;
 `;
