@@ -32,7 +32,6 @@ export const ProfileImage = styled.img`
   height: 13.6rem;
   position: absolute;
   top: 12.9rem;
-  border-radius: 13.6rem;
 `;
 
 export const UserIdText = styled.div`

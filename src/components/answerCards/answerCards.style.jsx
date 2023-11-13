@@ -35,6 +35,7 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  width: 56rem;
 `;
 
 export const UpdateTimeBox = styled.div`
@@ -51,6 +52,7 @@ export const ContentBox = styled.div`
 export const ContentUserInfoBox = styled.div`
   display: flex;
   gap: 0.8rem;
+  align-items: center;
 `;
 
 export const ContentTextBox = styled.div`
@@ -64,6 +66,7 @@ export const ContentTextBox = styled.div`
 export const ProfileImage = styled.img`
   width: 4.8rem;
   height: 4.8rem;
+  border-radius: 50%;
 `;
 
 export const LikeButtonBox = styled.div`
