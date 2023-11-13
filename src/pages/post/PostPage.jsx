@@ -8,6 +8,10 @@ import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 import { Navigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
+import useModal from 'hooks/useModal.js';
+import EditButton from 'components/editButton/EditButton';
+import QnaForm from 'components/qnaForm/QnaForm';
 import useAsync from 'hooks/useAsync';
 import { getNextPosts, getPosts } from 'pages/post/postPage.js';
 import useObserver from 'hooks/useObserver';
@@ -70,7 +74,10 @@ const PostPage = () => {
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
 
+  const { Modal, openModal, closeModal } = useModal();
   if (hasError || nextHasError) return <Navigate to="/" />;
+
+  if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
@@ -113,6 +120,15 @@ const PostPage = () => {
         <FloatingButton type="W" />
       </S.FloatingButtonItem>
       <div ref={target} />
+      <>
+        <S.FloatingButtonItem>
+          <FloatingButton type="W" onClick={openModal} />
+        </S.FloatingButtonItem>
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      </>
+      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
