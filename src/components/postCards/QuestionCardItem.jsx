@@ -10,15 +10,13 @@ import { fetchClient, fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-const QuestionCardItem = ({ postData }) => {
+const QuestionCardItem = ({ postData: data }) => {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [dislike, setDislike] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [kebabOpen, setKebabOpen] = useState(false);
-
-  const [rejectedAnswerContent, setRejectedAnswerContent] = useState(null);
-  const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
+  const [postData, setPostData] = useState(data);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
 
   const handleLikeClick = () => {
@@ -34,8 +32,6 @@ const QuestionCardItem = ({ postData }) => {
   };
 
   const isEdit = true;
-  // TODO: "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
-  // TODO: data.answer 값이 있을때만 답변자 아이콘 보이게 하기
 
   // 게시물 작성 시간 계산
   const createdAtQuestion = dayjs(postData?.createdAt).format();
@@ -78,17 +74,16 @@ const QuestionCardItem = ({ postData }) => {
       },
     });
 
-    setRejectedAnswerContent(results);
+    setPostData((prev) => ({ ...prev, answer: results }));
   };
 
   const handleDeleteAnswerClick = async () => {
-    console.log(postData?.answer?.id);
     await fetchClient({
       url: `answers/${postData?.answer?.id}/`,
       method: 'DELETE',
     });
 
-    setIsDeleteAnswer(true);
+    setPostData((prev) => ({ ...prev, answer: null }));
   };
 
   return (
@@ -110,8 +105,6 @@ const QuestionCardItem = ({ postData }) => {
               }}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
-              rejectedAnswerContent={rejectedAnswerContent}
-              isDeleteAnswer={isDeleteAnswer}
               postData={postData}
             />
           )}
@@ -141,8 +134,8 @@ const QuestionCardItem = ({ postData }) => {
                 />
               </S.UpdateTimeBox>
             </S.ContentUserInfoBox>
-            {!isDeleteAnswer &&
-              (postData?.answer?.isRejected || rejectedAnswerContent ? (
+            {postData?.answer &&
+              (postData?.answer?.isRejected ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
