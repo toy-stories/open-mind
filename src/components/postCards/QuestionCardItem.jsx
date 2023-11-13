@@ -12,6 +12,7 @@ dayjs.extend(relativeTime);
 
 const QuestionCardItem = ({
   question,
+  setQuestions,
   subjectOwner,
   questionIndex,
   handleReaction,
@@ -24,7 +25,6 @@ const QuestionCardItem = ({
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [kebabOpen, setKebabOpen] = useState(false);
-  const [postData, setPostData] = useState(question);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
 
   const isEdit = true;
@@ -55,8 +55,14 @@ const QuestionCardItem = ({
         isRejected: true,
       },
     });
-
-    setPostData((prev) => ({ ...prev, answer: results }));
+    setQuestions((prev) => {
+      const newQuestions = [...prev];
+      newQuestions[questionIndex] = {
+        ...newQuestions[questionIndex],
+        answer: results,
+      };
+      return newQuestions;
+    });
   };
 
   const handleDeleteAnswerClick = async () => {
@@ -64,8 +70,14 @@ const QuestionCardItem = ({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
-
-    setPostData((prev) => ({ ...prev, answer: null }));
+    setQuestions((prev) => {
+      const newQuestions = [...prev];
+      newQuestions[questionIndex] = {
+        ...newQuestions[questionIndex],
+        answer: null,
+      };
+      return newQuestions;
+    });
   };
 
   const handleDeleteQuestionClick = async () => {
@@ -94,7 +106,7 @@ const QuestionCardItem = ({
               onDeleteQuestionClick={handleDeleteQuestionClick}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
-              postData={postData}
+              question={question}
             />
           )}
         </S.AnswerAndKebabBox>
@@ -125,7 +137,7 @@ const QuestionCardItem = ({
                   />
                 </S.UpdateTimeBox>
               </S.ContentUserInfoBox>
-              {postData?.answer?.isRejected ? (
+              {question?.answer?.isRejected ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>

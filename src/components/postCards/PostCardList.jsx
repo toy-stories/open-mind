@@ -48,6 +48,7 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
         <QuestionCardItem
           key={question.id}
           question={question}
+          setQuestions={setQuestions}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}
