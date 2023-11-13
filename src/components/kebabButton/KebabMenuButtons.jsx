@@ -1,4 +1,4 @@
-import * as S from './kebabButton.style.jsx';
+import * as S from 'components/kebabButton/kebabButton.style.jsx';
 
 const KebabMenuButtons = ({
   onRefuseAnswerClick,

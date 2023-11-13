@@ -5,8 +5,8 @@ import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
-import PostCardList from 'components/postCards/PostCardList';
-import AnswerCardList from 'components/answerCards/AnswerCardList';
+import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
+import AnswerCardList from 'components/answerCards/AnswerCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
 import { Navigate, useParams, useLocation } from 'react-router-dom';
@@ -82,7 +82,7 @@ const PostPage = () => {
         )
       ) : questionInfo?.count ? (
         <S.CardListBox>
-          <PostCardList
+          <QuestionCardList
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
           />

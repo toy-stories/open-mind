@@ -1,5 +1,5 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
+import * as S from 'components/postCards/questionCards.style.jsx';
 import { useEffect, useState } from 'react';
 import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';

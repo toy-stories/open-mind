@@ -1,13 +1,13 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
-import QuestionCardItem from './QuestionCardItem.jsx';
+import * as S from 'components/postCards/questionCards.style.jsx';
+import QuestionCardItem from 'components/postCards/QuestionCardItem';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import { useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 
 const REACTION_MAX_INT = 2147483647;
 
-const PostCardList = ({ questionInfo, subjectOwner }) => {
+const QuestionCardList = ({ questionInfo, subjectOwner }) => {
   const { results, count } = questionInfo;
   const [questions, setQuestions] = useState(results);
 
@@ -58,4 +58,4 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
   );
 };
 
-export default PostCardList;
+export default QuestionCardList;
