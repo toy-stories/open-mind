@@ -39,7 +39,7 @@ const ShareButtons = () => {
       />
       <S.ShareButton src={shareKakaoIcon} alt="카카오 공유하기" />
       <S.ShareButton src={shareFacebookIcon} alt="페이스북 공유하기" />
-      {showToast && <Toast />}
+      {showToast && <Toast text="URL이 복사되었습니다." />}
     </S.ShareButtons>
   );
 };

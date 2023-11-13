@@ -17,6 +17,7 @@ const AnswerCardItem = ({ postData }) => {
   const [dislike, setDislike] = useState(false);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [kebabOpen, setKebabOpen] = useState(false);
+  const [answer, setAnswer] = useState('');
 
   const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
   const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
@@ -38,6 +39,10 @@ const AnswerCardItem = ({ postData }) => {
     setDislike(true);
     setDislikeCount((prev) => prev + 1);
   };
+
+  // const handleCreateAnswer(){
+
+  // }
 
   const isEdit = true;
   // TODO: "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
@@ -116,7 +121,7 @@ const AnswerCardItem = ({ postData }) => {
               <Text
                 $normalType={TextType.Body2Bol}
                 $mobileType={TextType.Caption1Bol}
-                text={testData.userName}
+                text={testData[0].userName}
               />
             </S.ContentUserInfoBox>
             {!isDeleteAnswer &&
@@ -132,7 +137,13 @@ const AnswerCardItem = ({ postData }) => {
                 </>
               ) : (
                 <S.QnaFormItem>
-                  <QnaForm />
+                  <QnaForm
+                    input={answer}
+                    handleInputChange={(e) => setAnswer(e.target.value)}
+                    inputPlaceholder="답변을 입력해주세요"
+                    buttonText="답변 완료"
+                    // onClickButton={handleCreateAnswer}
+                  />
                 </S.QnaFormItem>
               ))}
           </S.ContentTextBox>

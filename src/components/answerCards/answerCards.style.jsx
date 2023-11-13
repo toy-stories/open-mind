@@ -58,6 +58,7 @@ export const ContentTextBox = styled.div`
   flex-direction: column;
   align-self: stretch;
   gap: 0.5rem;
+  width: 100%;
 `;
 
 export const ProfileImage = styled.img`

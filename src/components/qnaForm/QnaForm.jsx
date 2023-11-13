@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from 'components/qnaForm/qnaForm.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 
-const QnaForm = () => {
-  const [input, setInput] = useState('');
-  const handleInputChange = (event) => {
-    setInput(event.target.value);
+const QnaForm = ({
+  input,
+  handleInputChange,
+  inputPlaceholder,
+  buttonText,
+  onClickButton,
+}) => {
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    onClickButton();
   };
 
   return (
-    <S.AnswerBox>
-      <S.AnswerInput
-        placeholder="답변을 입력해주세요"
+    <S.Form>
+      <S.Textarea
+        placeholder={inputPlaceholder}
         value={input}
         onChange={handleInputChange}
       />
-      <S.StyledAnswerButton $answer={input}>
-        <Text $normalType={TextType.Body3Reg} text="답변 완료" />
-      </S.StyledAnswerButton>
-    </S.AnswerBox>
+      <S.Button $answer={input} type="submit" onClick={handleButtonClick}>
+        <Text $normalType={TextType.Body3Reg} text={buttonText} />
+      </S.Button>
+    </S.Form>
   );
 };
 

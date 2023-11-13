@@ -8,6 +8,8 @@ import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 import AnswerCardList from 'components/answerCards/AnswerCardList';
+import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
+import useModal from 'hooks/useModal.js';
 import { useParams, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
@@ -34,6 +36,8 @@ const PostPage = () => {
   const isAnswerPage = () => {
     return location.pathname === `/post/${id}/answer`;
   };
+
+  const { Modal, openModal, closeModal } = useModal();
 
   return (
     <S.PostPageContainer>
@@ -83,9 +87,15 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <S.FloatingButtonItem>
-        <FloatingButton type="W" />
-      </S.FloatingButtonItem>
+      <>
+        <S.FloatingButtonItem>
+          <FloatingButton type="W" onClick={openModal} />
+        </S.FloatingButtonItem>
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      </>
+      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
