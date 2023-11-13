@@ -45,7 +45,7 @@ const PostPage = () => {
         method: 'DELETE',
       });
       localStorage.removeItem('userId');
-      alert('계정이 삭제되었습니다.');
+      alert('계정이 삭제되었습니다. 메인페이지로 돌아갑니다.');
       window.location.replace('/');
     }
   };
@@ -78,6 +78,11 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
+      {isAnswerPage() && (
+        <S.FloatingButtonItem>
+          <FloatingButton type="D" onClick={handleDeleteId} />
+        </S.FloatingButtonItem>
+      )}
       {isAnswerPage() ? (
         questionInfo?.count ? (
           <S.CardListBox>
@@ -118,15 +123,12 @@ const PostPage = () => {
         </S.FeedCardsBox>
       )}
       <>
-        {isAnswerPage() ? (
-          <S.FloatingButtonItem>
-            <FloatingButton type="D" onClick={handleDeleteId} />
-          </S.FloatingButtonItem>
-        ) : (
+        {!isAnswerPage() && (
           <S.FloatingButtonItem>
             <FloatingButton type="W" onClick={openModal} />
           </S.FloatingButtonItem>
         )}
+
         {!isAnswerPage() && (
           <Modal>
             <QuestionModal onClickClose={closeModal} />
