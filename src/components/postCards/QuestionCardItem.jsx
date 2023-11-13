@@ -70,6 +70,7 @@ const QuestionCardItem = ({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
+
     setQuestions((prev) => {
       const newQuestions = [...prev];
       newQuestions[questionIndex] = {
