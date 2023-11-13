@@ -17,7 +17,7 @@ const TOAST_TEXT_TYPE = {
   EMPTY: '질문 내용을 입력해주세요.',
 };
 
-const QuestionModal = ({ onClickClose }) => {
+const QuestionModal = ({ subjectOwner, onClickClose }) => {
   const [question, setQuestion] = useState('');
   const [toastStatus, setToastStatus] = useState('NONE');
   const [isPending, error, createQuestionAsync] = useAsync(createQuestion);
@@ -34,7 +34,7 @@ const QuestionModal = ({ onClickClose }) => {
     }
 
     const result = await createQuestionAsync({
-      subjectId: sampleId,
+      subjectId: subjectOwner?.id,
       content: question,
     });
 
@@ -75,11 +75,17 @@ const QuestionModal = ({ onClickClose }) => {
         </S.CloseButton>
       </S.TitleContainer>
       <S.SubjectContainer>
-        <Text $normalType={TextType.Body2Bol} style={{ marginRight: '0.3rem' }}>
-          To.
-        </Text>
-        <S.SubjectImage src="" width="28px" height="28px" />
-        <Text $normalType={TextType.Body3Reg}>고양이가 어쩌구</Text>
+        <Text
+          $normalType={TextType.Body2Bol}
+          style={{ marginRight: '0.3rem' }}
+          text="To."
+        />
+        <S.SubjectImage
+          src={subjectOwner?.imageSource}
+          width="28px"
+          height="28px"
+        />
+        <Text $normalType={TextType.Body3Reg} text={subjectOwner?.name} />
       </S.SubjectContainer>
       <QnaForm
         input={question}

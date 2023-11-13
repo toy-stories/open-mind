@@ -125,7 +125,10 @@ const PostPage = () => {
           <FloatingButton type="W" onClick={openModal} />
         </S.FloatingButtonItem>
         <Modal>
-          <QuestionModal onClickClose={closeModal} />
+          <QuestionModal
+            subjectOwner={subjectOwner}
+            onClickClose={closeModal}
+          />
         </Modal>
       </>
       {/* <EditButton isActive={isActive} /> */}
