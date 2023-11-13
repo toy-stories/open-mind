@@ -5,9 +5,9 @@ import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
-import PostCardList from 'components/postCards/PostCardList';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AnswerCardList from 'components/answerCards/AnswerCardList';
+import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
 import { Navigate, useParams, useLocation } from 'react-router-dom';
@@ -113,7 +113,9 @@ const PostPage = () => {
         questionInfo?.count ? (
           <S.CardListBox>
             <AnswerCardList
+              isPending={isPending || isNextPending}
               questionInfo={questionInfo}
+              setQuestionInfo={setQuestionInfo}
               subjectOwner={subjectOwner}
             />
           </S.CardListBox>
@@ -131,7 +133,7 @@ const PostPage = () => {
         )
       ) : questionInfo?.count ? (
         <S.CardListBox>
-          <PostCardList
+          <QuestionCardList
             isPending={isPending || isNextPending}
             questionInfo={questionInfo}
             setQuestionInfo={setQuestionInfo}

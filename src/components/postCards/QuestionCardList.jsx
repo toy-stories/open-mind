@@ -1,13 +1,13 @@
 import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from 'components/postCards/questionCards.style.jsx';
-import QuestionCardItem from './QuestionCardItem.jsx';
+import QuestionCardItem from 'components/postCards/QuestionCardItem';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading.jsx';
 
 const REACTION_MAX_INT = 2147483647;
 
-const PostCardList = ({
+const QuestionCardList = ({
   questionInfo,
   setQuestionInfo,
   subjectOwner,
@@ -62,4 +62,4 @@ const PostCardList = ({
   );
 };
 
-export default PostCardList;
+export default QuestionCardList;
