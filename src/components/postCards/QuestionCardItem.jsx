@@ -1,7 +1,7 @@
 import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from './QuestionCards.style.jsx';
-import { useState } from 'react';
-import userIconImage from 'assets/images/default-profile-image.png';
+import { useEffect, useState } from 'react';
+import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -10,63 +10,45 @@ import { fetchClient, fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-const QuestionCardItem = ({ postData: data }) => {
-  const [like, setLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislike, setDislike] = useState(false);
-  const [dislikeCount, setDislikeCount] = useState(0);
+const QuestionCardItem = ({
+  question,
+  subjectOwner,
+  questionIndex,
+  handleReaction,
+}) => {
+  const {
+    name: ownerName,
+    imageSource: ownerProfileImage = defaultUserIconImage,
+  } = subjectOwner;
+
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
   const [kebabOpen, setKebabOpen] = useState(false);
-  const [postData, setPostData] = useState(data);
+  const [postData, setPostData] = useState(question);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
-
-  const handleLikeClick = () => {
-    // TODO: api 연동
-    setLike(true);
-    setLikeCount((prev) => prev + 1);
-  };
-
-  const handleDislikeClick = () => {
-    //TODO: api 연동
-    setDislike(true);
-    setDislikeCount((prev) => prev + 1);
-  };
 
   const isEdit = true;
 
   // 게시물 작성 시간 계산
-  const createdAtQuestion = dayjs(postData?.createdAt).format();
+  const createdAtQuestion = dayjs(question?.createdAt).format();
   const updateTimeAgoQuestion = dayjs(createdAtQuestion).fromNow();
-  const createdAtAnswer = postData?.answer?.createdAt;
+  const createdAtAnswer = question?.answer?.createdAt;
   let updateTimeAgoAnswer;
   if (createdAtAnswer) {
     const validCreatedAtAnswer = dayjs(createdAtAnswer).format();
     updateTimeAgoAnswer = dayjs(validCreatedAtAnswer).fromNow();
   }
 
-  const testData = [
-    {
-      id: '1',
-      isAnswered: true,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-    {
-      id: '2',
-      isAnswered: false,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-    {
-      id: '3',
-      isAnswered: true,
-      title: '좋아하는 동물은?',
-      userName: '아초는 고양이',
-    },
-  ];
+  useEffect(() => {
+    const likes = JSON.parse(localStorage.getItem('like')) || {};
+    const dislikes = JSON.parse(localStorage.getItem('dislike')) || {};
+    if (likes[question.id]) setLiked(true);
+    if (dislikes[question.id]) setDisliked(true);
+  }, [question]);
 
   const handleRefuseClick = async () => {
     const results = await fetchClientJson({
-      url: `questions/${postData?.id}/answers/`,
+      url: `questions/${question?.id}/answers/`,
       method: 'POST',
       body: {
         content: '답변 거절',
@@ -79,7 +61,7 @@ const QuestionCardItem = ({ postData: data }) => {
 
   const handleDeleteAnswerClick = async () => {
     await fetchClient({
-      url: `answers/${postData?.answer?.id}/`,
+      url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
 
@@ -88,7 +70,7 @@ const QuestionCardItem = ({ postData: data }) => {
 
   const handleDeleteQuestionClick = async () => {
     await fetchClient({
-      url: `questions/${postData?.id}/`,
+      url: `questions/${question?.id}/`,
       method: 'DELETE',
     });
 
@@ -99,10 +81,10 @@ const QuestionCardItem = ({ postData: data }) => {
     !isDeleteQuestion && (
       <S.PostCardItem>
         <S.AnswerAndKebabBox>
-          <S.AnswerCheckBox $isAnswered={postData.answer}>
+          <S.AnswerCheckBox $isAnswered={question.answer}>
             <Text
               $normalType={TextType.Caption1Med}
-              text={`${postData.answer ? '답변완료' : '미답변'}`}
+              text={`${question.answer ? '답변완료' : '미답변'}`}
             />
           </S.AnswerCheckBox>
           {isEdit && (
@@ -123,52 +105,62 @@ const QuestionCardItem = ({ postData: data }) => {
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={`${postData?.content}`} />
+          <Text $normalType={TextType.Body2Bol} text={question?.content} />
         </S.TitleBox>
-        <S.ContentBox>
-          <S.ProfileImage src={userIconImage} alt="유저 아이콘 이미지" />
-          <S.ContentTextBox>
-            <S.ContentUserInfoBox>
-              <Text
-                $normalType={TextType.Body2Bol}
-                $mobileType={TextType.Caption1Bol}
-                text={testData.userName}
-              />
-              <S.UpdateTimeBox>
+        {question?.answer && (
+          <S.ContentBox>
+            <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
+            <S.ContentTextBox>
+              <S.ContentUserInfoBox>
                 <Text
-                  $normalType={TextType.Caption1Med}
-                  text={updateTimeAgoAnswer}
+                  $normalType={TextType.Body2Bol}
+                  $mobileType={TextType.Caption1Bol}
+                  text={ownerName}
                 />
-              </S.UpdateTimeBox>
-            </S.ContentUserInfoBox>
-            {postData?.answer &&
-              (postData?.answer?.isRejected ? (
+
+                <S.UpdateTimeBox>
+                  <Text
+                    $normalType={TextType.Caption1Med}
+                    text={updateTimeAgoAnswer}
+                  />
+                </S.UpdateTimeBox>
+              </S.ContentUserInfoBox>
+              {postData?.answer?.isRejected ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
               ) : (
-                postData?.answer?.content && (
-                  <Text
-                    $normalType={TextType.Body3Reg}
-                    text={postData?.answer?.content}
-                  />
-                )
-              ))}
-          </S.ContentTextBox>
-        </S.ContentBox>
+                <Text
+                  $normalType={TextType.Body3Reg}
+                  text={question.answer.content}
+                />
+              )}
+            </S.ContentTextBox>
+          </S.ContentBox>
+        )}
         <S.LikeButtonBox>
-          <S.LikeButton $like={like} onClick={handleLikeClick}>
-            <S.LikeImage $like={like} />
+          <S.LikeButton
+            $like={liked}
+            onClick={() => handleReaction(questionIndex, question.id, 'like')}
+          >
+            <S.LikeImage $like={liked} />
             <Text
               $normalType={TextType.Caption1Med}
-              text={`좋아요 ${(likeCount > 0 || '') && likeCount}`}
+              text={`좋아요 ${(question.like > 0 || '') && question.like}`}
             />
           </S.LikeButton>
-          <S.DislikeButton $dislike={dislike} onClick={handleDislikeClick}>
-            <S.DisLikeImage $dislike={dislike} />
+          <S.DislikeButton
+            $dislike={disliked}
+            onClick={() =>
+              handleReaction(questionIndex, question.id, 'dislike')
+            }
+          >
+            <S.DisLikeImage $dislike={disliked} />
             <Text
               $normalType={TextType.Caption1Med}
-              text={`싫어요 ${(dislikeCount > 0 || '') && dislikeCount}`}
+              text={`싫어요 ${
+                (question.dislike > 0 || '') && question.dislike
+              }`}
             />
           </S.DislikeButton>
         </S.LikeButtonBox>

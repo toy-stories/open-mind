@@ -8,7 +8,6 @@ export const DropdownContainer = styled.div`
   flex-direction: column;
   gap: 0.4rem;
   position: relative;
-  pointer-events: ${({ $isPending }) => ($isPending ? 'none' : 'auto')};
   z-index: 1;
 `;
 
@@ -23,6 +22,8 @@ export const DropdownButton = styled.button`
   border: 1px solid
     ${({ $isOpen }) => ($isOpen ? ` ${COLORS.BLACK}` : ` ${COLORS.GRAY40}`)};
   background-color: ${COLORS.WHITE};
+  pointer-events: ${({ $isPending }) => ($isPending ? 'none' : 'auto')};
+
   color: ${({ $isOpen }) =>
     $isOpen ? ` ${COLORS.BLACK}` : ` ${COLORS.GRAY40}`};
 `;
