@@ -33,7 +33,6 @@ export const HeaderContainer = styled.header`
   gap: 1.2rem;
   @media only screen and (max-width: 1820px) {
     background-size: contain;
-    padding: 4rem;
   }
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 4rem;
