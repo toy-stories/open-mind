@@ -8,8 +8,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/post" element={<PostPage />} />
-        <Route path="/post/:id" element={<PostPage />} />
-        <Route path="/post/:id/answer" element={<PostPage />} />
+        <Route path="/post/:subjectId" element={<PostPage />} />
+        <Route path="/post/:subjectId/answer" element={<PostPage />} />
         <Route path="/list" element={<ListPage />} />
         <Route path="/list/:page" element={<ListPage />} />
         <Route index element={<MainPage />} />
