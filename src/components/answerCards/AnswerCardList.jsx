@@ -1,18 +1,17 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
-import QuestionCardItem from './QuestionCardItem.jsx';
+import * as S from 'components/answerCards/answerCards.style.jsx';
+import AnswerCardItem from 'components/answerCards/AnswerCardItem.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
-import LoadingSpinner from 'components/tempLoading/TempLoading.jsx';
 
 const REACTION_MAX_INT = 2147483647;
 
-const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
+const AnswerCardList = ({ questionInfo, subjectOwner }) => {
   const { results, count } = questionInfo;
   const [questions, setQuestions] = useState(results);
 
-  const [isReactionPending, hasError, postCreateReactionAsync] =
+  const [isPending, hasError, postCreateReactionAsync] =
     useAsync(postCreateReaction);
 
   const handleReaction = async (questionIndex, questionId, type) => {
@@ -36,10 +35,6 @@ const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
   };
 
-  useEffect(() => {
-    setQuestions(questionInfo.results);
-  }, [questionInfo.results]);
-
   return (
     <S.PostCardList>
       <S.PostCardListTitleBox>
@@ -51,18 +46,16 @@ const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
         />
       </S.PostCardListTitleBox>
       {questions?.map((question, questionIndex) => (
-        <QuestionCardItem
+        <AnswerCardItem
           key={question.id}
           question={question}
-          setQuestions={setQuestions}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}
         />
       ))}
-      {isPending && <LoadingSpinner />}
     </S.PostCardList>
   );
 };
 
-export default PostCardList;
+export default AnswerCardList;

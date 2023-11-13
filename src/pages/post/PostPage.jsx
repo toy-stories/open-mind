@@ -6,12 +6,11 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
-import { Navigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import AnswerCardList from 'components/answerCards/AnswerCardList';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
-import EditButton from 'components/editButton/EditButton';
-import QnaForm from 'components/qnaForm/QnaForm';
+import { Navigate, useParams, useLocation } from 'react-router-dom';
 import useAsync from 'hooks/useAsync';
 import { getNextPosts, getPosts } from 'pages/post/postPage.js';
 import useObserver from 'hooks/useObserver';
@@ -19,7 +18,7 @@ import useObserver from 'hooks/useObserver';
 const PostPage = () => {
   const { subjectId } = useParams();
   const [questionInfo, setQuestionInfo] = useState(null);
-
+  const location = useLocation();
   const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
   const [isNextPending, nextHasError, getNextPostsAsync] =
     useAsync(getNextPosts);
@@ -69,6 +68,10 @@ const PostPage = () => {
     [getPostsAsync],
   );
 
+  const isAnswerPage = () => {
+    return location.pathname === `/post/${subjectId}/answer`;
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     handleLoad(subjectId);
@@ -96,14 +99,34 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {questionInfo?.count ? (
-        <S.PostCardListBox>
+      {isAnswerPage() ? (
+        questionInfo?.count ? (
+          <S.CardListBox>
+            <AnswerCardList
+              questionInfo={questionInfo}
+              subjectOwner={subjectOwner}
+            />
+          </S.CardListBox>
+        ) : (
+          <S.FeedCardsBox>
+            <S.MessageBox>
+              <S.MessageIcon alt="메세지 아이콘" />
+              <Text
+                $normalType={TextType.Body1Bol}
+                text="아직 질문이 없습니다."
+              />
+            </S.MessageBox>
+            <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+          </S.FeedCardsBox>
+        )
+      ) : questionInfo?.count ? (
+        <S.CardListBox>
           <PostCardList
             isPending={isPending || isNextPending}
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
           />
-        </S.PostCardListBox>
+        </S.CardListBox>
       ) : (
         <S.FeedCardsBox>
           <S.MessageBox>
@@ -132,7 +155,6 @@ const PostPage = () => {
           />
         </Modal>
       </>
-      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
