@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
-import * as S from './questionModal.style.js';
+import * as S from 'components/modal/modalContent/questionModal.style.jsx';
 import createQuestion from 'utils/createQuestion.js';
 import { TextType, Text } from 'components/text/Text.jsx';
 import COLORS from 'utils/colors.js';

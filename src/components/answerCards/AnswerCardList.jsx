@@ -2,7 +2,6 @@ import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from 'components/answerCards/answerCards.style.jsx';
 import AnswerCardItem from 'components/answerCards/AnswerCardItem.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
-import { useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading';
 

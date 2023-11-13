@@ -34,14 +34,10 @@ const PostPage = () => {
 
   const handleLoadMore = useCallback(
     async (entries) => {
-      if (isNextPending || !questionInfo) return;
+      if (isNextPending || !questionInfo || isNaN(questionInfo?.next)) return;
 
       for (const entry of entries) {
-        if (
-          entry.isIntersecting &&
-          questionInfo?.next &&
-          !isNaN(questionInfo?.next)
-        ) {
+        if (entry.isIntersecting) {
           const result = await getNextPostsAsync(subjectId, questionInfo.next);
           if (!result) return;
 
@@ -70,7 +66,7 @@ const PostPage = () => {
       const { questionsData, subjectData } = result;
       const offset = questionsData.next
         ? new URL(questionsData.next).searchParams.get('offset')
-        : 8;
+        : 0;
 
       setQuestionInfo({ ...questionsData, next: Number(offset) });
       setSubjectOwner(subjectData);
@@ -113,7 +109,7 @@ const PostPage = () => {
         questionInfo?.count ? (
           <S.CardListBox>
             <AnswerCardList
-              isPending={isPending || isNextPending}
+              isPending={isNextPending}
               questionInfo={questionInfo}
               setQuestionInfo={setQuestionInfo}
               subjectOwner={subjectOwner}
@@ -134,7 +130,7 @@ const PostPage = () => {
       ) : questionInfo?.count ? (
         <S.CardListBox>
           <QuestionCardList
-            isPending={isPending || isNextPending}
+            isPending={isNextPending}
             questionInfo={questionInfo}
             setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
