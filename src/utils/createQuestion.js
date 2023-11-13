@@ -5,7 +5,7 @@ const {
   CREATE_QUESTION: { method, createUrl },
 } = END_POINT;
 
-const createQuestion = async (subjectId, content) => {
+const createQuestion = async ({ subjectId, content }) => {
   const result = await fetchClientJson({
     method,
     url: createUrl(subjectId),

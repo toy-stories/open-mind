@@ -3,11 +3,15 @@ import { Text, TextType } from 'components/text/Text.jsx';
 import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
-import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
+import ShareButtons from 'components/shareButtons/tempShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
 import { Navigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
+import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
+import useModal from 'hooks/useModal.js';
+import EditButton from 'components/editButton/EditButton';
+import QnaForm from 'components/qnaForm/QnaForm';
 import useAsync from 'hooks/useAsync';
 import { getPosts } from 'pages/post/postPage.js';
 
@@ -33,6 +37,7 @@ const PostPage = () => {
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
 
+  const { Modal, openModal, closeModal } = useModal();
   if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
@@ -71,9 +76,15 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <S.FloatingButtonItem>
-        <FloatingButton type="W" />
-      </S.FloatingButtonItem>
+      <>
+        <S.FloatingButtonItem>
+          <FloatingButton type="W" onClick={openModal} />
+        </S.FloatingButtonItem>
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      </>
+      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
