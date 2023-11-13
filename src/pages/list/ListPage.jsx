@@ -2,9 +2,9 @@ import logoImage from 'assets/images/logo.png';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import Pagination from 'components/pagination/Pagination.jsx';
 import Dropdown from 'components/dropdown/Dropdown.jsx';
-import { getSubjects } from './listPage.js';
+import { getSubjects } from 'pages/list/listPage.js';
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import * as S from 'pages/list/listPage.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 import useDebounce from 'hooks/useDebounce.js';
@@ -16,10 +16,8 @@ const SORT_OPTIONS = [
   { sort: 'time', text: '최신순' },
 ];
 
-// 테스트코드
-const id = '1';
-
-const LinkButtonPath = id ? '/post' : '/';
+const userId = JSON.parse(localStorage.getItem('userId')) || null;
+const LinkButtonPath = userId ? `/post/${userId}/answer` : '/';
 
 const ListPage = () => {
   const [sortOption, setSortOption] = useState(SORT_OPTIONS[1]);
@@ -31,9 +29,11 @@ const ListPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [subjects, setSubjects] = useState([]);
   const { page = 1 } = useParams();
+
   useEffect(() => {
     setItemsPerPage(debouncedWindowWidth >= 1199 ? 8 : 6);
   }, [debouncedWindowWidth]);
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -60,6 +60,11 @@ const ListPage = () => {
   useEffect(() => {
     handleLoad(sortOption.sort, page, itemsPerPage);
   }, [sortOption, itemsPerPage, handleLoad, page]);
+
+  if (hasError) return <Navigate to="/" />;
+  if (isNaN(page) || (totalPages && !subjects.length))
+    return <Navigate to="/list/1" />;
+
   return (
     <S.ListPageContainer>
       <S.ListPage>
@@ -68,7 +73,7 @@ const ListPage = () => {
             <S.LogoImage src={logoImage} alt="로고이미지" />
           </Link>
           <Link to={LinkButtonPath}>
-            <LinkButton type="Q" isActive={true} />
+            <LinkButton type="A" isActive={true} />
           </Link>
         </S.ListPageNav>
         <S.ListPageMain>
@@ -82,6 +87,7 @@ const ListPage = () => {
               sortOption={sortOption}
               setSortOption={setSortOption}
               SORT_OPTIONS={SORT_OPTIONS}
+              isPending={isPending}
             />
           </S.ListPageHeader>
           <CardList

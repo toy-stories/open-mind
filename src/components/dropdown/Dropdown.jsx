@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from 'components/dropdown/dropdown.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -12,11 +12,26 @@ const Dropdown = ({ sortOption, setSortOption, SORT_OPTIONS, isPending }) => {
   };
   const [isOpen, setIsOpen] = useState(false);
 
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+        setIsOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <S.DropdownContainer $isPending={isPending}>
+    <S.DropdownContainer ref={dropdownRef}>
       <S.DropdownButton
         $isOpen={isOpen}
         onClick={() => setIsOpen((prev) => !prev)}
+        $isPending={isPending}
       >
         <Text $normalType={TextType.Caption1Med} text={sortOption.text} />
         {isOpen ? <S.ArrowUpIcon /> : <S.ArrowDownIcon />}
