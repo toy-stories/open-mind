@@ -6,7 +6,7 @@ import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { fetchClientJson } from 'utils/apiClient.js';
+import { fetchClient, fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
@@ -17,7 +17,7 @@ const QuestionCardItem = ({ postData }) => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [kebabOpen, setKebabOpen] = useState(false);
 
-  const [isRefuseAnswer, setIsRefuseAnswer] = useState(null);
+  const [rejectedAnswerContent, setRejectedAnswerContent] = useState(null);
   const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
 
@@ -70,7 +70,7 @@ const QuestionCardItem = ({ postData }) => {
 
   const handleRefuseClick = async () => {
     const results = await fetchClientJson({
-      url: `questions/${postData.id}/answers/`,
+      url: `questions/${postData?.id}/answers/`,
       method: 'POST',
       body: {
         content: '답변 거절',
@@ -78,7 +78,17 @@ const QuestionCardItem = ({ postData }) => {
       },
     });
 
-    setIsRefuseAnswer(results);
+    setRejectedAnswerContent(results);
+  };
+
+  const handleDeleteAnswerClick = async () => {
+    console.log(postData?.answer?.id);
+    await fetchClient({
+      url: `answers/${postData?.answer?.id}/`,
+      method: 'DELETE',
+    });
+
+    setIsDeleteAnswer(true);
   };
 
   return (
@@ -94,15 +104,14 @@ const QuestionCardItem = ({ postData }) => {
           {isEdit && (
             <KebabButton
               onRefuseAnswerClick={handleRefuseClick}
-              onDeleteAnswerClick={() => {
-                setIsDeleteAnswer(true);
-              }}
+              onDeleteAnswerClick={handleDeleteAnswerClick}
               onDeleteQuestionClick={() => {
                 setIsDeleteQuestion(true);
               }}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
-              isRefuseAnswer={isRefuseAnswer}
+              rejectedAnswerContent={rejectedAnswerContent}
+              isDeleteAnswer={isDeleteAnswer}
               postData={postData}
             />
           )}
@@ -133,7 +142,7 @@ const QuestionCardItem = ({ postData }) => {
               </S.UpdateTimeBox>
             </S.ContentUserInfoBox>
             {!isDeleteAnswer &&
-              (postData?.answer?.isRejected || isRefuseAnswer ? (
+              (postData?.answer?.isRejected || rejectedAnswerContent ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>

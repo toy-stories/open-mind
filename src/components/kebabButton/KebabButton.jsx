@@ -7,7 +7,8 @@ const KebabButton = ({
   onRefuseAnswerClick,
   onDeleteAnswerClick,
   onDeleteQuestionClick,
-  isRefuseAnswer,
+  rejectedAnswerContent,
+  isDeleteAnswer,
   postData,
 }) => {
   return (
@@ -20,7 +21,8 @@ const KebabButton = ({
           onRefuseAnswerClick={onRefuseAnswerClick}
           onDeleteAnswerClick={onDeleteAnswerClick}
           onDeleteQuestionClick={onDeleteQuestionClick}
-          isRefuseAnswer={isRefuseAnswer}
+          rejectedAnswerContent={rejectedAnswerContent}
+          isDeleteAnswer={isDeleteAnswer}
           postData={postData}
         />
       )}
