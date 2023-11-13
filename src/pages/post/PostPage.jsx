@@ -33,20 +33,26 @@ const PostPage = () => {
   };
 
   const handleLoadMore = useCallback(
-    async (entries, observer) => {
+    async (entries) => {
       if (isNextPending || !questionInfo) return;
 
       for (const entry of entries) {
-        if (entry.isIntersecting && questionInfo?.next) {
-          const nextParams = new URL(questionInfo.next).search;
-          const result = await getNextPostsAsync(subjectId, nextParams);
+        if (
+          entry.isIntersecting &&
+          questionInfo?.next &&
+          !isNaN(questionInfo?.next)
+        ) {
+          const result = await getNextPostsAsync(subjectId, questionInfo.next);
           if (!result) return;
 
           const { results, next } = result;
+          const offset = next
+            ? new URL(next).searchParams.get('offset')
+            : questionInfo.offset;
           setQuestionInfo((prev) => ({
             ...prev,
             results: [...prev.results, ...results],
-            next: next,
+            next: Number(offset),
           }));
           break;
         }
@@ -62,7 +68,11 @@ const PostPage = () => {
       const result = await getPostsAsync(subjectId);
       if (!result) return;
       const { questionsData, subjectData } = result;
-      setQuestionInfo(questionsData);
+      const offset = questionsData.next
+        ? new URL(questionsData.next).searchParams.get('offset')
+        : 8;
+
+      setQuestionInfo({ ...questionsData, next: Number(offset) });
       setSubjectOwner(subjectData);
     },
     [getPostsAsync],
@@ -124,6 +134,7 @@ const PostPage = () => {
           <PostCardList
             isPending={isPending || isNextPending}
             questionInfo={questionInfo}
+            setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
           />
         </S.CardListBox>

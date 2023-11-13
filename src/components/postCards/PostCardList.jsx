@@ -1,17 +1,18 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
+import * as S from 'components/postCards/questionCards.style.jsx';
 import QuestionCardItem from './QuestionCardItem.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
-import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading.jsx';
 
 const REACTION_MAX_INT = 2147483647;
 
-const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
-  const { results, count } = questionInfo;
-  const [questions, setQuestions] = useState(results);
-
+const PostCardList = ({
+  questionInfo,
+  setQuestionInfo,
+  subjectOwner,
+  isPending,
+}) => {
   const [isReactionPending, hasError, postCreateReactionAsync] =
     useAsync(postCreateReaction);
 
@@ -19,26 +20,22 @@ const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
     const localStorageReaction = JSON.parse(localStorage.getItem(type)) || {};
     if (
       localStorageReaction[questionId] ||
-      questions[questionIndex][type] >= REACTION_MAX_INT
+      questionInfo.results[questionIndex][type] >= REACTION_MAX_INT
     )
       return;
 
     const result = await postCreateReactionAsync(type, questionId);
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         [type]: result[type],
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
     localStorageReaction[questionId] = true;
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
   };
-
-  useEffect(() => {
-    setQuestions(questionInfo.results);
-  }, [questionInfo.results]);
 
   return (
     <S.PostCardList>
@@ -47,14 +44,14 @@ const PostCardList = ({ questionInfo, subjectOwner, isPending }) => {
         <Text
           $normalType={TextType.Body1Bol}
           $mobileType={TextType.Body2Bol}
-          text={`${count}개의 질문이 있습니다.`}
+          text={`${questionInfo?.count}개의 질문이 있습니다.`}
         />
       </S.PostCardListTitleBox>
-      {questions?.map((question, questionIndex) => (
+      {questionInfo.results?.map((question, questionIndex) => (
         <QuestionCardItem
           key={question.id}
           question={question}
-          setQuestions={setQuestions}
+          setQuestionInfo={setQuestionInfo}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}

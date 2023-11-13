@@ -1,5 +1,5 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
+import * as S from './questionCards.style.jsx';
 import { useEffect, useState } from 'react';
 import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
@@ -12,7 +12,7 @@ dayjs.extend(relativeTime);
 
 const QuestionCardItem = ({
   question,
-  setQuestions,
+  setQuestionInfo,
   subjectOwner,
   questionIndex,
   handleReaction,
@@ -55,29 +55,27 @@ const QuestionCardItem = ({
         isRejected: true,
       },
     });
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         answer: results,
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
   };
-
   const handleDeleteAnswerClick = async () => {
     await fetchClient({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
-
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         answer: null,
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
   };
 
@@ -88,6 +86,17 @@ const QuestionCardItem = ({
     });
 
     setIsDeleteQuestion(true);
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results].filter(
+        (p) => p.id !== question.id,
+      );
+      return {
+        ...prev,
+        results: newQuestions,
+        count: Number(prev.count) - 1,
+        next: Number(prev.next) - 1,
+      };
+    });
   };
 
   return (

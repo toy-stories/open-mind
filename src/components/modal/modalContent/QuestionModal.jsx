@@ -42,7 +42,8 @@ const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
       setQuestionInfo((prev) => ({
         ...prev,
         results: [result, ...prev.results],
-        count: prev.count + 1,
+        count: Number(prev.count) + 1,
+        next: Number(prev.next) + 1,
       }));
       onClickClose();
     } else {
