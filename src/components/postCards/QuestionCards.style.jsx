@@ -35,7 +35,6 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: 56rem;
 `;
 
 export const UpdateTimeBox = styled.div`
@@ -46,7 +45,6 @@ export const ContentBox = styled.div`
   display: flex;
   gap: 1.2rem;
   align-self: stretch;
-  width: 56rem;
 `;
 
 export const ContentUserInfoBox = styled.div`
@@ -117,6 +115,7 @@ export const PostCardList = styled.ul`
   background: ${COLORS.BROWN10};
   border: 1px solid ${COLORS.BROWN30};
   border-radius: 1.6rem;
+  max-width: 71.6rem;
 `;
 
 export const PostCardListTitleBox = styled.div`

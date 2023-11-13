@@ -35,7 +35,6 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: 56rem;
 `;
 
 export const UpdateTimeBox = styled.div`
@@ -46,7 +45,6 @@ export const ContentBox = styled.div`
   display: flex;
   gap: 1.2rem;
   align-self: stretch;
-  width: 56rem;
 `;
 
 export const ContentUserInfoBox = styled.div`
@@ -111,6 +109,7 @@ export const RefuseAnswerBox = styled.div`
 `;
 
 export const PostCardList = styled.ul`
+  padding: 13.6rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;

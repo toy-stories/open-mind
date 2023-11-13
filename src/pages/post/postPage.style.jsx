@@ -1,12 +1,15 @@
 import { styled } from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as MessageIconSvg } from 'assets/icons/Messages.svg';
+import { RESPONSIBLE_SIZE } from 'utils/constants';
+import headerImage from 'assets/images/header-background.png';
 
 export const PostPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: ${COLORS.GRAY20};
 `;
 
 export const HeaderImage = styled.img`
@@ -15,35 +18,46 @@ export const HeaderImage = styled.img`
   top: 0;
 `;
 
-export const Logo = styled.img`
-  width: 17rem;
-  position: absolute;
-  top: 5rem;
+export const HeaderContainer = styled.header`
+  background-image: url(${headerImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  padding: 5rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    padding: 4rem;
+  }
 `;
 
-export const HeaderUserProfile = styled.div`
+export const Logo = styled.img`
+  width: 17rem;
+`;
+
+export const Header = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.2rem;
 `;
 export const ProfileImage = styled.img`
   width: 13.6rem;
   height: 13.6rem;
-  position: absolute;
-  top: 12.9rem;
   border-radius: 50%;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    width: 10.4rem;
+    height: 10.4rem;
+  }
 `;
 
-export const UserIdText = styled.div`
-  position: absolute;
-  top: 27.7rem;
-`;
+export const UserIdText = styled.div``;
 
 export const CardListBox = styled.div`
   position: relative;
-  margin-top: 42.3rem;
-  margin-bottom: 13.6rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2.4rem;
 `;
 
 export const FeedCardsBox = styled.div`

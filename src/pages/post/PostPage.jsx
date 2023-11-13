@@ -44,22 +44,24 @@ const PostPage = () => {
   if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
-      <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
-      <S.Logo src={logo} alt="오픈마인드 로고" />
-      <S.HeaderUserProfile>
-        <S.ProfileImage
-          src={subjectOwner?.imageSource}
-          alt="유저 프로필 이미지"
-        />
-        <S.UserIdText>
-          <Text
-            $normalType={TextType.H2}
-            $mobileType={TextType.H3}
-            text={subjectOwner?.name}
+      <S.HeaderContainer>
+        <S.Header>
+          <S.Logo src={logo} alt="오픈마인드 로고" />
+          <S.ProfileImage
+            src={subjectOwner?.imageSource}
+            alt="유저 프로필 이미지"
           />
-        </S.UserIdText>
-      </S.HeaderUserProfile>
-      <ShareButtons />
+          <S.UserIdText>
+            <Text
+              $normalType={TextType.H2}
+              $mobileType={TextType.H3}
+              text={subjectOwner?.name}
+            />
+          </S.UserIdText>
+          <ShareButtons />
+        </S.Header>
+      </S.HeaderContainer>
+
       {isAnswerPage() ? (
         questionInfo?.count ? (
           <S.CardListBox>
@@ -100,13 +102,13 @@ const PostPage = () => {
         </S.FeedCardsBox>
       )}
       <>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
         <Modal>
           <QuestionModal onClickClose={closeModal} />
         </Modal>
       </>
+      <S.FloatingButtonItem>
+        <FloatingButton type="W" onClick={openModal} />
+      </S.FloatingButtonItem>
     </S.PostPageContainer>
   );
 };
