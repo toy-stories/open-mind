@@ -86,6 +86,15 @@ const QuestionCardItem = ({ postData: data }) => {
     setPostData((prev) => ({ ...prev, answer: null }));
   };
 
+  const handleDeleteQuestionClick = async () => {
+    await fetchClient({
+      url: `questions/${postData?.id}/`,
+      method: 'DELETE',
+    });
+
+    setIsDeleteQuestion(true);
+  };
+
   return (
     !isDeleteQuestion && (
       <S.PostCardItem>
@@ -100,9 +109,7 @@ const QuestionCardItem = ({ postData: data }) => {
             <KebabButton
               onRefuseAnswerClick={handleRefuseClick}
               onDeleteAnswerClick={handleDeleteAnswerClick}
-              onDeleteQuestionClick={() => {
-                setIsDeleteQuestion(true);
-              }}
+              onDeleteQuestionClick={handleDeleteQuestionClick}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
               postData={postData}
