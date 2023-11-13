@@ -34,7 +34,6 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
     localStorageReaction[questionId] = true;
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
   };
-
   return (
     <S.PostCardList>
       <S.PostCardListTitleBox>
@@ -49,6 +48,7 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
         <QuestionCardItem
           key={question.id}
           question={question}
+          setQuestions={setQuestions}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}

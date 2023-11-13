@@ -8,12 +8,17 @@ export const KebabImage = styled(kebabIcon)`
 `;
 
 export const KebabMenuButton = styled.button`
+  display: ${(props) => props.$isRejected && 'none'};
   width: 7rem;
   height: 3rem;
   border: 1px solid ${COLORS.BROWN40};
   border-radius: 8px;
   color: ${COLORS.BROWN40};
   background: white;
+
+  &:disabled {
+    display: none;
+  }
 
   &:hover {
     background: ${COLORS.BROWN20};

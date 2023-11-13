@@ -6,11 +6,13 @@ import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { fetchClient, fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
 const QuestionCardItem = ({
   question,
+  setQuestions,
   subjectOwner,
   questionIndex,
   handleReaction,
@@ -22,16 +24,10 @@ const QuestionCardItem = ({
 
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-
   const [kebabOpen, setKebabOpen] = useState(false);
-
-  const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
-  const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
 
   const isEdit = true;
-  // TODO: "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
-  // TODO: data.answer 값이 있을때만 답변자 아이콘 보이게 하기
 
   // 게시물 작성 시간 계산
   const createdAtQuestion = dayjs(question?.createdAt).format();
@@ -50,6 +46,49 @@ const QuestionCardItem = ({
     if (dislikes[question.id]) setDisliked(true);
   }, [question]);
 
+  const handleRefuseClick = async () => {
+    const results = await fetchClientJson({
+      url: `questions/${question?.id}/answers/`,
+      method: 'POST',
+      body: {
+        content: '답변 거절',
+        isRejected: true,
+      },
+    });
+    setQuestions((prev) => {
+      const newQuestions = [...prev];
+      newQuestions[questionIndex] = {
+        ...newQuestions[questionIndex],
+        answer: results,
+      };
+      return newQuestions;
+    });
+  };
+
+  const handleDeleteAnswerClick = async () => {
+    await fetchClient({
+      url: `answers/${question?.answer?.id}/`,
+      method: 'DELETE',
+    });
+    setQuestions((prev) => {
+      const newQuestions = [...prev];
+      newQuestions[questionIndex] = {
+        ...newQuestions[questionIndex],
+        answer: null,
+      };
+      return newQuestions;
+    });
+  };
+
+  const handleDeleteQuestionClick = async () => {
+    await fetchClient({
+      url: `questions/${question?.id}/`,
+      method: 'DELETE',
+    });
+
+    setIsDeleteQuestion(true);
+  };
+
   return (
     !isDeleteQuestion && (
       <S.PostCardItem>
@@ -62,17 +101,12 @@ const QuestionCardItem = ({
           </S.AnswerCheckBox>
           {isEdit && (
             <KebabButton
-              onRefuseAnswerClick={() => {
-                setIsRefuseAnswer(true);
-              }}
-              onDeleteAnswerClick={() => {
-                setIsDeleteAnswer(true);
-              }}
-              onDeleteQuestionClick={() => {
-                setIsDeleteQuestion(true);
-              }}
+              onRefuseAnswerClick={handleRefuseClick}
+              onDeleteAnswerClick={handleDeleteAnswerClick}
+              onDeleteQuestionClick={handleDeleteQuestionClick}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
+              question={question}
             />
           )}
         </S.AnswerAndKebabBox>
@@ -95,6 +129,7 @@ const QuestionCardItem = ({
                   $mobileType={TextType.Caption1Bol}
                   text={ownerName}
                 />
+
                 <S.UpdateTimeBox>
                   <Text
                     $normalType={TextType.Caption1Med}
@@ -102,7 +137,7 @@ const QuestionCardItem = ({
                   />
                 </S.UpdateTimeBox>
               </S.ContentUserInfoBox>
-              {question.answer.isRejected ? (
+              {question?.answer?.isRejected ? (
                 <S.RefuseAnswerBox>
                   <Text $normalType={TextType.Body3Reg} text="답변 거절" />
                 </S.RefuseAnswerBox>
