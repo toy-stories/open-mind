@@ -7,6 +7,8 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import PostCardList from 'components/postCards/PostCardList';
+import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
+import useModal from 'hooks/useModal.js';
 import EditButton from 'components/editButton/EditButton';
 import QnaForm from 'components/qnaForm/QnaForm';
 import { useParams } from 'react-router-dom';
@@ -31,6 +33,7 @@ const PostPage = () => {
     fetchData();
   }, []);
 
+  const { Modal, openModal, closeModal } = useModal();
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
@@ -62,9 +65,15 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <S.FloatingButtonItem>
-        <FloatingButton type="W" />
-      </S.FloatingButtonItem>
+      <>
+        <S.FloatingButtonItem>
+          <FloatingButton type="W" onClick={openModal} />
+        </S.FloatingButtonItem>
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      </>
+      {/* <EditButton isActive={isActive} /> */}
     </S.PostPageContainer>
   );
 };
