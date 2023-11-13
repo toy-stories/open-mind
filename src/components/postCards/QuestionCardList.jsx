@@ -1,5 +1,5 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from 'components/postCards/questionCards.style.jsx';
+import * as S from 'components/postCards/QuestionCards.style.jsx';
 import QuestionCardItem from 'components/postCards/QuestionCardItem';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import { useState } from 'react';

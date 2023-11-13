@@ -109,6 +109,7 @@ export const RefuseAnswerBox = styled.div`
 `;
 
 export const PostCardList = styled.ul`
+  flex: 0 1 71.6rem;
   padding: 13.6rem;
   display: flex;
   flex-direction: column;

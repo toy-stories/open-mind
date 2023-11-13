@@ -110,12 +110,13 @@ export const RefuseAnswerBox = styled.div`
 export const PostCardList = styled.ul`
   display: flex;
   flex-direction: column;
+  flex: 0 1 71.6rem;
   gap: 2rem;
   padding: 1.6rem;
   background: ${COLORS.BROWN10};
   border: 1px solid ${COLORS.BROWN30};
   border-radius: 1.6rem;
-  max-width: 71.6rem;
+  height: 100%;
 `;
 
 export const PostCardListTitleBox = styled.div`

@@ -10,6 +10,7 @@ export const PostPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${COLORS.GRAY20};
+  min-height: 100vh;
 `;
 
 export const HeaderImage = styled.img`
@@ -20,10 +21,20 @@ export const HeaderImage = styled.img`
 
 export const HeaderContainer = styled.header`
   background-image: url(${headerImage});
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center center;
   width: 100%;
   padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  @media only screen and (max-width: 1820px) {
+    background-size: contain;
+    padding: 4rem;
+  }
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 4rem;
   }
@@ -33,13 +44,6 @@ export const Logo = styled.img`
   width: 17rem;
 `;
 
-export const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1.2rem;
-`;
 export const ProfileImage = styled.img`
   width: 13.6rem;
   height: 13.6rem;
@@ -50,31 +54,38 @@ export const ProfileImage = styled.img`
   }
 `;
 
-export const UserIdText = styled.div``;
-
 export const CardListBox = styled.div`
+  flex: 1;
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 2.4rem;
+  padding: 1.4rem 2.4rem 13.6rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    padding-bottom: 12.6rem;
+  }
+`;
+
+export const FeedCardsContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 3.2rem;
 `;
 
 export const FeedCardsBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 71.6rem;
-  height: 33rem;
+  flex: 0 1 71.6rem;
+  height: 100%;
   padding: 1.6rem 2.4rem;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
   border-radius: 16px;
   border: 1px solid ${COLORS.BROWN20};
   background: ${COLORS.BROWN10};
   position: relative;
-  margin-top: 42.3rem;
-  margin-bottom: 13.6rem;
 `;
 
 export const MessageIcon = styled(MessageIconSvg)`
