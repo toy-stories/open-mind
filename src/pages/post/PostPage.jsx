@@ -35,10 +35,8 @@ const PostPage = () => {
 
       for (const entry of entries) {
         if (entry.isIntersecting && questionInfo?.next) {
-          const nextQuery = questionInfo.next.slice(
-            questionInfo.next.indexOf('/subjects') + 1,
-          );
-          const result = await getNextPostsAsync(nextQuery);
+          const nextParams = new URL(questionInfo.next).search;
+          const result = await getNextPostsAsync(subjectId, nextParams);
           if (!result) return;
 
           const { results, next } = result;
@@ -51,10 +49,11 @@ const PostPage = () => {
         }
       }
     },
-    [getNextPostsAsync, isNextPending, questionInfo],
+    [getNextPostsAsync, isNextPending, questionInfo, subjectId],
   );
 
   useObserver(handleLoadMore, observerOptions, target);
+
   const handleLoad = useCallback(
     async (subjectId) => {
       const result = await getPostsAsync(subjectId);

@@ -14,9 +14,9 @@ export const getPosts = async (subjectId) => {
   return { questionsData: questionsData, subjectData: subjectData };
 };
 
-export const getNextPosts = async (nextUrl) => {
+export const getNextPosts = async (subjectId, nextParams) => {
   return await fetchClientJson({
-    url: nextUrl,
+    url: `subjects/${subjectId}/questions/${nextParams}`,
     method: 'GET',
   });
 };
