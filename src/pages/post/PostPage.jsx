@@ -13,6 +13,7 @@ import { Navigate, useParams, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { getPosts } from 'pages/post/postPage.js';
+import { fetchClient } from 'utils/apiClient';
 
 const PostPage = () => {
   const { subjectId } = useParams();
@@ -31,6 +32,23 @@ const PostPage = () => {
     },
     [getPostsAsync],
   );
+
+  const handleDeleteId = async () => {
+    if (
+      window.confirm(
+        `[주의] 계정 삭제는 복구할 수 없으며, 모든 데이터가 영구적으로 제거됩니다.
+        계속하시겠습니까?`,
+      )
+    ) {
+      await fetchClient({
+        url: `subjects/${subjectId}/`,
+        method: 'DELETE',
+      });
+      localStorage.removeItem('userId');
+      alert('계정이 삭제되었습니다.');
+      window.location.replace('/');
+    }
+  };
 
   const isAnswerPage = () => {
     return location.pathname === `/post/${subjectId}/answer`;
@@ -100,12 +118,20 @@ const PostPage = () => {
         </S.FeedCardsBox>
       )}
       <>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
-        <Modal>
-          <QuestionModal onClickClose={closeModal} />
-        </Modal>
+        {isAnswerPage() ? (
+          <S.FloatingButtonItem>
+            <FloatingButton type="D" onClick={handleDeleteId} />
+          </S.FloatingButtonItem>
+        ) : (
+          <S.FloatingButtonItem>
+            <FloatingButton type="W" onClick={openModal} />
+          </S.FloatingButtonItem>
+        )}
+        {!isAnswerPage() && (
+          <Modal>
+            <QuestionModal onClickClose={closeModal} />
+          </Modal>
+        )}
       </>
     </S.PostPageContainer>
   );
