@@ -1,13 +1,13 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
-import QuestionCardItem from './QuestionCardItem.jsx';
+import * as S from 'components/answerCards/answerCards.style.jsx';
+import AnswerCardItem from 'components/answerCards/AnswerCardItem.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import { useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 
 const REACTION_MAX_INT = 2147483647;
 
-const PostCardList = ({ questionInfo, subjectOwner }) => {
+const AnswerCardList = ({ questionInfo, subjectOwner }) => {
   const { results, count } = questionInfo;
   const [questions, setQuestions] = useState(results);
 
@@ -34,6 +34,7 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
     localStorageReaction[questionId] = true;
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
   };
+
   return (
     <S.PostCardList>
       <S.PostCardListTitleBox>
@@ -45,10 +46,9 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
         />
       </S.PostCardListTitleBox>
       {questions?.map((question, questionIndex) => (
-        <QuestionCardItem
+        <AnswerCardItem
           key={question.id}
           question={question}
-          setQuestions={setQuestions}
           subjectOwner={subjectOwner}
           questionIndex={questionIndex}
           handleReaction={handleReaction}
@@ -58,4 +58,4 @@ const PostCardList = ({ questionInfo, subjectOwner }) => {
   );
 };
 
-export default PostCardList;
+export default AnswerCardList;

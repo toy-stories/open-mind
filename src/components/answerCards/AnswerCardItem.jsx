@@ -1,18 +1,18 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from './QuestionCards.style.jsx';
+import * as S from 'components/answerCards/answerCards.style.jsx';
 import { useEffect, useState } from 'react';
 import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
+import EditButton from 'components/editButton/EditButton';
+import QnaForm from 'components/qnaForm/QnaForm';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { fetchClient, fetchClientJson } from 'utils/apiClient.js';
 dayjs.locale('ko');
 dayjs.extend(relativeTime);
 
-const QuestionCardItem = ({
+const AnswerCardItem = ({
   question,
-  setQuestions,
   subjectOwner,
   questionIndex,
   handleReaction,
@@ -24,10 +24,16 @@ const QuestionCardItem = ({
 
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
+  const [answer, setAnswer] = useState('');
   const [kebabOpen, setKebabOpen] = useState(false);
+  const [isRefuseAnswer, setIsRefuseAnswer] = useState(false);
+  const [isDeleteAnswer, setIsDeleteAnswer] = useState(false);
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
+  const [isEditActive, setIsEditActive] = useState(false);
 
   const isEdit = true;
+  // TODO: "답변하기" 버튼을 통해 진입했을 때 케밥 버튼 보이도록 렌더링 조건 수정 필요
+  // TODO: data.answer 값이 있을때만 답변자 아이콘 보이게 하기
 
   // 게시물 작성 시간 계산
   const createdAtQuestion = dayjs(question?.createdAt).format();
@@ -39,56 +45,20 @@ const QuestionCardItem = ({
     updateTimeAgoAnswer = dayjs(validCreatedAtAnswer).fromNow();
   }
 
+  const handleEditButtonClick = () => {
+    setIsEditActive(!isEditActive);
+  };
+
+  // const handleCreateAnswer(){
+
+  // }
+
   useEffect(() => {
     const likes = JSON.parse(localStorage.getItem('like')) || {};
     const dislikes = JSON.parse(localStorage.getItem('dislike')) || {};
     if (likes[question.id]) setLiked(true);
     if (dislikes[question.id]) setDisliked(true);
   }, [question]);
-
-  const handleRefuseClick = async () => {
-    const results = await fetchClientJson({
-      url: `questions/${question?.id}/answers/`,
-      method: 'POST',
-      body: {
-        content: '답변 거절',
-        isRejected: true,
-      },
-    });
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
-      newQuestions[questionIndex] = {
-        ...newQuestions[questionIndex],
-        answer: results,
-      };
-      return newQuestions;
-    });
-  };
-
-  const handleDeleteAnswerClick = async () => {
-    await fetchClient({
-      url: `answers/${question?.answer?.id}/`,
-      method: 'DELETE',
-    });
-
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
-      newQuestions[questionIndex] = {
-        ...newQuestions[questionIndex],
-        answer: null,
-      };
-      return newQuestions;
-    });
-  };
-
-  const handleDeleteQuestionClick = async () => {
-    await fetchClient({
-      url: `questions/${question?.id}/`,
-      method: 'DELETE',
-    });
-
-    setIsDeleteQuestion(true);
-  };
 
   return (
     !isDeleteQuestion && (
@@ -102,12 +72,17 @@ const QuestionCardItem = ({
           </S.AnswerCheckBox>
           {isEdit && (
             <KebabButton
-              onRefuseAnswerClick={handleRefuseClick}
-              onDeleteAnswerClick={handleDeleteAnswerClick}
-              onDeleteQuestionClick={handleDeleteQuestionClick}
+              onRefuseAnswerClick={() => {
+                setIsRefuseAnswer(true);
+              }}
+              onDeleteAnswerClick={() => {
+                setIsDeleteAnswer(true);
+              }}
+              onDeleteQuestionClick={() => {
+                setIsDeleteQuestion(true);
+              }}
               kebabOpen={kebabOpen}
               onClick={() => setKebabOpen((prev) => !prev)}
-              question={question}
             />
           )}
         </S.AnswerAndKebabBox>
@@ -118,39 +93,42 @@ const QuestionCardItem = ({
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={question?.content} />
+          <Text $normalType={TextType.Body2Bol} text={`${question?.content}`} />
         </S.TitleBox>
-        {question?.answer && (
-          <S.ContentBox>
-            <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
-            <S.ContentTextBox>
-              <S.ContentUserInfoBox>
-                <Text
-                  $normalType={TextType.Body2Bol}
-                  $mobileType={TextType.Caption1Bol}
-                  text={ownerName}
-                />
-
-                <S.UpdateTimeBox>
+        <S.ContentBox>
+          <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
+          <S.ContentTextBox>
+            <S.ContentUserInfoBox>
+              <Text
+                $normalType={TextType.Body2Bol}
+                $mobileType={TextType.Caption1Bol}
+                text={ownerName}
+              />
+            </S.ContentUserInfoBox>
+            {!isDeleteAnswer &&
+              (question?.answer?.content ? (
+                <>
                   <Text
-                    $normalType={TextType.Caption1Med}
-                    text={updateTimeAgoAnswer}
+                    $normalType={TextType.Body3Reg}
+                    text={question?.answer?.content}
                   />
-                </S.UpdateTimeBox>
-              </S.ContentUserInfoBox>
-              {question?.answer?.isRejected ? (
-                <S.RefuseAnswerBox>
-                  <Text $normalType={TextType.Body3Reg} text="답변 거절" />
-                </S.RefuseAnswerBox>
+                  <S.EditButtonItem onClick={handleEditButtonClick}>
+                    <EditButton isActive={isEditActive} />
+                  </S.EditButtonItem>
+                </>
               ) : (
-                <Text
-                  $normalType={TextType.Body3Reg}
-                  text={question.answer.content}
-                />
-              )}
-            </S.ContentTextBox>
-          </S.ContentBox>
-        )}
+                <S.QnaFormItem>
+                  <QnaForm
+                    input={answer}
+                    handleInputChange={(e) => setAnswer(e.target.value)}
+                    inputPlaceholder="답변을 입력해주세요"
+                    buttonText="답변 완료"
+                    // onClickButton={handleCreateAnswer}
+                  />
+                </S.QnaFormItem>
+              ))}
+          </S.ContentTextBox>
+        </S.ContentBox>
         <S.LikeButtonBox>
           <S.LikeButton
             $like={liked}
@@ -182,4 +160,4 @@ const QuestionCardItem = ({
   );
 };
 
-export default QuestionCardItem;
+export default AnswerCardItem;

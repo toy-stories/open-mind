@@ -4,10 +4,10 @@ const KebabMenuButtons = ({
   onRefuseAnswerClick,
   onDeleteAnswerClick,
   onDeleteQuestionClick,
-  postData,
+  question,
 }) => {
-  const isRejectedAnswer = postData?.answer?.isRejected;
-  const hasAnswer = postData?.answer;
+  const isRejectedAnswer = question?.answer?.isRejected;
+  const hasAnswer = question?.answer;
 
   return (
     <S.KebabMenuList>

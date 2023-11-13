@@ -32,7 +32,7 @@ export const ProfileImage = styled.img`
   height: 13.6rem;
   position: absolute;
   top: 12.9rem;
-  border-radius: 13.6rem;
+  border-radius: 50%;
 `;
 
 export const UserIdText = styled.div`
@@ -40,7 +40,7 @@ export const UserIdText = styled.div`
   top: 27.7rem;
 `;
 
-export const PostCardListBox = styled.div`
+export const CardListBox = styled.div`
   position: relative;
   margin-top: 42.3rem;
   margin-bottom: 13.6rem;
@@ -58,6 +58,8 @@ export const FeedCardsBox = styled.div`
   border-radius: 16px;
   border: 1px solid ${COLORS.BROWN20};
   background: ${COLORS.BROWN10};
+  position: relative;
+  margin-top: 42.3rem;
   margin-bottom: 13.6rem;
 `;
 
