@@ -7,8 +7,6 @@ import COLORS from 'utils/colors.js';
 import QnaForm from 'components/qnaForm/QnaForm.jsx';
 import Toast from 'components/toast/Toast.jsx';
 
-const sampleId = '158';
-
 const TOAST_TEXT_TYPE = {
   NONE: '',
   SUCCESS: '질문이 정상 등록되었습니다',
@@ -17,7 +15,7 @@ const TOAST_TEXT_TYPE = {
   EMPTY: '질문 내용을 입력해주세요.',
 };
 
-const QuestionModal = ({ subjectOwner, onClickClose }) => {
+const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
   const [question, setQuestion] = useState('');
   const [toastStatus, setToastStatus] = useState('NONE');
   const [isPending, error, createQuestionAsync] = useAsync(createQuestion);
@@ -41,6 +39,12 @@ const QuestionModal = ({ subjectOwner, onClickClose }) => {
     if (result) {
       setToastStatus('SUCCESS');
       setQuestion('');
+      setQuestionInfo((prev) => ({
+        ...prev,
+        results: [result, ...prev.results],
+        count: prev.count + 1,
+      }));
+      onClickClose();
     } else {
       setToastStatus('ERROR');
     }

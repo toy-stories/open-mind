@@ -126,6 +126,7 @@ const PostPage = () => {
         </S.FloatingButtonItem>
         <Modal>
           <QuestionModal
+            setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
             onClickClose={closeModal}
           />
