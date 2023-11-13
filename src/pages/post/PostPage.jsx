@@ -71,7 +71,7 @@ const PostPage = () => {
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
 
-  if (hasError) return <Navigate to="/" />;
+  if (hasError || nextHasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
