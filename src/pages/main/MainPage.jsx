@@ -4,6 +4,8 @@ import * as S from 'pages/main/mainPage.style.jsx';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
+import { createFeedId } from './mainPage.js';
+import { useNavigate } from 'react-router-dom';
 // import personImage from 'assets/icons/Person.svg';
 
 const MainPage = () => {
@@ -20,6 +22,13 @@ const MainPage = () => {
   const answerPath = '/post/{id}/answer';
   const LinkButtonPath = id ? '/list' : '/';
 
+  const navigate = useNavigate();
+
+  const createFeedAndRedirect = async () => {
+    const id = await createFeedId(name);
+    navigate(`/post/${id}/answer`);
+  };
+
   return (
     <section>
       <S.LogoImage src={logoImage} alt="로고이미지" />
@@ -30,9 +39,9 @@ const MainPage = () => {
         value={name}
         onChange={handleInputChange}
       />
-      <Link to={answerPath}>
-        <button disabled={!name}>질문 받기</button>
-      </Link>
+      <button disabled={!name} onClick={createFeedAndRedirect}>
+        질문 받기
+      </button>
       <Link to={LinkButtonPath}>
         <LinkButton type={type} isActive={isActive} />
       </Link>
