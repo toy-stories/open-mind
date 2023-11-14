@@ -38,7 +38,6 @@ const QuestionCardList = ({ questionInfo, subjectOwner, openModal }) => {
   return (
     <>
       <FloatingButton type="W" onClick={openModal} />
-
       <S.PostCardList>
         <S.PostCardListTitleBox>
           <S.SpeechBubble />

@@ -135,10 +135,3 @@ export const SpeechBubble = styled(MessagesImage)`
     fill: ${COLORS.BROWN40};
   }
 `;
-
-export const FloatingButtonItem = styled.div`
-  position: fixed;
-  bottom: 2.4rem;
-  right: 2.4rem;
-  z-index: 1;
-`;
