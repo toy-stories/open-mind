@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/open-mind/static/css/main.31d6cfe0.css",
-    "main.js": "/open-mind/static/js/main.7a8dec39.js",
+    "main.js": "/open-mind/static/js/main.da174167.js",
     "static/js/787.f6809c1f.chunk.js": "/open-mind/static/js/787.f6809c1f.chunk.js",
     "static/media/Pretendard-Medium.woff": "/open-mind/static/media/Pretendard-Medium.f0cc544dcc84cf9f03b3.woff",
     "static/media/Pretendard-Regular.woff": "/open-mind/static/media/Pretendard-Regular.21b4bbcb93a4b1214f7d.woff",
@@ -20,11 +20,11 @@
     "static/media/More.svg": "/open-mind/static/media/More.ecf1fda50132749ef85b46b568bf8805.svg",
     "static/media/Arrow-down.svg": "/open-mind/static/media/Arrow-down.f4f0c3ba8bff6e405e5a38fd48861e20.svg",
     "static/media/Arrow-up.svg": "/open-mind/static/media/Arrow-up.fb8c06d3b14ce21c6a924de442e27cc4.svg",
-    "main.7a8dec39.js.map": "/open-mind/static/js/main.7a8dec39.js.map",
+    "main.da174167.js.map": "/open-mind/static/js/main.da174167.js.map",
     "787.f6809c1f.chunk.js.map": "/open-mind/static/js/787.f6809c1f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.7a8dec39.js"
+    "static/js/main.da174167.js"
   ]
 }
