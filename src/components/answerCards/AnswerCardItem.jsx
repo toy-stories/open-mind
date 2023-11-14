@@ -236,11 +236,13 @@ const AnswerCardItem = ({
                 )}
               </S.QnaFormItem>
             )}
-            {question?.answer && !isEditActive && (
-              <S.EditButtonItem onClick={handleEditButtonClick}>
-                <EditButton isEditActive={isEditActive} />
-              </S.EditButtonItem>
-            )}
+            {!question?.answer?.isRejected &&
+              question?.answer &&
+              !isEditActive && (
+                <S.EditButtonItem onClick={handleEditButtonClick}>
+                  <EditButton isEditActive={isEditActive} />
+                </S.EditButtonItem>
+              )}
 
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
