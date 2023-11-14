@@ -7,9 +7,11 @@ const QnaForm = ({
   handleInputChange,
   inputPlaceholder,
   buttonText,
+  type,
   onClickButton,
 }) => {
   const handleButtonClick = (e) => {
+    type === 'A' && e.preventDefault();
     onClickButton();
   };
 

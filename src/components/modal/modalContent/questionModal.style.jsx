@@ -31,10 +31,12 @@ export const CloseButton = styled.button``;
 export const SubjectContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.4rem;
 `;
 
 export const CloseImage = styled(CloseIcon)``;
 
 export const SubjectImage = styled.img`
   margin-right: 0.4rem;
+  border-radius: 2.8rem;
 `;

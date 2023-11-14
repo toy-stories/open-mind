@@ -72,6 +72,8 @@ export const LikeButtonBox = styled.div`
   gap: 3.2rem;
   padding-top: 2.4rem;
   border-top: 1px solid ${COLORS.GRAY30};
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const LikeButton = styled.button`
@@ -135,7 +137,6 @@ export const SpeechBubble = styled(MessagesImage)`
 export const EditButtonItem = styled.div`
   position: absolute;
   right: 3.2rem;
-  bottom: 2.2rem;
 `;
 
 export const QnaFormItem = styled.div`

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
-import * as S from './questionModal.style.js';
+import * as S from 'components/modal/modalContent/questionModal.style.jsx';
 import createQuestion from 'utils/createQuestion.js';
 import { TextType, Text } from 'components/text/Text.jsx';
 import COLORS from 'utils/colors.js';
 import QnaForm from 'components/qnaForm/QnaForm.jsx';
 import Toast from 'components/toast/Toast.jsx';
-
-const sampleId = '158';
 
 const TOAST_TEXT_TYPE = {
   NONE: '',
@@ -17,7 +15,7 @@ const TOAST_TEXT_TYPE = {
   EMPTY: '질문 내용을 입력해주세요.',
 };
 
-const QuestionModal = ({ onClickClose }) => {
+const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
   const [question, setQuestion] = useState('');
   const [toastStatus, setToastStatus] = useState('NONE');
   const [isPending, error, createQuestionAsync] = useAsync(createQuestion);
@@ -34,13 +32,20 @@ const QuestionModal = ({ onClickClose }) => {
     }
 
     const result = await createQuestionAsync({
-      subjectId: sampleId,
+      subjectId: subjectOwner?.id,
       content: question,
     });
 
     if (result) {
       setToastStatus('SUCCESS');
       setQuestion('');
+      setQuestionInfo((prev) => ({
+        ...prev,
+        results: [result, ...prev.results],
+        count: Number(prev.count) + 1,
+        next: Number(prev.next) + 1,
+      }));
+      onClickClose();
     } else {
       setToastStatus('ERROR');
     }
@@ -75,17 +80,24 @@ const QuestionModal = ({ onClickClose }) => {
         </S.CloseButton>
       </S.TitleContainer>
       <S.SubjectContainer>
-        <Text $normalType={TextType.Body2Bol} style={{ marginRight: '0.3rem' }}>
-          To.
-        </Text>
-        <S.SubjectImage src="" width="28px" height="28px" />
-        <Text $normalType={TextType.Body3Reg}>고양이가 어쩌구</Text>
+        <Text
+          $normalType={TextType.Body2Bol}
+          style={{ marginRight: '0.3rem' }}
+          text="To."
+        />
+        <S.SubjectImage
+          src={subjectOwner?.imageSource}
+          width="28px"
+          height="28px"
+        />
+        <Text $normalType={TextType.Body3Reg} text={subjectOwner?.name} />
       </S.SubjectContainer>
       <QnaForm
         input={question}
         handleInputChange={(e) => setQuestion(e.target.value)}
         inputPlaceholder="질문을 입력해주세요"
         buttonText="질문 보내기"
+        type="Q"
         onClickButton={handleCreateQuestion}
       />
       {toastStatus !== 'NONE' && <Toast text={TOAST_TEXT_TYPE[toastStatus]} />}

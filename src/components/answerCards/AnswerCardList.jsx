@@ -3,36 +3,38 @@ import * as S from 'components/answerCards/answerCards.style.jsx';
 import AnswerCardItem from 'components/answerCards/AnswerCardItem.jsx';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
-import { useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
+import LoadingSpinner from 'components/tempLoading/TempLoading';
 import { fetchClient } from 'utils/apiClient';
 import Swal from 'sweetalert2';
 
 const REACTION_MAX_INT = 2147483647;
 
-const AnswerCardList = ({ questionInfo, subjectOwner, subjectId }) => {
-  const { results, count } = questionInfo;
-  const [questions, setQuestions] = useState(results);
-
-  const [isPending, hasError, postCreateReactionAsync] =
+const AnswerCardList = ({
+  questionInfo,
+  setQuestionInfo,
+  subjectOwner,
+  isPending,
+}) => {
+  const [isReactionPending, hasError, postCreateReactionAsync] =
     useAsync(postCreateReaction);
 
   const handleReaction = async (questionIndex, questionId, type) => {
     const localStorageReaction = JSON.parse(localStorage.getItem(type)) || {};
     if (
       localStorageReaction[questionId] ||
-      questions[questionIndex][type] >= REACTION_MAX_INT
+      questionInfo.results[questionIndex][type] >= REACTION_MAX_INT
     )
       return;
 
     const result = await postCreateReactionAsync(type, questionId);
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         [type]: result[type],
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
     localStorageReaction[questionId] = true;
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
@@ -52,7 +54,7 @@ const AnswerCardList = ({ questionInfo, subjectOwner, subjectId }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetchClient({
-          url: `subjects/${subjectId}/`,
+          url: `subjects/${subjectOwner.id}/`,
           method: 'DELETE',
         }).then((result) => {
           localStorage.removeItem('userId');
@@ -81,19 +83,20 @@ const AnswerCardList = ({ questionInfo, subjectOwner, subjectId }) => {
           <Text
             $normalType={TextType.Body1Bol}
             $mobileType={TextType.Body2Bol}
-            text={`${count}개의 질문이 있습니다.`}
+            text={`${questionInfo.count}개의 질문이 있습니다.`}
           />
         </S.PostCardListTitleBox>
-        {questions?.map((question, questionIndex) => (
+        {questionInfo.results?.map((question, questionIndex) => (
           <AnswerCardItem
             key={question.id}
             question={question}
-            setQuestions={setQuestions}
+            setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
             questionIndex={questionIndex}
             handleReaction={handleReaction}
           />
         ))}
+        {isPending && <LoadingSpinner />}
       </S.PostCardList>
     </>
   );

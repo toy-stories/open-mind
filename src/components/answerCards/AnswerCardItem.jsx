@@ -26,7 +26,7 @@ const TOAST_TEXT_TYPE = {
 
 const AnswerCardItem = ({
   question,
-  setQuestions,
+  setQuestionInfo,
   subjectOwner,
   questionIndex,
   handleReaction,
@@ -79,6 +79,15 @@ const AnswerCardItem = ({
     if (result) {
       setToastStatus('SUCCESS');
       setAnswer('');
+
+      setQuestionInfo((prev) => {
+        const newQuestions = [...prev.results];
+        newQuestions[questionIndex] = {
+          ...newQuestions[questionIndex],
+          answer: result,
+        };
+        return { ...prev, results: newQuestions };
+      });
     }
     if (error) {
       setToastStatus('ERROR');
@@ -98,14 +107,13 @@ const AnswerCardItem = ({
         content: answer,
       });
 
-      setQuestions((prev) => {
-        const newQuestions = [...prev];
-        const updatedQuestion = {
+      setQuestionInfo((prev) => {
+        const newQuestions = [...prev.results];
+        newQuestions[questionIndex] = {
           ...newQuestions[questionIndex],
           answer: updatedAnswer,
         };
-        newQuestions[questionIndex] = updatedQuestion;
-        return newQuestions;
+        return { ...prev, results: newQuestions };
       });
 
       setToastStatus('SUCCESS');
@@ -125,29 +133,27 @@ const AnswerCardItem = ({
         isRejected: true,
       },
     });
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         answer: results,
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
   };
-
   const handleDeleteAnswerClick = async () => {
     await fetchClient({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
-
-    setQuestions((prev) => {
-      const newQuestions = [...prev];
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
         ...newQuestions[questionIndex],
         answer: null,
       };
-      return newQuestions;
+      return { ...prev, results: newQuestions };
     });
   };
 
@@ -158,6 +164,17 @@ const AnswerCardItem = ({
     });
 
     setIsDeleteQuestion(true);
+    setQuestionInfo((prev) => {
+      const newQuestions = [...prev.results].filter(
+        (p) => p.id !== question.id,
+      );
+      return {
+        ...prev,
+        results: newQuestions,
+        count: Number(prev.count) - 1,
+        next: prev.next ? Number(prev.next) - 1 : null,
+      };
+    });
   };
 
   useEffect(() => {
@@ -229,21 +246,14 @@ const AnswerCardItem = ({
                   handleInputChange={(e) => setAnswer(e.target.value)}
                   inputPlaceholder="답변을 입력해주세요"
                   buttonText="답변 완료"
+                  type="A"
                   onClickButton={handleCreateAnswer}
                 />
-                {toastStatus !== 'NONE' && (
-                  <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
-                )}
               </S.QnaFormItem>
             )}
-            {!question?.answer?.isRejected &&
-              question?.answer &&
-              !isEditActive && (
-                <S.EditButtonItem onClick={handleEditButtonClick}>
-                  <EditButton isEditActive={isEditActive} />
-                </S.EditButtonItem>
-              )}
-
+            {toastStatus !== 'NONE' && (
+              <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
+            )}
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
@@ -254,6 +264,7 @@ const AnswerCardItem = ({
                 handleInputChange={(e) => setAnswer(e.target.value)}
                 inputPlaceholder="수정 내용을 입력해주세요"
                 buttonText="수정 완료"
+                type="A"
                 onClickButton={handleUpdateAnswer} // 수정 완료 버튼 클릭 핸들러
               />
             ) : (
@@ -289,6 +300,11 @@ const AnswerCardItem = ({
               }`}
             />
           </S.DislikeButton>
+          {question?.answer && !isEditActive && (
+            <S.EditButtonItem onClick={handleEditButtonClick}>
+              <EditButton isEditActive={isEditActive} />
+            </S.EditButtonItem>
+          )}
         </S.LikeButtonBox>
       </S.PostCardItem>
     )

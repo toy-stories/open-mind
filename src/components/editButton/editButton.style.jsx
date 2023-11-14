@@ -22,6 +22,7 @@ export const EditButton = styled.button`
   border: 1px solid ${COLORS.GRAY30};
   background: ${COLORS.WHITE};
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+  margin-left: auto;
   color: ${({ $isEditActive }) =>
     $isEditActive ? `${COLORS.BLUE}` : `${COLORS.GRAY50}`};
 
@@ -33,5 +34,8 @@ export const EditButton = styled.button`
         fill: ${COLORS.BLACK};
       }
     }
+  }
+  @media only screen and (max-width: 454px) {
+    margin-left: 0;
   }
 `;
