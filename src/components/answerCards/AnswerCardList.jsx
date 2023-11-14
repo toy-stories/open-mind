@@ -1,9 +1,11 @@
 import { Text, TextType } from 'components/text/Text.jsx';
 import * as S from 'components/answerCards/answerCards.style.jsx';
 import AnswerCardItem from 'components/answerCards/AnswerCardItem.jsx';
+import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading';
+import { CONFIRM_MESSAGE } from 'utils/constants';
 
 const REACTION_MAX_INT = 2147483647;
 
@@ -36,28 +38,43 @@ const AnswerCardList = ({
     localStorageReaction[questionId] = true;
     localStorage.setItem(type, JSON.stringify(localStorageReaction));
   };
+
+  const handleDeleteId = async () => {
+    if (window.confirm(CONFIRM_MESSAGE)) {
+      await fetchClient({
+        url: `subjects/${subjectId}/`,
+        method: 'DELETE',
+      });
+      localStorage.removeItem('userId');
+      alert(DELETE_USER_MESSAGE);
+      window.location.replace('/');
+    }
+  };
   return (
-    <S.PostCardList>
-      <S.PostCardListTitleBox>
-        <S.SpeechBubble />
-        <Text
-          $normalType={TextType.Body1Bol}
-          $mobileType={TextType.Body2Bol}
-          text={`${questionInfo.count}개의 질문이 있습니다.`}
-        />
-      </S.PostCardListTitleBox>
-      {questionInfo.results?.map((question, questionIndex) => (
-        <AnswerCardItem
-          key={question.id}
-          question={question}
-          setQuestionInfo={setQuestionInfo}
-          subjectOwner={subjectOwner}
-          questionIndex={questionIndex}
-          handleReaction={handleReaction}
-        />
-      ))}
-      {isPending && <LoadingSpinner />}
-    </S.PostCardList>
+    <>
+      <FloatingButton type="A" onClick={handleDeleteId} />
+      <S.PostCardList>
+        <S.PostCardListTitleBox>
+          <S.SpeechBubble />
+          <Text
+            $normalType={TextType.Body1Bol}
+            $mobileType={TextType.Body2Bol}
+            text={`${questionInfo.count}개의 질문이 있습니다.`}
+          />
+        </S.PostCardListTitleBox>
+        {questionInfo.results?.map((question, questionIndex) => (
+          <AnswerCardItem
+            key={question.id}
+            question={question}
+            setQuestionInfo={setQuestionInfo}
+            subjectOwner={subjectOwner}
+            questionIndex={questionIndex}
+            handleReaction={handleReaction}
+          />
+        ))}
+        {isPending && <LoadingSpinner />}
+      </S.PostCardList>
+    </>
   );
 };
 

@@ -35,7 +35,6 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: 56rem;
 `;
 
 export const UpdateTimeBox = styled.div`
@@ -46,7 +45,6 @@ export const ContentBox = styled.div`
   display: flex;
   gap: 1.2rem;
   align-self: stretch;
-  width: 56rem;
 `;
 
 export const ContentUserInfoBox = styled.div`
@@ -117,6 +115,7 @@ export const PostCardList = styled.ul`
   background: ${COLORS.BROWN10};
   border: 1px solid ${COLORS.BROWN30};
   border-radius: 1.6rem;
+  height: 100%;
 `;
 
 export const PostCardListTitleBox = styled.div`
@@ -125,9 +124,14 @@ export const PostCardListTitleBox = styled.div`
   align-items: center;
   gap: 0.8rem;
   margin-bottom: -0.4rem;
+  color: ${COLORS.BROWN40};
 `;
 
 export const SpeechBubble = styled(MessagesImage)`
   width: 2.4rem;
   height: 2.4rem;
+  vertical-align: middle;
+  path {
+    fill: ${COLORS.BROWN40};
+  }
 `;

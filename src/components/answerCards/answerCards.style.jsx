@@ -35,7 +35,6 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  width: 56rem;
 `;
 
 export const UpdateTimeBox = styled.div`
@@ -46,7 +45,6 @@ export const ContentBox = styled.div`
   display: flex;
   gap: 1.2rem;
   align-self: stretch;
-  width: 56rem;
 `;
 
 export const ContentUserInfoBox = styled.div`
@@ -74,6 +72,8 @@ export const LikeButtonBox = styled.div`
   gap: 3.2rem;
   padding-top: 2.4rem;
   border-top: 1px solid ${COLORS.GRAY30};
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const LikeButton = styled.button`
@@ -111,6 +111,7 @@ export const RefuseAnswerBox = styled.div`
 `;
 
 export const PostCardList = styled.ul`
+  padding: 13.6rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -136,9 +137,14 @@ export const SpeechBubble = styled(MessagesImage)`
 export const EditButtonItem = styled.div`
   position: absolute;
   right: 3.2rem;
-  bottom: 2.2rem;
 `;
 
 export const QnaFormItem = styled.div`
   width: 100%;
+`;
+
+export const FloatingButtonItem = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1rem;
 `;

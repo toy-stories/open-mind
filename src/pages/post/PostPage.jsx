@@ -1,19 +1,19 @@
 import * as S from 'pages/post/postPage.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
-import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
-import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AnswerCardList from 'components/answerCards/AnswerCardList';
+
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
-import { Navigate, useParams, useLocation } from 'react-router-dom';
-import useAsync from 'hooks/useAsync';
 import { getNextPosts, getPosts } from 'pages/post/postPage.js';
 import useObserver from 'hooks/useObserver';
+import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
+import useAsync from 'hooks/useAsync';
+import headerImage from 'assets/images/header-background.png';
 
 const PostPage = () => {
   const { subjectId } = useParams();
@@ -90,31 +90,49 @@ const PostPage = () => {
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
-      <S.Logo src={logo} alt="오픈마인드 로고" />
-      <S.HeaderUserProfile>
+      <S.HeaderContainer>
+        <Link to="/">
+          <S.Logo src={logo} alt="오픈마인드 로고" />
+        </Link>
         <S.ProfileImage
           src={subjectOwner?.imageSource}
           alt="유저 프로필 이미지"
         />
-        <S.UserIdText>
-          <Text
-            $normalType={TextType.H2}
-            $mobileType={TextType.H3}
-            text={subjectOwner?.name}
-          />
-        </S.UserIdText>
-      </S.HeaderUserProfile>
-      <ShareButtons />
-      {isAnswerPage() ? (
-        questionInfo?.count ? (
-          <S.CardListBox>
+        <Text
+          $normalType={TextType.H2}
+          $mobileType={TextType.H3}
+          text={subjectOwner?.name}
+        />
+        <ShareButtons />
+      </S.HeaderContainer>
+      <S.CardListBox>
+        {isAnswerPage() ? (
+          questionInfo?.count ? (
             <AnswerCardList
               isPending={isNextPending}
               questionInfo={questionInfo}
               setQuestionInfo={setQuestionInfo}
               subjectOwner={subjectOwner}
+              subjectId={subjectId}
             />
-          </S.CardListBox>
+          ) : (
+            <S.FeedCardsBox>
+              <S.MessageBox>
+                <S.MessageIcon alt="메세지 아이콘" />
+                <Text
+                  $normalType={TextType.Body1Bol}
+                  text="아직 질문이 없습니다."
+                />
+              </S.MessageBox>
+              <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+            </S.FeedCardsBox>
+          )
+        ) : questionInfo?.count ? (
+          <QuestionCardList
+            questionInfo={questionInfo}
+            subjectOwner={subjectOwner}
+            openModal={openModal}
+          />
         ) : (
           <S.FeedCardsBox>
             <S.MessageBox>
@@ -126,36 +144,10 @@ const PostPage = () => {
             </S.MessageBox>
             <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
           </S.FeedCardsBox>
-        )
-      ) : questionInfo?.count ? (
-        <S.CardListBox>
-          <QuestionCardList
-            isPending={isNextPending}
-            questionInfo={questionInfo}
-            setQuestionInfo={setQuestionInfo}
-            subjectOwner={subjectOwner}
-          />
-        </S.CardListBox>
-      ) : (
-        <S.FeedCardsBox>
-          <S.MessageBox>
-            <S.MessageIcon alt="메세지 아이콘" />
-            <Text
-              $normalType={TextType.Body1Bol}
-              text="아직 질문이 없습니다."
-            />
-          </S.MessageBox>
-          <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
-        </S.FeedCardsBox>
-      )}
-      <S.FloatingButtonItem>
-        <FloatingButton type="W" />
-      </S.FloatingButtonItem>
-      <div ref={target} />
-      <>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
+        )}
+      </S.CardListBox>
+
+      {!isAnswerPage() && (
         <Modal>
           <QuestionModal
             setQuestionInfo={setQuestionInfo}
@@ -163,7 +155,7 @@ const PostPage = () => {
             onClickClose={closeModal}
           />
         </Modal>
-      </>
+      )}
     </S.PostPageContainer>
   );
 };
