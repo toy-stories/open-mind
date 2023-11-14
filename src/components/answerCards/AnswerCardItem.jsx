@@ -263,6 +263,7 @@ const AnswerCardItem = ({
                 handleInputChange={(e) => setAnswer(e.target.value)}
                 inputPlaceholder="수정 내용을 입력해주세요"
                 buttonText="수정 완료"
+                type="A"
                 onClickButton={handleUpdateAnswer} // 수정 완료 버튼 클릭 핸들러
               />
             ) : (
