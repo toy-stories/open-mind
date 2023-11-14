@@ -301,10 +301,9 @@ const AnswerCardItem = ({
             />
           </S.DislikeButton>
           {question?.answer && !isEditActive && (
-            <EditButton
-              onClick={handleEditButtonClick}
-              isEditActive={isEditActive}
-            />
+            <S.EditButtonItem onClick={handleEditButtonClick}>
+              <EditButton isEditActive={isEditActive} />
+            </S.EditButtonItem>
           )}
         </S.LikeButtonBox>
       </S.PostCardItem>
