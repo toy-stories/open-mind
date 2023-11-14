@@ -35,4 +35,7 @@ export const EditButton = styled.button`
       }
     }
   }
+  @media only screen and (max-width: 454px) {
+    margin-left: 0;
+  }
 `;
