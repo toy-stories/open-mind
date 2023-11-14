@@ -28,7 +28,7 @@ export const ToastBox = styled.div`
   color: ${COLORS.WHITE};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   position: fixed;
-  top: 78.7rem;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
