@@ -57,7 +57,7 @@ const AnswerCardList = ({ questionInfo, subjectOwner, subjectId }) => {
         }).then((result) => {
           localStorage.removeItem('userId');
           Swal.fire({
-            title: 'Deleted!',
+            title: '계정삭제완료',
             text: '계정이 삭제되었습니다. 메인페이지로 돌아갑니다.',
             icon: 'success',
             confirmButtonColor: '#3085d6',
