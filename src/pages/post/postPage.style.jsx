@@ -17,8 +17,12 @@ export const HeaderImage = styled.img`
   position: absolute;
   top: 0;
   height: 23.4rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
+    width: auto;
+  }
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     height: 17.7rem;
+    width: auto;
   }
 `;
 
