@@ -135,8 +135,11 @@ export const SpeechBubble = styled(MessagesImage)`
 `;
 
 export const EditButtonItem = styled.div`
-  position: absolute;
-  right: 3.2rem;
+  margin-left: auto;
+
+  @media only screen and (max-width: 454px) {
+    margin-left: 0;
+  }
 `;
 
 export const QnaFormItem = styled.div`
