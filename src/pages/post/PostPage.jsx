@@ -4,7 +4,7 @@ import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
-import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
+
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import AnswerCardList from 'components/answerCards/AnswerCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
@@ -66,6 +66,7 @@ const PostPage = () => {
             <AnswerCardList
               questionInfo={questionInfo}
               subjectOwner={subjectOwner}
+              subjectId={subjectId}
             />
           </S.CardListBox>
         ) : (
@@ -85,6 +86,7 @@ const PostPage = () => {
           <QuestionCardList
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
+            openModal={openModal}
           />
         </S.CardListBox>
       ) : (
@@ -100,12 +102,11 @@ const PostPage = () => {
         </S.FeedCardsBox>
       )}
       <>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
-        <Modal>
-          <QuestionModal onClickClose={closeModal} />
-        </Modal>
+        {!isAnswerPage() && (
+          <Modal>
+            <QuestionModal onClickClose={closeModal} />
+          </Modal>
+        )}
       </>
     </S.PostPageContainer>
   );

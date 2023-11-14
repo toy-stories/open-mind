@@ -131,3 +131,9 @@ export const SpeechBubble = styled(MessagesImage)`
   width: 2.4rem;
   height: 2.4rem;
 `;
+
+export const FloatingButtonItem = styled.div`
+  position: fixed;
+  bottom: 2.4rem;
+  right: 2.4rem;
+`;
