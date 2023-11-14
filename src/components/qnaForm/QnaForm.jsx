@@ -10,7 +10,6 @@ const QnaForm = ({
   onClickButton,
 }) => {
   const handleButtonClick = (e) => {
-    e.preventDefault();
     onClickButton();
   };
 

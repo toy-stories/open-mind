@@ -11,9 +11,3 @@ export const Z_INDEX = {
 };
 
 export const BODY_DEFAULT_OVERFLOW = '';
-
-export const CONFIRM_MESSAGE = `[주의] 계정 삭제는 복구할 수 없으며, 모든 데이터가 영구적으로 제거됩니다.
-계속하시겠습니까?`;
-
-export const DELETE_USER_MESSAGE =
-  '계정이 삭제되었습니다. 메인페이지로 돌아갑니다.';

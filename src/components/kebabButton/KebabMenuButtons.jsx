@@ -11,7 +11,7 @@ const KebabMenuButtons = ({
 
   return (
     <S.KebabMenuList>
-      {!isRejectedAnswer && (
+      {!isRejectedAnswer && !hasAnswer && (
         <S.KebabMenuButton onClick={onRefuseAnswerClick}>
           답변 거절
         </S.KebabMenuButton>
