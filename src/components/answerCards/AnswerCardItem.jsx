@@ -246,6 +246,7 @@ const AnswerCardItem = ({
                   handleInputChange={(e) => setAnswer(e.target.value)}
                   inputPlaceholder="답변을 입력해주세요"
                   buttonText="답변 완료"
+                  type="A"
                   onClickButton={handleCreateAnswer}
                 />
               </S.QnaFormItem>
