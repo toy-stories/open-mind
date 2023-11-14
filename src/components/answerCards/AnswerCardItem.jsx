@@ -172,7 +172,7 @@ const AnswerCardItem = ({
         ...prev,
         results: newQuestions,
         count: Number(prev.count) - 1,
-        next: Number(prev.next) - 1,
+        next: prev.next ? Number(prev.next) - 1 : null,
       };
     });
   };

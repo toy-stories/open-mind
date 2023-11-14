@@ -5,9 +5,8 @@ import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading';
-import { CONFIRM_MESSAGE, DELETE_USER_MESSAGE } from 'utils/constants';
 import { fetchClient } from 'utils/apiClient';
-import { Swal } from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 const REACTION_MAX_INT = 2147483647;
 

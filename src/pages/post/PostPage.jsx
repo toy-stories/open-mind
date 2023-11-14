@@ -67,7 +67,7 @@ const PostPage = () => {
       const { questionsData, subjectData } = result;
       const offset = questionsData.next
         ? new URL(questionsData.next).searchParams.get('offset')
-        : 0;
+        : null;
 
       setQuestionInfo({ ...questionsData, next: Number(offset) });
       setSubjectOwner(subjectData);
@@ -110,7 +110,7 @@ const PostPage = () => {
         {isAnswerPage() ? (
           questionInfo?.count ? (
             <AnswerCardList
-              isPending={isNextPending}
+              isPending={isPending || isNextPending}
               questionInfo={questionInfo}
               setQuestionInfo={setQuestionInfo}
               subjectOwner={subjectOwner}
@@ -129,7 +129,7 @@ const PostPage = () => {
           )
         ) : questionInfo?.count ? (
           <QuestionCardList
-            isPending={isNextPending}
+            isPending={isPending || isNextPending}
             questionInfo={questionInfo}
             setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
