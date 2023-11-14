@@ -1,30 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.31d6cfe0.css",
-    "main.js": "/static/js/main.5f86c473.js",
-    "static/js/787.f6809c1f.chunk.js": "/static/js/787.f6809c1f.chunk.js",
-    "static/media/Pretendard-Medium.woff": "/static/media/Pretendard-Medium.f0cc544dcc84cf9f03b3.woff",
-    "static/media/Pretendard-Regular.woff": "/static/media/Pretendard-Regular.21b4bbcb93a4b1214f7d.woff",
-    "static/media/main-background.png": "/static/media/main-background.ed3e3e2a9132b1efae94.png",
-    "static/media/header-background.png": "/static/media/header-background.7016cc8e232608b675af.png",
-    "static/media/default-profile-image.png": "/static/media/default-profile-image.5202e520e4a816688913.png",
-    "static/media/Actor-Regular.ttf": "/static/media/Actor-Regular.15d692218d9ada8ff090.ttf",
-    "static/media/logo.png": "/static/media/logo.10dd15e372d96f36ccf7.png",
-    "static/media/thumbs-down.svg": "/static/media/thumbs-down.480b7f2eb90bafd499a5ec87b5b23933.svg",
-    "static/media/Edit.svg": "/static/media/Edit.915ce10b08029e8dcf7581eddc2468ce.svg",
-    "static/media/thumbs-up.svg": "/static/media/thumbs-up.8d4bddf63b98bd24fd34dced4b19ce3b.svg",
-    "static/media/Messages.svg": "/static/media/Messages.bb7bbc0dcf0e306981941c52a8445701.svg",
-    "static/media/Close.svg": "/static/media/Close.f370a8a790a7a31e14a8003689ddeb57.svg",
-    "static/media/arrow-right-tail.svg": "/static/media/arrow-right-tail.b296dec0a9361b6fa9aa905b8045dbcc.svg",
-    "index.html": "/index.html",
-    "static/media/More.svg": "/static/media/More.ecf1fda50132749ef85b46b568bf8805.svg",
-    "static/media/Arrow-down.svg": "/static/media/Arrow-down.f4f0c3ba8bff6e405e5a38fd48861e20.svg",
-    "static/media/Arrow-up.svg": "/static/media/Arrow-up.fb8c06d3b14ce21c6a924de442e27cc4.svg",
-    "main.5f86c473.js.map": "/static/js/main.5f86c473.js.map",
-    "787.f6809c1f.chunk.js.map": "/static/js/787.f6809c1f.chunk.js.map"
+    "main.css": "/open-mind/static/css/main.31d6cfe0.css",
+    "main.js": "/open-mind/static/js/main.9ffadf78.js",
+    "static/js/787.f6809c1f.chunk.js": "/open-mind/static/js/787.f6809c1f.chunk.js",
+    "static/media/Pretendard-Medium.woff": "/open-mind/static/media/Pretendard-Medium.f0cc544dcc84cf9f03b3.woff",
+    "static/media/Pretendard-Regular.woff": "/open-mind/static/media/Pretendard-Regular.21b4bbcb93a4b1214f7d.woff",
+    "static/media/main-background.png": "/open-mind/static/media/main-background.ed3e3e2a9132b1efae94.png",
+    "static/media/header-background.png": "/open-mind/static/media/header-background.7016cc8e232608b675af.png",
+    "static/media/default-profile-image.png": "/open-mind/static/media/default-profile-image.5202e520e4a816688913.png",
+    "static/media/Actor-Regular.ttf": "/open-mind/static/media/Actor-Regular.15d692218d9ada8ff090.ttf",
+    "static/media/logo.png": "/open-mind/static/media/logo.10dd15e372d96f36ccf7.png",
+    "static/media/thumbs-down.svg": "/open-mind/static/media/thumbs-down.480b7f2eb90bafd499a5ec87b5b23933.svg",
+    "static/media/Edit.svg": "/open-mind/static/media/Edit.915ce10b08029e8dcf7581eddc2468ce.svg",
+    "static/media/thumbs-up.svg": "/open-mind/static/media/thumbs-up.8d4bddf63b98bd24fd34dced4b19ce3b.svg",
+    "static/media/Messages.svg": "/open-mind/static/media/Messages.bb7bbc0dcf0e306981941c52a8445701.svg",
+    "index.html": "/open-mind/index.html",
+    "static/media/Close.svg": "/open-mind/static/media/Close.f370a8a790a7a31e14a8003689ddeb57.svg",
+    "static/media/arrow-right-tail.svg": "/open-mind/static/media/arrow-right-tail.b296dec0a9361b6fa9aa905b8045dbcc.svg",
+    "static/media/More.svg": "/open-mind/static/media/More.ecf1fda50132749ef85b46b568bf8805.svg",
+    "static/media/Arrow-down.svg": "/open-mind/static/media/Arrow-down.f4f0c3ba8bff6e405e5a38fd48861e20.svg",
+    "static/media/Arrow-up.svg": "/open-mind/static/media/Arrow-up.fb8c06d3b14ce21c6a924de442e27cc4.svg",
+    "main.9ffadf78.js.map": "/open-mind/static/js/main.9ffadf78.js.map",
+    "787.f6809c1f.chunk.js.map": "/open-mind/static/js/787.f6809c1f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.5f86c473.js"
+    "static/js/main.9ffadf78.js"
   ]
 }
