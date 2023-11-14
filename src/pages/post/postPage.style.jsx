@@ -81,9 +81,3 @@ export const MessageBox = styled.div`
   gap: 0.8rem;
   color: ${COLORS.BROWN40};
 `;
-
-export const FloatingButtonItem = styled.div`
-  position: fixed;
-  bottom: 2.4rem;
-  right: 2.4rem;
-`;
