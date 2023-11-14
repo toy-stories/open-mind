@@ -3,6 +3,7 @@ import * as S from 'components/answerCards/answerCards.style.jsx';
 import { useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync.js';
 import createAnswer from 'utils/createAnswer.js';
+import editAnswer from 'utils/editAnswer.js';
 import defaultUserIconImage from 'assets/images/default-profile-image.png';
 import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import EditButton from 'components/editButton/EditButton';
@@ -44,8 +45,6 @@ const AnswerCardItem = ({
   const [isDeleteQuestion, setIsDeleteQuestion] = useState(false);
   const [isEditActive, setIsEditActive] = useState(false);
 
-  const isEdit = true;
-
   // 게시물 작성 시간 계산
   const createdAtQuestion = dayjs(question?.createdAt).format();
   const updateTimeAgoQuestion = dayjs(createdAtQuestion).fromNow();
@@ -58,9 +57,10 @@ const AnswerCardItem = ({
 
   const handleEditButtonClick = () => {
     setIsEditActive((prev) => !prev);
+    setAnswer(question.answer.content);
   };
 
-  async function handleCreateAnswer() {
+  const handleCreateAnswer = async () => {
     if (!answer) {
       setToastStatus('EMPTY');
       return;
@@ -83,7 +83,38 @@ const AnswerCardItem = ({
     if (error) {
       setToastStatus('ERROR');
     }
-  }
+  };
+
+  const handleUpdateAnswer = async () => {
+    if (!answer) {
+      setToastStatus('EMPTY');
+      return;
+    }
+
+    setToastStatus('LOADING');
+    try {
+      const updatedAnswer = await editAnswer({
+        answerId: question.answer.id,
+        content: answer,
+      });
+
+      setQuestions((prev) => {
+        const newQuestions = [...prev];
+        const updatedQuestion = {
+          ...newQuestions[questionIndex],
+          answer: updatedAnswer,
+        };
+        newQuestions[questionIndex] = updatedQuestion;
+        return newQuestions;
+      });
+
+      setToastStatus('SUCCESS');
+      setIsEditActive(false); // 편집 상태 종료
+    } catch (error) {
+      console.error(error);
+      setToastStatus('ERROR');
+    }
+  };
 
   const handleRefuseClick = async () => {
     const results = await fetchClientJson({
@@ -157,16 +188,14 @@ const AnswerCardItem = ({
             />
           </S.AnswerCheckBox>
 
-          {isEdit && (
-            <KebabButton
-              onRefuseAnswerClick={handleRefuseClick}
-              onDeleteAnswerClick={handleDeleteAnswerClick}
-              onDeleteQuestionClick={handleDeleteQuestionClick}
-              kebabOpen={kebabOpen}
-              onClick={() => setKebabOpen((prev) => !prev)}
-              question={question}
-            />
-          )}
+          <KebabButton
+            onRefuseAnswerClick={handleRefuseClick}
+            onDeleteAnswerClick={handleDeleteAnswerClick}
+            onDeleteQuestionClick={handleDeleteQuestionClick}
+            kebabOpen={kebabOpen}
+            onClick={() => setKebabOpen((prev) => !prev)}
+            question={question}
+          />
         </S.AnswerAndKebabBox>
         <S.TitleBox>
           <S.UpdateTimeBox>
@@ -207,10 +236,24 @@ const AnswerCardItem = ({
                 )}
               </S.QnaFormItem>
             )}
+            {question?.answer && !isEditActive && (
+              <S.EditButtonItem onClick={handleEditButtonClick}>
+                <EditButton isEditActive={isEditActive} />
+              </S.EditButtonItem>
+            )}
+
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
               </S.RefuseAnswerBox>
+            ) : isEditActive ? (
+              <QnaForm
+                input={answer}
+                handleInputChange={(e) => setAnswer(e.target.value)}
+                inputPlaceholder="수정 내용을 입력해주세요"
+                buttonText="수정 완료"
+                onClickButton={handleUpdateAnswer} // 수정 완료 버튼 클릭 핸들러
+              />
             ) : (
               <Text
                 $normalType={TextType.Body3Reg}
@@ -245,9 +288,6 @@ const AnswerCardItem = ({
             />
           </S.DislikeButton>
         </S.LikeButtonBox>
-        <S.EditButtonItem onClick={handleEditButtonClick}>
-          <EditButton isEditActive={isEditActive} />
-        </S.EditButtonItem>
       </S.PostCardItem>
     )
   );

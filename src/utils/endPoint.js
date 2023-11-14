@@ -7,5 +7,9 @@ const END_POINT = {
     method: 'POST',
     createUrl: (questionId) => `questions/${questionId}/answers/`,
   },
+  EDIT_ANSWER: {
+    method: 'PUT',
+    createUrl: (answerId) => `answers/${answerId}/`,
+  },
 };
 export default END_POINT;
