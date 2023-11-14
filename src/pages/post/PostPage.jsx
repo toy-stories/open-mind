@@ -11,6 +11,8 @@ import useModal from 'hooks/useModal.js';
 import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
+import headerImage from 'assets/images/header-background.png';
+
 import { getPosts } from 'pages/post/postPage.js';
 
 const PostPage = () => {
@@ -43,6 +45,7 @@ const PostPage = () => {
   if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
+      <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
       <S.HeaderContainer>
         <Link to="/">
           <S.Logo src={logo} alt="오픈마인드 로고" />

@@ -125,9 +125,14 @@ export const PostCardListTitleBox = styled.div`
   align-items: center;
   gap: 0.8rem;
   margin-bottom: -0.4rem;
+  color: ${COLORS.BROWN40};
 `;
 
 export const SpeechBubble = styled(MessagesImage)`
   width: 2.4rem;
   height: 2.4rem;
+  vertical-align: middle;
+  path {
+    fill: ${COLORS.BROWN40};
+  }
 `;

@@ -2,7 +2,6 @@ import { styled } from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { ReactComponent as MessageIconSvg } from 'assets/icons/Messages.svg';
 import { RESPONSIBLE_SIZE } from 'utils/constants';
-import headerImage from 'assets/images/header-background.png';
 
 export const PostPageContainer = styled.div`
   display: flex;
@@ -17,13 +16,13 @@ export const HeaderImage = styled.img`
   width: 100%;
   position: absolute;
   top: 0;
+  height: 23.4rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    height: 17.7rem;
+  }
 `;
 
 export const HeaderContainer = styled.header`
-  background-image: url(${headerImage});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   width: 100%;
   padding: 5rem;
   display: flex;
@@ -31,9 +30,8 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   align-items: center;
   gap: 1.2rem;
-  @media only screen and (max-width: 1820px) {
-    background-size: contain;
-  }
+  z-index: 1;
+
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 4rem;
   }
@@ -41,6 +39,10 @@ export const HeaderContainer = styled.header`
 
 export const Logo = styled.img`
   width: 17rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    width: 12.4rem;
+    height: 4.9rem;
+  }
 `;
 
 export const ProfileImage = styled.img`
