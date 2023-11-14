@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from 'pages/main/mainPage.style.jsx';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
 import { createFeedId } from './mainPage.js';
-import { useNavigate } from 'react-router-dom';
-// import personImage from 'assets/icons/Person.svg';
+import personImage from 'assets/icons/Person.svg';
 
 const MainPage = () => {
   const [name, setName] = useState('');
@@ -19,7 +18,6 @@ const MainPage = () => {
   const type = 'Q';
   const isActive = true;
 
-  const answerPath = '/post/{id}/answer';
   const LinkButtonPath = id ? '/list' : '/';
 
   const navigate = useNavigate();
@@ -30,22 +28,31 @@ const MainPage = () => {
   };
 
   return (
-    <section>
-      <S.LogoImage src={logoImage} alt="로고이미지" />
+    <S.MainPageContainer>
       <S.MainBackgroundImage src={mainBackgroundImage} alt="배경이미지" />
-      <input
-        type="text"
-        placeholder="이름을 입력하세요"
-        value={name}
-        onChange={handleInputChange}
-      />
-      <button disabled={!name} onClick={createFeedAndRedirect}>
-        질문 받기
-      </button>
-      <Link to={LinkButtonPath}>
-        <LinkButton type={type} isActive={isActive} />
-      </Link>
-    </section>
+      <S.MainPage>
+        <S.MainPageNav>
+          <Link to={LinkButtonPath}>
+            <LinkButton type={type} isActive={isActive} />
+          </Link>
+        </S.MainPageNav>
+        <S.MainPageMain>
+          <S.LogoImage src={logoImage} alt="로고이미지" />
+          <S.MainPageInnerBox>
+            <S.InnerBoxImage src={personImage} alt="사람이미지" />
+            <S.InnerBoxInput
+              type="text"
+              placeholder="이름을 입력하세요"
+              value={name}
+              onChange={handleInputChange}
+            />
+            <S.InnerBoxButton disabled={!name} onClick={createFeedAndRedirect}>
+              질문 받기
+            </S.InnerBoxButton>
+          </S.MainPageInnerBox>
+        </S.MainPageMain>
+      </S.MainPage>
+    </S.MainPageContainer>
   );
 };
 export default MainPage;
