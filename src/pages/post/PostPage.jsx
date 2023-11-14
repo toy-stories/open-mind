@@ -14,6 +14,7 @@ import useObserver from 'hooks/useObserver';
 import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
 import useAsync from 'hooks/useAsync';
 import headerImage from 'assets/images/header-background.png';
+import FloatingButton from 'components/floatingButton/FloatingButton';
 
 const PostPage = () => {
   const { subjectId } = useParams();
@@ -113,7 +114,6 @@ const PostPage = () => {
               questionInfo={questionInfo}
               setQuestionInfo={setQuestionInfo}
               subjectOwner={subjectOwner}
-              subjectId={subjectId}
             />
           ) : (
             <S.FeedCardsBox>
@@ -129,12 +129,16 @@ const PostPage = () => {
           )
         ) : questionInfo?.count ? (
           <QuestionCardList
+            isPending={isNextPending}
             questionInfo={questionInfo}
+            setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
+            subjectId={subjectId}
             openModal={openModal}
           />
         ) : (
           <S.FeedCardsBox>
+            <FloatingButton type="W" onClick={openModal} />
             <S.MessageBox>
               <S.MessageIcon alt="메세지 아이콘" />
               <Text
@@ -156,6 +160,7 @@ const PostPage = () => {
           />
         </Modal>
       )}
+      <div ref={target} />
     </S.PostPageContainer>
   );
 };

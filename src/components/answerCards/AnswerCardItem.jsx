@@ -248,12 +248,11 @@ const AnswerCardItem = ({
                   buttonText="답변 완료"
                   onClickButton={handleCreateAnswer}
                 />
-                {toastStatus !== 'NONE' && (
-                  <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
-                )}
               </S.QnaFormItem>
             )}
-
+            {toastStatus !== 'NONE' && (
+              <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
+            )}
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
