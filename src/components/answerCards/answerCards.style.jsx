@@ -142,3 +142,9 @@ export const EditButtonItem = styled.div`
 export const QnaFormItem = styled.div`
   width: 100%;
 `;
+
+export const FloatingButtonItem = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1rem;
+`;

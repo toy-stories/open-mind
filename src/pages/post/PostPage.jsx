@@ -4,7 +4,7 @@ import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
-import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
+
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import AnswerCardList from 'components/answerCards/AnswerCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
@@ -13,8 +13,6 @@ import { Navigate, useParams, useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { getPosts } from 'pages/post/postPage.js';
-import { fetchClient } from 'utils/apiClient';
-import { CONFIRM_MESSAGE, DELETE_USER_MESSAGE } from 'utils/constants.js';
 
 const PostPage = () => {
   const { subjectId } = useParams();
@@ -33,18 +31,6 @@ const PostPage = () => {
     },
     [getPostsAsync],
   );
-
-  const handleDeleteId = async () => {
-    if (window.confirm(CONFIRM_MESSAGE)) {
-      await fetchClient({
-        url: `subjects/${subjectId}/`,
-        method: 'DELETE',
-      });
-      localStorage.removeItem('userId');
-      alert(DELETE_USER_MESSAGE);
-      window.location.replace('/');
-    }
-  };
 
   const isAnswerPage = () => {
     return location.pathname === `/post/${subjectId}/answer`;
@@ -74,17 +60,13 @@ const PostPage = () => {
         </S.UserIdText>
       </S.HeaderUserProfile>
       <ShareButtons />
-      {isAnswerPage() && (
-        <S.FloatingButtonItem>
-          <FloatingButton type="D" onClick={handleDeleteId} />
-        </S.FloatingButtonItem>
-      )}
       {isAnswerPage() ? (
         questionInfo?.count ? (
           <S.CardListBox>
             <AnswerCardList
               questionInfo={questionInfo}
               subjectOwner={subjectOwner}
+              subjectId={subjectId}
             />
           </S.CardListBox>
         ) : (
@@ -104,6 +86,7 @@ const PostPage = () => {
           <QuestionCardList
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
+            openModal={openModal}
           />
         </S.CardListBox>
       ) : (
@@ -119,12 +102,6 @@ const PostPage = () => {
         </S.FeedCardsBox>
       )}
       <>
-        {!isAnswerPage() && (
-          <S.FloatingButtonItem>
-            <FloatingButton type="W" onClick={openModal} />
-          </S.FloatingButtonItem>
-        )}
-
         {!isAnswerPage() && (
           <Modal>
             <QuestionModal onClickClose={closeModal} />
