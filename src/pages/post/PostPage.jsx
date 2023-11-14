@@ -14,6 +14,7 @@ import { useCallback, useEffect, useState } from 'react';
 import useAsync from 'hooks/useAsync';
 import { getPosts } from 'pages/post/postPage.js';
 import { fetchClient } from 'utils/apiClient';
+import { CONFIRM_MESSAGE, DELETE_USER_MESSAGE } from 'utils/constants.js';
 
 const PostPage = () => {
   const { subjectId } = useParams();
@@ -34,18 +35,13 @@ const PostPage = () => {
   );
 
   const handleDeleteId = async () => {
-    if (
-      window.confirm(
-        `[주의] 계정 삭제는 복구할 수 없으며, 모든 데이터가 영구적으로 제거됩니다.
-        계속하시겠습니까?`,
-      )
-    ) {
+    if (window.confirm(CONFIRM_MESSAGE)) {
       await fetchClient({
         url: `subjects/${subjectId}/`,
         method: 'DELETE',
       });
       localStorage.removeItem('userId');
-      alert('계정이 삭제되었습니다. 메인페이지로 돌아갑니다.');
+      alert(DELETE_USER_MESSAGE);
       window.location.replace('/');
     }
   };
