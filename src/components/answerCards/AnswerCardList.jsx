@@ -51,9 +51,7 @@ const AnswerCardList = ({ questionInfo, subjectOwner, subjectId }) => {
   };
   return (
     <>
-      <S.FloatingButtonItem>
-        <FloatingButton type="D" onClick={handleDeleteId} />
-      </S.FloatingButtonItem>
+      <FloatingButton type="A" onClick={handleDeleteId} />
       <S.PostCardList>
         <S.PostCardListTitleBox>
           <S.SpeechBubble />
