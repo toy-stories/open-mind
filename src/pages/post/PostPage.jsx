@@ -3,7 +3,7 @@ import { Text, TextType } from 'components/text/Text.jsx';
 import logo from 'assets/images/logo.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
-import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
+
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import AnswerCardList from 'components/answerCards/AnswerCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
@@ -61,16 +61,15 @@ const PostPage = () => {
         />
         <ShareButtons />
       </S.HeaderContainer>
-      {isAnswerPage() ? (
-        questionInfo?.count ? (
-          <S.CardListBox>
+      <S.CardListBox>
+        {isAnswerPage() ? (
+          questionInfo?.count ? (
             <AnswerCardList
               questionInfo={questionInfo}
               subjectOwner={subjectOwner}
+              subjectId={subjectId}
             />
-          </S.CardListBox>
-        ) : (
-          <S.FeedCardsContainer>
+          ) : (
             <S.FeedCardsBox>
               <S.MessageBox>
                 <S.MessageIcon alt="메세지 아이콘" />
@@ -81,17 +80,14 @@ const PostPage = () => {
               </S.MessageBox>
               <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
             </S.FeedCardsBox>
-          </S.FeedCardsContainer>
-        )
-      ) : questionInfo?.count ? (
-        <S.CardListBox>
+          )
+        ) : questionInfo?.count ? (
           <QuestionCardList
             questionInfo={questionInfo}
             subjectOwner={subjectOwner}
+            openModal={openModal}
           />
-        </S.CardListBox>
-      ) : (
-        <S.FeedCardsContainer>
+        ) : (
           <S.FeedCardsBox>
             <S.MessageBox>
               <S.MessageIcon alt="메세지 아이콘" />
@@ -102,16 +98,14 @@ const PostPage = () => {
             </S.MessageBox>
             <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
           </S.FeedCardsBox>
-        </S.FeedCardsContainer>
-      )}
-      <>
+        )}
+      </S.CardListBox>
+
+      {!isAnswerPage() && (
         <Modal>
           <QuestionModal onClickClose={closeModal} />
         </Modal>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
-      </>
+      )}
     </S.PostPageContainer>
   );
 };

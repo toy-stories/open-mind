@@ -109,7 +109,6 @@ export const RefuseAnswerBox = styled.div`
 `;
 
 export const PostCardList = styled.ul`
-  flex: 0 1 71.6rem;
   padding: 13.6rem;
   display: flex;
   flex-direction: column;
@@ -141,4 +140,10 @@ export const EditButtonItem = styled.div`
 
 export const QnaFormItem = styled.div`
   width: 100%;
+`;
+
+export const FloatingButtonItem = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1rem;
 `;

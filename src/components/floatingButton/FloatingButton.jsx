@@ -5,7 +5,7 @@ const FloatingButton = ({ type, onClick }) => {
   const buttonText = type === 'W' ? '질문 작성' : '삭제하기';
 
   return (
-    <S.FloatingButton $isQuestion={type === 'W'} onClick={onClick}>
+    <S.FloatingButton $isQuestion={type === 'W'} type={type} onClick={onClick}>
       <Text $normalType={TextType.Body1Bol} text={buttonText} />
     </S.FloatingButton>
   );

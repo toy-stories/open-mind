@@ -110,7 +110,6 @@ export const RefuseAnswerBox = styled.div`
 export const PostCardList = styled.ul`
   display: flex;
   flex-direction: column;
-  flex: 0 1 71.6rem;
   gap: 2rem;
   padding: 1.6rem;
   background: ${COLORS.BROWN10};
@@ -135,4 +134,11 @@ export const SpeechBubble = styled(MessagesImage)`
   path {
     fill: ${COLORS.BROWN40};
   }
+`;
+
+export const FloatingButtonItem = styled.div`
+  position: fixed;
+  bottom: 2.4rem;
+  right: 2.4rem;
+  z-index: 1;
 `;

@@ -3,8 +3,11 @@ import { Text, TextType } from 'components/text/Text.jsx';
 
 const EditButton = ({ isEditActive }) => {
   return (
-    <S.EditButton $isActive={isEditActive}>
-      <S.EditIconImage $isActive={isEditActive} aria-label="수정하기 아이콘" />
+    <S.EditButton $isEditActive={isEditActive}>
+      <S.EditIconImage
+        $isEditActive={isEditActive}
+        aria-label="수정하기 아이콘"
+      />
       <Text $normalType={TextType.Caption1Med} text="수정하기" />
     </S.EditButton>
   );

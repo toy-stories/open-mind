@@ -56,12 +56,14 @@ export const ProfileImage = styled.img`
 `;
 
 export const CardListBox = styled.div`
+  gap: 0.9rem;
   flex: 1;
   position: relative;
+  flex-direction: column;
   width: 100%;
   display: flex;
-  justify-content: center;
   padding: 1.4rem 2.4rem 13.6rem;
+  max-width: 71.6rem;
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding-bottom: 12.6rem;
   }
@@ -72,13 +74,12 @@ export const FeedCardsContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 3.2rem;
+  padding: 1.4rem 3.2rem 3.2rem;
 `;
 
 export const FeedCardsBox = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0 1 71.6rem;
   height: 100%;
   padding: 1.6rem 2.4rem;
   align-items: center;
@@ -106,10 +107,4 @@ export const MessageBox = styled.div`
   flex-direction: row;
   gap: 0.8rem;
   color: ${COLORS.BROWN40};
-`;
-
-export const FloatingButtonItem = styled.div`
-  position: fixed;
-  bottom: 2.4rem;
-  right: 2.4rem;
 `;
