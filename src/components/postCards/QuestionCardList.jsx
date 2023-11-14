@@ -1,5 +1,5 @@
 import { Text, TextType } from 'components/text/Text.jsx';
-import * as S from 'components/postCards/tempQuestionCards.style.jsx';
+import * as S from 'components/postCards/questionCards.style.jsx';
 import QuestionCardItem from 'components/postCards/QuestionCardItem';
 import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
