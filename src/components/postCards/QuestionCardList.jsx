@@ -4,7 +4,7 @@ import QuestionCardItem from 'components/postCards/QuestionCardItem';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading.jsx';
-import { FloatingButton } from 'components/floatingButton/floatingButton.style';
+import FloatingButton from 'components/floatingButton/FloatingButton';
 
 const REACTION_MAX_INT = 2147483647;
 

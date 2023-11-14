@@ -5,7 +5,8 @@ import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
 import { postCreateReaction } from 'pages/post/postPage.js';
 import useAsync from 'hooks/useAsync.js';
 import LoadingSpinner from 'components/tempLoading/TempLoading';
-import { CONFIRM_MESSAGE } from 'utils/constants';
+import { CONFIRM_MESSAGE, DELETE_USER_MESSAGE } from 'utils/constants';
+import { fetchClient } from 'utils/apiClient';
 
 const REACTION_MAX_INT = 2147483647;
 
@@ -42,7 +43,7 @@ const AnswerCardList = ({
   const handleDeleteId = async () => {
     if (window.confirm(CONFIRM_MESSAGE)) {
       await fetchClient({
-        url: `subjects/${subjectId}/`,
+        url: `subjects/${subjectOwner.id}/`,
         method: 'DELETE',
       });
       localStorage.removeItem('userId');
