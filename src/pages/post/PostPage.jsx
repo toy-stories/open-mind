@@ -101,13 +101,11 @@ const PostPage = () => {
           <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
         </S.FeedCardsBox>
       )}
-      <>
-        {!isAnswerPage() && (
-          <Modal>
-            <QuestionModal onClickClose={closeModal} />
-          </Modal>
-        )}
-      </>
+      {!isAnswerPage() && (
+        <Modal>
+          <QuestionModal onClickClose={closeModal} />
+        </Modal>
+      )}
     </S.PostPageContainer>
   );
 };
