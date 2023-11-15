@@ -190,16 +190,23 @@ const AnswerCardItem = ({
 
   useEffect(() => {
     let timer;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     if (toastStatus === 'SUCCESS') {
       timer = setTimeout(() => {
         setToastStatus('NONE');
       }, 5000);
     }
 
+<<<<<<< Updated upstream
     return () => {
       if (timer) clearTimeout(timer);
     };
+=======
+    return () => clearTimeout(timer);
+>>>>>>> Stashed changes
   }, [toastStatus]);
 
   return (
@@ -260,8 +267,12 @@ const AnswerCardItem = ({
               </S.QnaFormItem>
             )}
             {toastStatus !== 'NONE' && (
-              <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
+              <Toast
+                text={TOAST_TEXT_TYPE[toastStatus]}
+                isShow={toastStatus !== 'NONE'}
+              />
             )}
+
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
