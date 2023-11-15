@@ -93,6 +93,7 @@ const PostPage = () => {
   useEffect(() => {
     let timer;
     if (questionToast) {
+      window.scrollTo(0, 0);
       timer = setTimeout(() => {
         setQuestionToast(false);
       }, 5000);
