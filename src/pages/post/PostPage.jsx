@@ -5,7 +5,7 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AnswerCardList from 'components/answerCards/AnswerCardList';
-
+import { handleDeleteUser } from 'utils/deleteUser';
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
@@ -79,6 +79,10 @@ const PostPage = () => {
     return location.pathname === `/post/${subjectId}/answer`;
   };
 
+  const handleDeleteClick = () => {
+    handleDeleteUser(subjectOwner);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     handleLoad(subjectId);
@@ -116,16 +120,19 @@ const PostPage = () => {
               subjectOwner={subjectOwner}
             />
           ) : (
-            <S.FeedCardsBox>
-              <S.MessageBox>
-                <S.MessageIcon alt="메세지 아이콘" />
-                <Text
-                  $normalType={TextType.Body1Bol}
-                  text="아직 질문이 없습니다."
-                />
-              </S.MessageBox>
-              <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
-            </S.FeedCardsBox>
+            <>
+              <FloatingButton type="A" onClick={handleDeleteClick} />
+              <S.FeedCardsBox>
+                <S.MessageBox>
+                  <S.MessageIcon alt="메세지 아이콘" />
+                  <Text
+                    $normalType={TextType.Body1Bol}
+                    text="아직 질문이 없습니다."
+                  />
+                </S.MessageBox>
+                <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+              </S.FeedCardsBox>
+            </>
           )
         ) : questionInfo?.count ? (
           <QuestionCardList
