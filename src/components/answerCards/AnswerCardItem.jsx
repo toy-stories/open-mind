@@ -229,7 +229,9 @@ const AnswerCardItem = ({
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={question?.content} />
+          <S.QuestionBox>
+            <Text $normalType={TextType.Body2Bol} text={question?.content} />
+          </S.QuestionBox>
         </S.TitleBox>
         <S.ContentBox>
           <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
