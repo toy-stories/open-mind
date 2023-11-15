@@ -9,6 +9,7 @@ import KebabButton from 'components/kebabButton/KebabButton.jsx';
 import EditButton from 'components/editButton/EditButton';
 import QnaForm from 'components/qnaForm/QnaForm';
 import Toast from 'components/toast/Toast.jsx';
+import LoadingSpinner from 'components/tempLoading/TempLoading.jsx';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -67,30 +68,33 @@ const AnswerCardItem = ({
     }
 
     if (isPending) {
-      setToastStatus('LOADING');
+      <LoadingSpinner />;
       return;
     }
 
-    const result = await createAnswerAsync({
-      questionId: question.id,
-      content: answer,
-    });
-
-    if (result) {
-      setToastStatus('SUCCESS');
-      setAnswer('');
-
-      setQuestionInfo((prev) => {
-        const newQuestions = [...prev.results];
-        newQuestions[questionIndex] = {
-          ...newQuestions[questionIndex],
-          answer: result,
-        };
-        return { ...prev, results: newQuestions };
+    if (toastStatus !== 'SUCCESS') {
+      // 중복 호출 방지
+      const result = await createAnswerAsync({
+        questionId: question.id,
+        content: answer,
       });
-    }
-    if (error) {
-      setToastStatus('ERROR');
+
+      if (result) {
+        setToastStatus('SUCCESS');
+        setAnswer('');
+
+        setQuestionInfo((prev) => {
+          const newQuestions = [...prev.results];
+          newQuestions[questionIndex] = {
+            ...newQuestions[questionIndex],
+            answer: result,
+          };
+          return { ...prev, results: newQuestions };
+        });
+      }
+      if (error) {
+        setToastStatus('ERROR');
+      }
     }
   };
 
@@ -100,7 +104,7 @@ const AnswerCardItem = ({
       return;
     }
 
-    setToastStatus('LOADING');
+    <LoadingSpinner />;
     try {
       const updatedAnswer = await editAnswer({
         answerId: question.answer.id,
@@ -184,14 +188,17 @@ const AnswerCardItem = ({
     if (dislikes[question.id]) setDisliked(true);
   }, [question]);
 
+  const [showToast, setShowToast] = useState(false);
+
   useEffect(() => {
-    let timer;
     if (toastStatus !== 'NONE') {
-      timer = setTimeout(() => {
-        setToastStatus('NONE');
+      setShowToast(true); // Toast 표시
+      const timer = setTimeout(() => {
+        setShowToast(false); // 5초 후 Toast 숨김
       }, 5000);
+
+      return () => clearTimeout(timer);
     }
-    return () => clearTimeout(timer);
   }, [toastStatus]);
 
   return (
@@ -251,9 +258,7 @@ const AnswerCardItem = ({
                 />
               </S.QnaFormItem>
             )}
-            {toastStatus !== 'NONE' && (
-              <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
-            )}
+            {showToast && <Toast text={TOAST_TEXT_TYPE[toastStatus]} />}
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
