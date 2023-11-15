@@ -102,7 +102,6 @@ const QuestionModal = ({
         handleInputChange={(e) => setQuestion(e.target.value)}
         inputPlaceholder="질문을 입력해주세요"
         buttonText="질문 보내기"
-        type="Q"
         onClickButton={handleCreateQuestion}
       />
       {toastStatus !== 'NONE' && (

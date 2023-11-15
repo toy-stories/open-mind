@@ -7,7 +7,6 @@ const QnaForm = ({
   handleInputChange,
   inputPlaceholder,
   buttonText,
-  type,
   onClickButton,
 }) => {
   const handleButtonClick = (e) => {
