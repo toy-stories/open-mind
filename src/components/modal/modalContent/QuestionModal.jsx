@@ -15,7 +15,12 @@ const TOAST_TEXT_TYPE = {
   EMPTY: '질문 내용을 입력해주세요.',
 };
 
-const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
+const QuestionModal = ({
+  subjectOwner,
+  onClickClose,
+  setQuestionInfo,
+  setQuestionToast,
+}) => {
   const [question, setQuestion] = useState('');
   const [toastStatus, setToastStatus] = useState('NONE');
   const [isPending, error, createQuestionAsync] = useAsync(createQuestion);
@@ -37,7 +42,7 @@ const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
     });
 
     if (result) {
-      setToastStatus('SUCCESS');
+      setQuestionToast(TOAST_TEXT_TYPE.SUCCESS);
       setQuestion('');
       setQuestionInfo((prev) => ({
         ...prev,
@@ -100,7 +105,12 @@ const QuestionModal = ({ subjectOwner, onClickClose, setQuestionInfo }) => {
         type="Q"
         onClickButton={handleCreateQuestion}
       />
-      {toastStatus !== 'NONE' && <Toast text={TOAST_TEXT_TYPE[toastStatus]} />}
+      {toastStatus !== 'NONE' && (
+        <Toast
+          text={TOAST_TEXT_TYPE[toastStatus]}
+          isShow={toastStatus !== 'NONE'}
+        />
+      )}
     </S.QuestionModalWrapper>
   );
 };

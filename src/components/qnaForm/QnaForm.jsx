@@ -11,7 +11,7 @@ const QnaForm = ({
   onClickButton,
 }) => {
   const handleButtonClick = (e) => {
-    type === 'A' && e.preventDefault();
+    e.preventDefault();
     onClickButton();
   };
 

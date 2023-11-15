@@ -15,12 +15,14 @@ import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
 import useAsync from 'hooks/useAsync';
 import headerImage from 'assets/images/header-background.png';
 import FloatingButton from 'components/floatingButton/FloatingButton';
+import Toast from 'components/toast/Toast.jsx';
 
 const PostPage = () => {
   const { subjectId } = useParams();
   const [questionInfo, setQuestionInfo] = useState(null);
   const location = useLocation();
   const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
+  const [questionToast, setQuestionToast] = useState('');
   const [isNextPending, nextHasError, getNextPostsAsync] =
     useAsync(getNextPosts);
   const [subjectOwner, setSubjectOwner] = useState({});
@@ -87,6 +89,16 @@ const PostPage = () => {
     window.scrollTo(0, 0);
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
+
+  useEffect(() => {
+    let timer;
+    if (questionToast) {
+      timer = setTimeout(() => {
+        setQuestionToast(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [questionToast]);
 
   const { Modal, openModal, closeModal } = useModal();
   if (hasError || nextHasError) return <Navigate to="/" />;
@@ -164,9 +176,13 @@ const PostPage = () => {
             setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
             onClickClose={closeModal}
+            setQuestionToast={setQuestionToast}
+            questionToast={questionToast}
           />
         </Modal>
       )}
+      {questionToast && <Toast text={questionToast} isShow={questionToast} />}
+
       <div ref={target} />
     </S.PostPageContainer>
   );
