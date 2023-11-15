@@ -54,7 +54,9 @@ const QuestionCardItem = ({
             text={`질문 · ${updateTimeAgoQuestion}`}
           />
         </S.UpdateTimeBox>
-        <Text $normalType={TextType.Body2Bol} text={question?.content} />
+        <S.QuestionBox>
+          <Text $normalType={TextType.Body2Bol} text={question?.content} />
+        </S.QuestionBox>
       </S.TitleBox>
       {question?.answer && (
         <S.ContentBox>
