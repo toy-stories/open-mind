@@ -26,6 +26,7 @@ export const StyledLinkButton = styled.button`
   @media screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 0.8rem 1.2rem;
     gap: 0.4rem;
+    white-space: nowrap;
   }
 `;
 

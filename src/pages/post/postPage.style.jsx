@@ -84,9 +84,10 @@ export const FeedCardsContainer = styled.div`
 export const FeedCardsBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 33rem;
   padding: 1.6rem 2.4rem;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   border-radius: 16px;
   border: 1px solid ${COLORS.BROWN20};
@@ -111,4 +112,6 @@ export const MessageBox = styled.div`
   flex-direction: row;
   gap: 0.8rem;
   color: ${COLORS.BROWN40};
+  position: absolute;
+  top: 1.6rem;
 `;
