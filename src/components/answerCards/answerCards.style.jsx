@@ -127,16 +127,23 @@ export const PostCardListTitleBox = styled.div`
   align-items: center;
   gap: 0.8rem;
   margin-bottom: -0.4rem;
+  color: ${COLORS.BROWN40};
 `;
 
 export const SpeechBubble = styled(MessagesImage)`
   width: 2.4rem;
   height: 2.4rem;
+  path {
+    fill: ${COLORS.BROWN40};
+  }
 `;
 
 export const EditButtonItem = styled.div`
-  position: absolute;
-  right: 3.2rem;
+  margin-left: auto;
+
+  @media only screen and (max-width: 454px) {
+    margin-left: 0;
+  }
 `;
 
 export const QnaFormItem = styled.div`

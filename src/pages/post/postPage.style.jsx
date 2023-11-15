@@ -10,6 +10,8 @@ export const PostPageContainer = styled.div`
   align-items: center;
   background-color: ${COLORS.GRAY20};
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 `;
 
 export const HeaderImage = styled.img`
