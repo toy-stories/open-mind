@@ -300,7 +300,7 @@ const AnswerCardItem = ({
               }`}
             />
           </S.DislikeButton>
-          {question?.answer && !isEditActive && (
+          {question?.answer?.isRejected === false && !isEditActive && (
             <S.EditButtonItem onClick={handleEditButtonClick}>
               <EditButton isEditActive={isEditActive} />
             </S.EditButtonItem>
