@@ -136,6 +136,7 @@ const AnswerCardItem = ({
         isRejected: true,
       },
     });
+    setIsEditActive(false);
     setQuestionInfo((prev) => {
       const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
@@ -151,6 +152,8 @@ const AnswerCardItem = ({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
+    setAnswer('');
+    setIsEditActive(false);
     setQuestionInfo((prev) => {
       const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
@@ -272,7 +275,7 @@ const AnswerCardItem = ({
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
               </S.RefuseAnswerBox>
-            ) : isEditActive ? (
+            ) : question?.answer && isEditActive ? (
               <QnaForm
                 input={answer}
                 handleInputChange={(e) => setAnswer(e.target.value)}
