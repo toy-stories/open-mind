@@ -5,7 +5,6 @@ import LinkButton from 'components/linkButton/LinkButton.jsx';
 import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
 import { createFeedId } from './mainPage.js';
-import personImage from 'assets/icons/Person.svg';
 
 const MainPage = () => {
   const [name, setName] = useState('');
@@ -39,13 +38,15 @@ const MainPage = () => {
         <S.MainPageMain>
           <S.LogoImage src={logoImage} alt="로고이미지" />
           <S.MainPageInnerBox>
-            <S.InnerBoxImage src={personImage} alt="사람이미지" />
-            <S.InnerBoxInput
-              type="text"
-              placeholder="이름을 입력하세요"
-              value={name}
-              onChange={handleInputChange}
-            />
+            <S.InputBoxContainer>
+              <S.PersonImage />
+              <S.InnerBoxInput
+                type="text"
+                placeholder="이름을 입력하세요"
+                value={name}
+                onChange={handleInputChange}
+              />
+            </S.InputBoxContainer>
             <S.InnerBoxButton disabled={!name} onClick={createFeedAndRedirect}>
               질문 받기
             </S.InnerBoxButton>

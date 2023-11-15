@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
+import { ReactComponent as personIcon } from 'assets/icons/Person.svg';
 
 export const LogoImage = styled.img`
   width: 45.6rem;
@@ -53,6 +54,7 @@ export const MainPageMain = styled.main`
   align-items: center;
   position: relative;
   z-index: 2;
+  gap: 24rem;
 `;
 
 export const MainPageInnerBox = styled.div`
@@ -65,6 +67,21 @@ export const MainPageInnerBox = styled.div`
   background-color: ${COLORS.WHITE};
 `;
 
+export const InputBoxContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+`;
+
+export const PersonImage = styled(personIcon)`
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  position: absolute;
+  left: 16px;
+`;
+
 export const InnerBoxImage = styled.img`
   width: 20px;
   height: 20px;
@@ -74,7 +91,7 @@ export const InnerBoxImage = styled.img`
 export const InnerBoxInput = styled.input`
   display: flex;
   width: 336px;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 40px;
   justify-content: center;
   align-items: center;
   gap: 4px;
