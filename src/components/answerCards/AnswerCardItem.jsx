@@ -190,23 +190,16 @@ const AnswerCardItem = ({
 
   useEffect(() => {
     let timer;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
     if (toastStatus === 'SUCCESS') {
       timer = setTimeout(() => {
         setToastStatus('NONE');
       }, 5000);
     }
 
-<<<<<<< Updated upstream
     return () => {
       if (timer) clearTimeout(timer);
     };
-=======
-    return () => clearTimeout(timer);
->>>>>>> Stashed changes
   }, [toastStatus]);
 
   return (
