@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 
 const useKakaoShare = () => {
-  const shareKakao = ({ url, title, description, imageUrl }) => {
+  const url = window.location.href;
+  const shareKakao = ({ title, description, imageUrl }) => {
     if (window.Kakao) {
-      const kakao = window.Kakao;
-      if (!kakao.isInitialized()) {
-        kakao.init(process.env.REACT_APP_KAKAO_SDK_KEY);
+      const { Kakao } = window;
+      if (!Kakao.isInitialized()) {
+        Kakao.init(process.env.REACT_APP_KAKAO_SDK_KEY);
       }
-      kakao.Share.sendDefault({
+      Kakao.Share.sendDefault({
         objectType: 'feed',
         content: {
           title,

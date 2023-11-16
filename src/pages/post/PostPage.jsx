@@ -15,6 +15,8 @@ import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
 import useAsync from 'hooks/useAsync';
 import headerImage from 'assets/images/header-background.png';
 import FloatingButton from 'components/floatingButton/FloatingButton';
+import useKakaoShare from 'hooks/useKakaoShare';
+import { KAKAO_SHARE_DATA } from 'utils/constants';
 import Toast from 'components/toast/Toast.jsx';
 
 const PostPage = () => {
@@ -102,12 +104,25 @@ const PostPage = () => {
   }, [questionToast]);
 
   const { Modal, openModal, closeModal } = useModal();
+
+  const { shareKakao } = useKakaoShare();
+
+  const onClickKakaoShareButton = () => {
+    shareKakao({
+      title: KAKAO_SHARE_DATA.TITLE,
+      description: subjectOwner?.name
+        ? `${subjectOwner?.name}님의 질문 피드를 공유합니다.`
+        : KAKAO_SHARE_DATA.DESCRIPTION,
+      imageUrl: subjectOwner?.imageSource ?? KAKAO_SHARE_DATA.IMAGE_URL,
+    });
+  };
+
   if (hasError || nextHasError) return <Navigate to="/" />;
 
-  if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
+
       <S.HeaderContainer>
         <Link to="/">
           <S.Logo src={logo} alt="오픈마인드 로고" />
@@ -121,7 +136,9 @@ const PostPage = () => {
           $mobileType={TextType.H3}
           text={subjectOwner?.name}
         />
-        <ShareButtons subjectOwner={subjectOwner} />
+        {subjectOwner !== {} && (
+          <ShareButtons onClickKakaoShareButton={onClickKakaoShareButton} />
+        )}
       </S.HeaderContainer>
       <S.CardListBox>
         {isAnswerPage() ? (
