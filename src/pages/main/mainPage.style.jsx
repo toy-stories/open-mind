@@ -3,116 +3,98 @@ import COLORS from 'utils/colors.js';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 import { ReactComponent as personIcon } from 'assets/icons/Person.svg';
 
-export const LogoImage = styled.img`
-  width: 45.6rem;
-  height: 18rem;
-`;
-
-export const MainBackgroundImage = styled.img`
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-`;
-
 export const MainPageContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: ${COLORS.GRAY20};
-  padding: 4.5rem 0;
   min-height: 100vh;
-  position: relative;
-  z-index: 0;
 `;
 
-export const MainPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 93.5rem;
+export const MainBackgroundImage = styled.img`
   width: 100%;
-  gap: 7rem;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
 `;
 
-export const MainPageNav = styled.nav`
-  position: relative;
-  z-index: 2;
-  padding: 0 4.5rem;
-  display: flex;
-  justify-content: flex-end;
+export const MainPageAnswerButton = styled.div`
+  justify-content: center;
   align-items: center;
-
+  position: fixed;
+  top: 4.5rem;
+  padding: 1.2rem 2.4rem;
+  right: 12.5rem;
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
+    right: 4.5rem;
+  }
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    display: none;
+    top: 20.2rem;
+    padding: 0.8rem 1.2rem;
+    justify-content: center;
+    right: auto;
   }
 `;
 
-export const MainPageMain = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  gap: 2.4rem;
-
+export const LogoImage = styled.img`
+  position: fixed;
+  top: 16rem;
+  width: 45.6rem;
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    padding: 8rem 0 0 0;
+    top: 8rem;
+    width: 24.8rem;
   }
 `;
 
-export const MainPageInnerBox = styled.div`
-  display: inline-flex;
-  padding: 32px;
+export const InputContainer = styled.div`
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  border-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 36.4rem;
+  padding: 3.2rem;
+  gap: 1.6rem;
+  width: 40rem;
+  border-radius: 8px;
   background-color: ${COLORS.WHITE};
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    top: 28rem;
+    width: 30.5rem;
+    padding: 2.4rem;
+  }
 `;
 
-export const InputBoxContainer = styled.div`
+export const InputBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  position: relative;
-`;
-
-export const PersonImage = styled(personIcon)`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  position: absolute;
-  left: 16px;
-`;
-
-export const InnerBoxImage = styled.img`
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-`;
-
-export const InnerBoxInput = styled.input`
-  display: flex;
-  width: 336px;
-  padding: 12px 16px 12px 40px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
+  padding: 1.2rem 1.6rem;
+  gap: 0.4rem;
   border-radius: 8px;
-  border: 1px solid ${COLORS.GRAY40};
-  background-color: ${COLORS.WHITE};
+  border: 1px solid
+    ${(props) => (props.isFocused ? COLORS.BROWN40 : COLORS.GRAY40)};
 
   &:focus {
     border: 1px solid ${COLORS.BROWN40};
   }
 `;
 
+export const PersonImage = styled(personIcon)`
+  width: 2rem;
+  height: 2rem;
+`;
+
+export const InputItem = styled.input`
+  flex-grow: 1;
+  color: ${(props) => (props.hasValue ? 'black' : COLORS.GRAY40)};
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+  }
+`;
+
 export const InnerBoxButton = styled.button`
-  display: flex;
-  padding: 12px 24px;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  padding: 1.2rem 2.4rem;
   align-self: stretch;
   border-radius: 8px;
   background-color: ${COLORS.BROWN40};
