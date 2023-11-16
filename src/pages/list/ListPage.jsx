@@ -102,7 +102,7 @@ const ListPage = () => {
           <Pagination
             totalPages={totalPages}
             isPending={isPending}
-            showRange={itemsPerPage - 2}
+            showRange={itemsPerPage - 1}
             currentPage={page - 1}
           />
         </S.ListPageMain>
