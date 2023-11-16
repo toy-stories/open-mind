@@ -19,7 +19,7 @@ const ShareButtons = ({ onClickKakaoShareButton, subjectOwner }) => {
         console.error('클립보드 복사에 실패했습니다.', err);
       });
   };
-  const shareLink = `${window.location.origin}/post/${subjectOwner.id}`;
+  const shareLink = `${window.location.origin}/post/${subjectOwner?.id}`;
   const handleFacebookClick = () =>
     window.open(`http://www.facebook.com/sharer.php?u=${shareLink}`);
 
