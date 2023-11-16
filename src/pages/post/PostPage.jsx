@@ -137,7 +137,10 @@ const PostPage = () => {
           text={subjectOwner?.name}
         />
         {subjectOwner !== {} && (
-          <ShareButtons onClickKakaoShareButton={onClickKakaoShareButton} />
+          <ShareButtons
+            onClickKakaoShareButton={onClickKakaoShareButton}
+            subjectOwner={subjectOwner}
+          />
         )}
       </S.HeaderContainer>
       <S.CardListBox>
