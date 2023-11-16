@@ -21,7 +21,7 @@ const ShareButtons = ({ onClickKakaoShareButton, subjectOwner }) => {
   };
   const shareLink = `${window.location.origin}/post/${subjectOwner?.id}`;
   const handleFacebookClick = () =>
-    window.open(`http://www.facebook.com/sharer.php?u=${shareLink}`);
+    window.open(`https://www.facebook.com/sharer.php?u=${shareLink}`);
 
   useEffect(() => {
     let timer;
