@@ -5,9 +5,14 @@ import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
 import { createFeedId } from './mainPage.js';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
+import { Text, TextType } from 'components/text/Text.jsx';
 
 const MainPage = () => {
   const [name, setName] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   const handleInputChange = (e) => {
     setName(e.target.value);
@@ -29,30 +34,29 @@ const MainPage = () => {
   return (
     <S.MainPageContainer>
       <S.MainBackgroundImage src={mainBackgroundImage} alt="배경이미지" />
-      <S.MainPage>
-        <S.MainPageNav>
-          <Link to={LinkButtonPath}>
-            <LinkButton type={type} isActive={isActive} />
-          </Link>
-        </S.MainPageNav>
-        <S.MainPageMain>
-          <S.LogoImage src={logoImage} alt="로고이미지" />
-          <S.MainPageInnerBox>
-            <S.InputBoxContainer>
-              <S.PersonImage />
-              <S.InnerBoxInput
-                type="text"
-                placeholder="이름을 입력하세요"
-                value={name}
-                onChange={handleInputChange}
-              />
-            </S.InputBoxContainer>
-            <S.InnerBoxButton disabled={!name} onClick={createFeedAndRedirect}>
-              질문 받기
-            </S.InnerBoxButton>
-          </S.MainPageInnerBox>
-        </S.MainPageMain>
-      </S.MainPage>
+      <S.MainPageAnswerButton>
+        <Link to={LinkButtonPath}>
+          <LinkButton type={type} isActive={isActive} />
+        </Link>
+      </S.MainPageAnswerButton>
+      <S.LogoImage src={logoImage} alt="로고이미지" />
+      <S.InputContainer>
+        <S.InputBox isFocused={isFocused}>
+          <S.PersonImage />
+          <S.InputItem
+            type="text"
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            placeholder="이름을 입력하세요"
+            value={name}
+            onChange={handleInputChange}
+            hasValue={name.length > 0}
+          />
+        </S.InputBox>
+        <S.InnerBoxButton disabled={!name} onClick={createFeedAndRedirect}>
+          <Text $normalType={TextType.Body3Reg} text="질문 받기" />
+        </S.InnerBoxButton>
+      </S.InputContainer>
     </S.MainPageContainer>
   );
 };
