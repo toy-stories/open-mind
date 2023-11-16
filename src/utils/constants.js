@@ -11,3 +11,10 @@ export const Z_INDEX = {
 };
 
 export const BODY_DEFAULT_OVERFLOW = '';
+
+export const KAKAO_SHARE_DATA = {
+  TITLE: 'Open Mind',
+  DESCRIPTION: '질문과 답변을 통해 마음을 열고 대화 나누는 소통 플랫폼',
+  IMAGE_URL:
+    'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+};

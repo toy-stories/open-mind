@@ -7,6 +7,7 @@ import { createFeedId } from './mainPage.js';
 import LinkButton from 'components/linkButton/LinkButton.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
 
+
 const MainPage = () => {
   const [name, setName] = useState('');
   const [isFocused, setIsFocused] = useState(false);
