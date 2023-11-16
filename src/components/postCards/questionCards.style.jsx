@@ -135,3 +135,7 @@ export const SpeechBubble = styled(MessagesImage)`
     fill: ${COLORS.BROWN40};
   }
 `;
+
+export const QuestionBox = styled.div`
+  width: 90%;
+`;

@@ -71,26 +71,28 @@ const AnswerCardItem = ({
       return;
     }
 
-    const result = await createAnswerAsync({
-      questionId: question.id,
-      content: answer,
-    });
-
-    if (result) {
-      setToastStatus('SUCCESS');
-      setAnswer('');
-
-      setQuestionInfo((prev) => {
-        const newQuestions = [...prev.results];
-        newQuestions[questionIndex] = {
-          ...newQuestions[questionIndex],
-          answer: result,
-        };
-        return { ...prev, results: newQuestions };
+    if (toastStatus !== 'SUCCESS') {
+      const result = await createAnswerAsync({
+        questionId: question.id,
+        content: answer,
       });
-    }
-    if (error) {
-      setToastStatus('ERROR');
+
+      if (result) {
+        setToastStatus('SUCCESS');
+        setAnswer('');
+
+        setQuestionInfo((prev) => {
+          const newQuestions = [...prev.results];
+          newQuestions[questionIndex] = {
+            ...newQuestions[questionIndex],
+            answer: result,
+          };
+          return { ...prev, results: newQuestions };
+        });
+      }
+      if (error) {
+        setToastStatus('ERROR');
+      }
     }
   };
 
@@ -101,6 +103,7 @@ const AnswerCardItem = ({
     }
 
     setToastStatus('LOADING');
+
     try {
       const updatedAnswer = await editAnswer({
         answerId: question.answer.id,
@@ -117,7 +120,7 @@ const AnswerCardItem = ({
       });
 
       setToastStatus('SUCCESS');
-      setIsEditActive(false); // 편집 상태 종료
+      setIsEditActive(false);
     } catch (error) {
       console.error(error);
       setToastStatus('ERROR');
@@ -133,6 +136,7 @@ const AnswerCardItem = ({
         isRejected: true,
       },
     });
+    setIsEditActive(false);
     setQuestionInfo((prev) => {
       const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
@@ -142,11 +146,14 @@ const AnswerCardItem = ({
       return { ...prev, results: newQuestions };
     });
   };
+
   const handleDeleteAnswerClick = async () => {
     await fetchClient({
       url: `answers/${question?.answer?.id}/`,
       method: 'DELETE',
     });
+    setAnswer('');
+    setIsEditActive(false);
     setQuestionInfo((prev) => {
       const newQuestions = [...prev.results];
       newQuestions[questionIndex] = {
@@ -186,12 +193,16 @@ const AnswerCardItem = ({
 
   useEffect(() => {
     let timer;
-    if (toastStatus !== 'NONE') {
+
+    if (toastStatus === 'SUCCESS') {
       timer = setTimeout(() => {
         setToastStatus('NONE');
       }, 5000);
     }
-    return () => clearTimeout(timer);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [toastStatus]);
 
   return (
@@ -221,7 +232,9 @@ const AnswerCardItem = ({
               text={`질문 · ${updateTimeAgoQuestion}`}
             />
           </S.UpdateTimeBox>
-          <Text $normalType={TextType.Body2Bol} text={question?.content} />
+          <S.QuestionBox>
+            <Text $normalType={TextType.Body2Bol} text={question?.content} />
+          </S.QuestionBox>
         </S.TitleBox>
         <S.ContentBox>
           <S.ProfileImage src={ownerProfileImage} alt="유저 아이콘 이미지" />
@@ -246,25 +259,27 @@ const AnswerCardItem = ({
                   handleInputChange={(e) => setAnswer(e.target.value)}
                   inputPlaceholder="답변을 입력해주세요"
                   buttonText="답변 완료"
-                  type="A"
                   onClickButton={handleCreateAnswer}
                 />
               </S.QnaFormItem>
             )}
             {toastStatus !== 'NONE' && (
-              <Toast text={TOAST_TEXT_TYPE[toastStatus]} />
+              <Toast
+                text={TOAST_TEXT_TYPE[toastStatus]}
+                isShow={toastStatus !== 'NONE'}
+              />
             )}
+
             {question?.answer?.isRejected ? (
               <S.RefuseAnswerBox>
                 <Text $normalType={TextType.Body3Reg} text="답변 거절" />
               </S.RefuseAnswerBox>
-            ) : isEditActive ? (
+            ) : question?.answer && isEditActive ? (
               <QnaForm
                 input={answer}
                 handleInputChange={(e) => setAnswer(e.target.value)}
                 inputPlaceholder="수정 내용을 입력해주세요"
                 buttonText="수정 완료"
-                type="A"
                 onClickButton={handleUpdateAnswer} // 수정 완료 버튼 클릭 핸들러
               />
             ) : (

@@ -155,3 +155,7 @@ export const FloatingButtonItem = styled.div`
   justify-content: end;
   margin-bottom: 1rem;
 `;
+
+export const QuestionBox = styled.div`
+  width: 90%;
+`;

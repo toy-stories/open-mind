@@ -5,7 +5,7 @@ import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AnswerCardList from 'components/answerCards/AnswerCardList';
-
+import { handleDeleteUser } from 'utils/deleteUser';
 import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
@@ -17,12 +17,14 @@ import headerImage from 'assets/images/header-background.png';
 import FloatingButton from 'components/floatingButton/FloatingButton';
 import useKakaoShare from 'hooks/useKakaoShare';
 import { KAKAO_SHARE_DATA } from 'utils/constants';
+import Toast from 'components/toast/Toast.jsx';
 
 const PostPage = () => {
   const { subjectId } = useParams();
   const [questionInfo, setQuestionInfo] = useState(null);
   const location = useLocation();
   const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
+  const [questionToast, setQuestionToast] = useState('');
   const [isNextPending, nextHasError, getNextPostsAsync] =
     useAsync(getNextPosts);
   const [subjectOwner, setSubjectOwner] = useState({});
@@ -81,10 +83,25 @@ const PostPage = () => {
     return location.pathname === `/post/${subjectId}/answer`;
   };
 
+  const handleDeleteClick = () => {
+    handleDeleteUser(subjectOwner);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     handleLoad(subjectId);
   }, [subjectId, handleLoad]);
+
+  useEffect(() => {
+    let timer;
+    if (questionToast) {
+      window.scrollTo(0, 0);
+      timer = setTimeout(() => {
+        setQuestionToast(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [questionToast]);
 
   const { Modal, openModal, closeModal } = useModal();
 
@@ -102,7 +119,6 @@ const PostPage = () => {
 
   if (hasError || nextHasError) return <Navigate to="/" />;
 
-  if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
@@ -134,16 +150,19 @@ const PostPage = () => {
               subjectOwner={subjectOwner}
             />
           ) : (
-            <S.FeedCardsBox>
-              <S.MessageBox>
-                <S.MessageIcon alt="메세지 아이콘" />
-                <Text
-                  $normalType={TextType.Body1Bol}
-                  text="아직 질문이 없습니다."
-                />
-              </S.MessageBox>
-              <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
-            </S.FeedCardsBox>
+            <>
+              <FloatingButton type="A" onClick={handleDeleteClick} />
+              <S.FeedCardsBox>
+                <S.MessageBox>
+                  <S.MessageIcon alt="메세지 아이콘" />
+                  <Text
+                    $normalType={TextType.Body1Bol}
+                    text="아직 질문이 없습니다."
+                  />
+                </S.MessageBox>
+                <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+              </S.FeedCardsBox>
+            </>
           )
         ) : questionInfo?.count ? (
           <QuestionCardList
@@ -175,9 +194,13 @@ const PostPage = () => {
             setQuestionInfo={setQuestionInfo}
             subjectOwner={subjectOwner}
             onClickClose={closeModal}
+            setQuestionToast={setQuestionToast}
+            questionToast={questionToast}
           />
         </Modal>
       )}
+      {questionToast && <Toast text={questionToast} isShow={questionToast} />}
+
       <div ref={target} />
     </S.PostPageContainer>
   );
