@@ -11,8 +11,7 @@ export const createFeedId = async (name) => {
 
   if (!response.ok) throw new Error('에러');
   const data = await response.json();
-
-  localStorage.setItem('userId', data.id);
+  localStorage.setItem('userId', JSON.stringify(data.id));
 
   return data.id;
 };
