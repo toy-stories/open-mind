@@ -92,6 +92,7 @@ const ListPage = () => {
             />
           </S.ListPageHeader>
           <CardList
+            userId={userId}
             subjects={subjects}
             itemsPerPage={itemsPerPage}
             isPending={isPending}
