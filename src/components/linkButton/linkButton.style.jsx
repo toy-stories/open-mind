@@ -16,10 +16,10 @@ export const StyledLinkButton = styled.button`
   color: ${(props) => (props.$isActive ? COLORS.BROWN40 : COLORS.BROWN30)};
 
   &:hover {
-    border: 2px solid ${COLORS.BROWN40};
+    outline: 1px solid ${COLORS.BROWN40};
   }
   &:active {
-    border: 2px solid ${COLORS.BROWN40};
+    outline: 1px solid ${COLORS.BROWN40};
     background: ${COLORS.BROWN20};
   }
 
