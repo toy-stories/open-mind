@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from 'pages/main/mainPage.style.jsx';
-import LinkButton from 'components/linkButton/LinkButton.jsx';
 import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
 import { createFeedId } from './mainPage.js';
+import LinkButton from 'components/linkButton/LinkButton';
 
 const MainPage = () => {
   const [name, setName] = useState('');

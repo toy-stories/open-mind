@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 import { ReactComponent as personIcon } from 'assets/icons/Person.svg';
+import LinkButton from 'components/linkButton/LinkButton';
 
 export const LogoImage = styled.img`
   width: 45.6rem;
@@ -19,7 +20,6 @@ export const MainPageContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // gap: 2.4rem;
   background-color: ${COLORS.GRAY20};
   padding: 4.5rem 0;
   min-height: 100vh;
@@ -28,23 +28,27 @@ export const MainPageContainer = styled.section`
 `;
 
 export const MainPage = styled.div`
-  max-width: 120rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 90rem;
   width: 100%;
+  gap: 7rem;
 `;
 
 export const MainPageNav = styled.nav`
   position: relative;
   z-index: 2;
-  padding: 0 13rem 4rem;
+  // padding: 0 12.5rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
+    padding: 0 4.5rem;
+  }
+
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
-    flex-direction: column;
-    gap: 2rem;
-    & p {
-      font-size: 1.4rem;
-    }
+    display: none;
   }
 `;
 
@@ -54,7 +58,11 @@ export const MainPageMain = styled.main`
   align-items: center;
   position: relative;
   z-index: 2;
-  gap: 24rem;
+  gap: 2.4rem;
+
+  @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
+    padding: 8rem 0 0 0;
+  }
 `;
 
 export const MainPageInnerBox = styled.div`
@@ -98,6 +106,10 @@ export const InnerBoxInput = styled.input`
   border-radius: 8px;
   border: 1px solid ${COLORS.GRAY40};
   background-color: ${COLORS.WHITE};
+
+  &:focus {
+    border: 1px solid ${COLORS.BROWN40};
+  }
 `;
 
 export const InnerBoxButton = styled.button`
