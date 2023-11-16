@@ -108,7 +108,7 @@ const PostPage = () => {
           $mobileType={TextType.H3}
           text={subjectOwner?.name}
         />
-        <ShareButtons />
+        <ShareButtons subjectOwner={subjectOwner} />
       </S.HeaderContainer>
       <S.CardListBox>
         {isAnswerPage() ? (
