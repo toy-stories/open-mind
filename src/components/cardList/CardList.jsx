@@ -3,7 +3,6 @@ import CardItem from 'components/cardItem/CardItem.jsx';
 import { Link } from 'react-router-dom';
 
 const CardList = ({ subjects, isPending, userId }) => {
-  console.log(userId);
   return (
     <S.CardList>
       {subjects?.map((subject) => (
