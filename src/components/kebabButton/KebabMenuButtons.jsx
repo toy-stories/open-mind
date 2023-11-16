@@ -1,20 +1,32 @@
-import * as S from './kebabButton.style.jsx';
+import * as S from 'components/kebabButton/kebabButton.style.jsx';
+import { Text, TextType } from 'components/text/Text';
 
 const KebabMenuButtons = ({
   onRefuseAnswerClick,
   onDeleteAnswerClick,
   onDeleteQuestionClick,
+  question,
 }) => {
+  const isRejectedAnswer = question?.answer?.isRejected;
+  const hasAnswer = question?.answer;
+
   return (
     <S.KebabMenuList>
-      <S.KebabMenuButton onClick={onRefuseAnswerClick}>
-        답변 거절
-      </S.KebabMenuButton>
-      <S.KebabMenuButton onClick={onDeleteAnswerClick}>
-        답변 삭제
-      </S.KebabMenuButton>
+      {!isRejectedAnswer && !hasAnswer && (
+        <S.KebabMenuButton onClick={onRefuseAnswerClick}>
+          <Text $normalType={TextType.Caption1Med} text="답변 거절" />
+        </S.KebabMenuButton>
+      )}
+      {hasAnswer && (
+        <S.KebabMenuButton onClick={onDeleteAnswerClick}>
+          <Text
+            $normalType={TextType.Caption1Med}
+            text={isRejectedAnswer ? '답변 받기' : '답변 삭제'}
+          />
+        </S.KebabMenuButton>
+      )}
       <S.KebabMenuButton onClick={onDeleteQuestionClick}>
-        질문 삭제
+        <Text $normalType={TextType.Caption1Med} text="질문 삭제" />
       </S.KebabMenuButton>
     </S.KebabMenuList>
   );

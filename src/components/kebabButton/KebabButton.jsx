@@ -1,5 +1,5 @@
-import * as S from './kebabButton.style.jsx';
-import KebabMenuButtons from './KebabMenuButtons.jsx';
+import * as S from 'components/kebabButton/kebabButton.style.jsx';
+import KebabMenuButtons from 'components/kebabButton/KebabMenuButtons.jsx';
 
 const KebabButton = ({
   kebabOpen,
@@ -7,6 +7,7 @@ const KebabButton = ({
   onRefuseAnswerClick,
   onDeleteAnswerClick,
   onDeleteQuestionClick,
+  question,
 }) => {
   return (
     <>
@@ -18,6 +19,7 @@ const KebabButton = ({
           onRefuseAnswerClick={onRefuseAnswerClick}
           onDeleteAnswerClick={onDeleteAnswerClick}
           onDeleteQuestionClick={onDeleteQuestionClick}
+          question={question}
         />
       )}
     </>

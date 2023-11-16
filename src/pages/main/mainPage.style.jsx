@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import COLORS from 'utils/colors.js';
 import { RESPONSIBLE_SIZE } from 'utils/constants.js';
 import { ReactComponent as personIcon } from 'assets/icons/Person.svg';
-import LinkButton from 'components/linkButton/LinkButton';
 
 export const LogoImage = styled.img`
   width: 45.6rem;
@@ -30,7 +29,7 @@ export const MainPageContainer = styled.section`
 export const MainPage = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 90rem;
+  max-width: 93.5rem;
   width: 100%;
   gap: 7rem;
 `;
@@ -38,14 +37,10 @@ export const MainPage = styled.div`
 export const MainPageNav = styled.nav`
   position: relative;
   z-index: 2;
-  // padding: 0 12.5rem;
+  padding: 0 4.5rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  @media only screen and (max-width: ${RESPONSIBLE_SIZE.tablet}) {
-    padding: 0 4.5rem;
-  }
 
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     display: none;

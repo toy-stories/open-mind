@@ -45,12 +45,12 @@ export const ContentBox = styled.div`
   display: flex;
   gap: 1.2rem;
   align-self: stretch;
-  width: 56rem;
 `;
 
 export const ContentUserInfoBox = styled.div`
   display: flex;
   gap: 0.8rem;
+  align-items: center;
 `;
 
 export const ContentTextBox = styled.div`
@@ -63,6 +63,7 @@ export const ContentTextBox = styled.div`
 export const ProfileImage = styled.img`
   width: 4.8rem;
   height: 4.8rem;
+  border-radius: 4.8rem;
 `;
 
 export const LikeButtonBox = styled.div`
@@ -114,6 +115,7 @@ export const PostCardList = styled.ul`
   background: ${COLORS.BROWN10};
   border: 1px solid ${COLORS.BROWN30};
   border-radius: 1.6rem;
+  height: 100%;
 `;
 
 export const PostCardListTitleBox = styled.div`
@@ -122,9 +124,18 @@ export const PostCardListTitleBox = styled.div`
   align-items: center;
   gap: 0.8rem;
   margin-bottom: -0.4rem;
+  color: ${COLORS.BROWN40};
 `;
 
 export const SpeechBubble = styled(MessagesImage)`
   width: 2.4rem;
   height: 2.4rem;
+  vertical-align: middle;
+  path {
+    fill: ${COLORS.BROWN40};
+  }
+`;
+
+export const QuestionBox = styled.div`
+  width: 90%;
 `;

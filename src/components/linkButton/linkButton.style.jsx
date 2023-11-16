@@ -16,16 +16,17 @@ export const StyledLinkButton = styled.button`
   color: ${(props) => (props.$isActive ? COLORS.BROWN40 : COLORS.BROWN30)};
 
   &:hover {
-    border: 2px solid ${COLORS.BROWN40};
+    outline: 1px solid ${COLORS.BROWN40};
   }
   &:active {
-    border: 2px solid ${COLORS.BROWN40};
+    outline: 1px solid ${COLORS.BROWN40};
     background: ${COLORS.BROWN20};
   }
 
   @media screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
     padding: 0.8rem 1.2rem;
     gap: 0.4rem;
+    white-space: nowrap;
   }
 `;
 

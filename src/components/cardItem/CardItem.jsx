@@ -1,15 +1,10 @@
 import React from 'react';
 import * as S from './cardItem.style.jsx';
-import defaultProfileImage from 'assets/images/default-profile-image.png';
 import messageIcon from 'assets/icons/Messages.svg';
 import { Text, TextType } from 'components/text/Text.jsx';
 
-const CardItem = ({
-  name,
-  imageSource = defaultProfileImage,
-  questionCount,
-  isPending,
-}) => {
+const CardItem = ({ subject, isPending }) => {
+  const { name, imageSource, questionCount } = subject;
   return (
     <S.CardContainer $isShow={!isPending}>
       <S.UserInfoBox>

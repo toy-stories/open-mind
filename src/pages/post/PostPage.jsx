@@ -1,79 +1,190 @@
 import * as S from 'pages/post/postPage.style.jsx';
 import { Text, TextType } from 'components/text/Text.jsx';
-import headerImage from 'assets/images/header-background.png';
 import logo from 'assets/images/logo.png';
-import defaultProfileImage from 'assets/images/default-profile-image.png';
 import emptyImg from 'assets/images/no-question.png';
 import ShareButtons from 'components/shareButtons/ShareButtons.jsx';
-import FloatingButton from 'components/floatingButton/FloatingButton.jsx';
-import PostCardList from 'components/postCards/PostCardList';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import AnswerCardList from 'components/answerCards/AnswerCardList';
+import { handleDeleteUser } from 'utils/deleteUser';
+import QuestionCardList from 'components/postCards/QuestionCardList.jsx';
 import QuestionModal from 'components/modal/modalContent/QuestionModal.jsx';
 import useModal from 'hooks/useModal.js';
-import EditButton from 'components/editButton/EditButton';
-import QnaForm from 'components/qnaForm/QnaForm';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { getNextPosts, getPosts } from 'pages/post/postPage.js';
+import useObserver from 'hooks/useObserver';
+import { Navigate, useParams, useLocation, Link } from 'react-router-dom';
 import useAsync from 'hooks/useAsync';
-import { fetchClientJson } from 'utils/apiClient';
+import headerImage from 'assets/images/header-background.png';
+import FloatingButton from 'components/floatingButton/FloatingButton';
+import Toast from 'components/toast/Toast.jsx';
 
 const PostPage = () => {
-  const { id } = useParams();
-  const [postData, setAnswerData] = useState(null);
+  const { subjectId } = useParams();
+  const [questionInfo, setQuestionInfo] = useState(null);
+  const location = useLocation();
+  const [isPending, hasError, getPostsAsync] = useAsync(getPosts);
+  const [questionToast, setQuestionToast] = useState('');
+  const [isNextPending, nextHasError, getNextPostsAsync] =
+    useAsync(getNextPosts);
+  const [subjectOwner, setSubjectOwner] = useState({});
 
-  const [isPending, hasError, fetchData] = useAsync(async () => {
-    const { results } = await fetchClientJson({
-      url: `subjects/${id}/questions/`,
-      method: 'GET',
-    });
-    setAnswerData(results);
-    return results;
-  });
+  const target = useRef(null);
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '200px',
+    threshold: 1.0,
+  };
+
+  const handleLoadMore = useCallback(
+    async (entries) => {
+      if (isNextPending || !questionInfo || isNaN(questionInfo?.next)) return;
+
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const result = await getNextPostsAsync(subjectId, questionInfo.next);
+          if (!result) return;
+
+          const { results, next } = result;
+          const offset = next
+            ? new URL(next).searchParams.get('offset')
+            : questionInfo.offset;
+          setQuestionInfo((prev) => ({
+            ...prev,
+            results: [...prev.results, ...results],
+            next: Number(offset),
+          }));
+          break;
+        }
+      }
+    },
+    [getNextPostsAsync, isNextPending, questionInfo, subjectId],
+  );
+
+  useObserver(handleLoadMore, observerOptions, target);
+
+  const handleLoad = useCallback(
+    async (subjectId) => {
+      const result = await getPostsAsync(subjectId);
+      if (!result) return;
+      const { questionsData, subjectData } = result;
+      const offset = questionsData.next
+        ? new URL(questionsData.next).searchParams.get('offset')
+        : null;
+
+      setQuestionInfo({ ...questionsData, next: Number(offset) });
+      setSubjectOwner(subjectData);
+    },
+    [getPostsAsync],
+  );
+
+  const isAnswerPage = () => {
+    return location.pathname === `/post/${subjectId}/answer`;
+  };
+
+  const handleDeleteClick = () => {
+    handleDeleteUser(subjectOwner);
+  };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    window.scrollTo(0, 0);
+    handleLoad(subjectId);
+  }, [subjectId, handleLoad]);
+
+  useEffect(() => {
+    let timer;
+    if (questionToast) {
+      window.scrollTo(0, 0);
+      timer = setTimeout(() => {
+        setQuestionToast(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [questionToast]);
 
   const { Modal, openModal, closeModal } = useModal();
+  if (hasError || nextHasError) return <Navigate to="/" />;
+
+  if (hasError) return <Navigate to="/" />;
   return (
     <S.PostPageContainer>
       <S.HeaderImage src={headerImage} alt="헤더 배경 이미지" />
-      <S.Logo src={logo} alt="오픈마인드 로고" />
-      <S.HeaderUserProfile>
-        <S.ProfileImage src={defaultProfileImage} alt="유저 프로필 이미지" />
-        <S.UserIdText>
-          <Text
-            $normalType={TextType.H2}
-            $mobileType={TextType.H3}
-            text="아초는 고양이"
-          />
-        </S.UserIdText>
-      </S.HeaderUserProfile>
-      <ShareButtons />
-      {postData?.length > 0 ? (
-        <S.PostCardListBox>
-          <PostCardList postData={postData} />
-        </S.PostCardListBox>
-      ) : (
-        <S.FeedCardsBox>
-          <S.MessageBox>
-            <S.MessageIcon alt="메세지 아이콘" />
-            <Text
-              $normalType={TextType.Body1Bol}
-              text="아직 질문이 없습니다."
+      <S.HeaderContainer>
+        <Link to="/">
+          <S.Logo src={logo} alt="오픈마인드 로고" />
+        </Link>
+        <S.ProfileImage
+          src={subjectOwner?.imageSource}
+          alt="유저 프로필 이미지"
+        />
+        <Text
+          $normalType={TextType.H2}
+          $mobileType={TextType.H3}
+          text={subjectOwner?.name}
+        />
+        <ShareButtons subjectOwner={subjectOwner} />
+      </S.HeaderContainer>
+      <S.CardListBox>
+        {isAnswerPage() ? (
+          questionInfo?.count ? (
+            <AnswerCardList
+              isPending={isPending || isNextPending}
+              questionInfo={questionInfo}
+              setQuestionInfo={setQuestionInfo}
+              subjectOwner={subjectOwner}
             />
-          </S.MessageBox>
-          <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
-        </S.FeedCardsBox>
-      )}
-      <>
-        <S.FloatingButtonItem>
-          <FloatingButton type="W" onClick={openModal} />
-        </S.FloatingButtonItem>
+          ) : (
+            <>
+              <FloatingButton type="A" onClick={handleDeleteClick} />
+              <S.FeedCardsBox>
+                <S.MessageBox>
+                  <S.MessageIcon alt="메세지 아이콘" />
+                  <Text
+                    $normalType={TextType.Body1Bol}
+                    text="아직 질문이 없습니다."
+                  />
+                </S.MessageBox>
+                <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+              </S.FeedCardsBox>
+            </>
+          )
+        ) : questionInfo?.count ? (
+          <QuestionCardList
+            isPending={isPending || isNextPending}
+            questionInfo={questionInfo}
+            setQuestionInfo={setQuestionInfo}
+            subjectOwner={subjectOwner}
+            subjectId={subjectId}
+            openModal={openModal}
+          />
+        ) : (
+          <S.FeedCardsBox>
+            <FloatingButton type="W" onClick={openModal} />
+            <S.MessageBox>
+              <S.MessageIcon alt="메세지 아이콘" />
+              <Text
+                $normalType={TextType.Body1Bol}
+                text="아직 질문이 없습니다."
+              />
+            </S.MessageBox>
+            <S.EmptyImage src={emptyImg} alt="빈 박스 이미지" />
+          </S.FeedCardsBox>
+        )}
+      </S.CardListBox>
+
+      {!isAnswerPage() && (
         <Modal>
-          <QuestionModal onClickClose={closeModal} />
+          <QuestionModal
+            setQuestionInfo={setQuestionInfo}
+            subjectOwner={subjectOwner}
+            onClickClose={closeModal}
+            setQuestionToast={setQuestionToast}
+            questionToast={questionToast}
+          />
         </Modal>
-      </>
-      {/* <EditButton isActive={isActive} /> */}
+      )}
+      {questionToast && <Toast text={questionToast} isShow={questionToast} />}
+
+      <div ref={target} />
     </S.PostPageContainer>
   );
 };

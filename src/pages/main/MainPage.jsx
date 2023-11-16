@@ -4,7 +4,7 @@ import * as S from 'pages/main/mainPage.style.jsx';
 import logoImage from 'assets/images/logo.png';
 import mainBackgroundImage from 'assets/images/main-background.png';
 import { createFeedId } from './mainPage.js';
-import LinkButton from 'components/linkButton/LinkButton';
+import LinkButton from 'components/linkButton/LinkButton.jsx';
 
 const MainPage = () => {
   const [name, setName] = useState('');
