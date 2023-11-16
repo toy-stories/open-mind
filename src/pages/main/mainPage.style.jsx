@@ -74,7 +74,7 @@ export const InputBox = styled.div`
   gap: 0.4rem;
   border-radius: 8px;
   border: 1px solid
-    ${(props) => (props.isFocused ? COLORS.BROWN40 : COLORS.GRAY40)};
+    ${(props) => (props.$isFocused ? COLORS.BROWN40 : COLORS.GRAY40)};
 
   &:focus {
     border: 1px solid ${COLORS.BROWN40};
@@ -88,7 +88,7 @@ export const PersonImage = styled(personIcon)`
 
 export const InputItem = styled.input`
   flex-grow: 1;
-  color: ${(props) => (props.hasValue ? 'black' : COLORS.GRAY40)};
+  color: ${(props) => (props.$hasValue ? 'black' : COLORS.GRAY40)};
   @media only screen and (max-width: ${RESPONSIBLE_SIZE.mobile}) {
   }
 `;

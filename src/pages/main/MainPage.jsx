@@ -41,7 +41,7 @@ const MainPage = () => {
       </S.MainPageAnswerButton>
       <S.LogoImage src={logoImage} alt="로고이미지" />
       <S.InputContainer>
-        <S.InputBox isFocused={isFocused}>
+        <S.InputBox $isFocused={isFocused}>
           <S.PersonImage />
           <S.InputItem
             type="text"
@@ -50,7 +50,7 @@ const MainPage = () => {
             placeholder="이름을 입력하세요"
             value={name}
             onChange={handleInputChange}
-            hasValue={name.length > 0}
+            $hasValue={name.length > 0}
           />
         </S.InputBox>
         <S.InnerBoxButton disabled={!name} onClick={createFeedAndRedirect}>
@@ -61,4 +61,3 @@ const MainPage = () => {
   );
 };
 export default MainPage;
-
