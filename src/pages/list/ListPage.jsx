@@ -16,9 +16,6 @@ const SORT_OPTIONS = [
   { sort: 'time', text: '최신순' },
 ];
 
-const userId = JSON.parse(localStorage.getItem('userId')) || null;
-const LinkButtonPath = userId ? `/post/${userId}/answer` : '/';
-
 const ListPage = () => {
   const [sortOption, setSortOption] = useState(SORT_OPTIONS[1]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -26,6 +23,11 @@ const ListPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState(
     debouncedWindowWidth >= 1199 ? 8 : 6,
   );
+  const [userId, setUserId] = useState(
+    JSON.parse(localStorage.getItem('userId')) || null,
+  );
+  const LinkButtonPath = userId ? `/post/${userId}/answer` : '/';
+
   const [totalPages, setTotalPages] = useState(0);
   const [subjects, setSubjects] = useState([]);
   const { page = 1 } = useParams();
